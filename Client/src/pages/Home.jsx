@@ -340,56 +340,57 @@ function Home() {
           <div className="mx-auto pb-16 max-w-4xl">
             <h1 className="md:text-[40px] text-xl font-bold text-center">Hall of Fame</h1>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="card card-compact bg-base-100 shadow-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="card card-compact bg-base-100 w-60">
               <figure>
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                  alt="Img"
-                  className="rounded-full w-full h-auto" // Added rounded class for circular image
-                />
-              </figure>
-              <div className="card-body text-center">
-                <h2 className="card-title">Team 1</h2>
-              </div>
-            </div>
-            <div className="card card-compact bg-base-100 shadow-xl">
-              <figure>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   alt="Img"
                   className="rounded-full w-full h-auto"
                 />
               </figure>
               <div className="card-body text-center">
-                <h2 className="card-title">Team 2</h2>
-                <p>Akoli</p>
+                <h3>Dinesh Suthar</h3>
+                <p>Man of The Series</p>
               </div>
             </div>
-            <div className="card card-compact bg-base-100 shadow-xl">
+            <div className="card card-compact bg-base-100 w-60">
               <figure>
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   alt="Img"
                   className="rounded-full w-full h-auto"
                 />
               </figure>
               <div className="card-body text-center">
-                <h2 className="card-title">Team 3</h2>
-                <p>Siyana</p>
+                <h3>Dinesh Suthar</h3>
+                <p>Man of The Series</p>
               </div>
             </div>
-            <div className="card card-compact bg-base-100 shadow-xl">
+            <div className="card card-compact bg-base-100 w-60 shadow-xl">
               <figure>
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   alt="Img"
                   className="rounded-full w-full h-auto"
                 />
               </figure>
               <div className="card-body text-center">
-                <h2 className="card-title">Team 3</h2>
-                <p>Siyana</p>
+                <h3>Dinesh Suthar</h3>
+                <p>Man of The Series</p>
+              </div>
+            </div>
+            <div className="card card-compact bg-base-100 w-60 shadow-xl">
+              <figure>
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  alt="Img"
+                  className="rounded-full w-full h-auto"
+                />
+              </figure>
+              <div className="card-body text-center">
+                <h3>Dinesh Suthar</h3>
+                <p>Man of The Series</p>
               </div>
             </div>
           </div>
