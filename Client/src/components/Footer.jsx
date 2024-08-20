@@ -19,7 +19,7 @@ export default function Footer() {
                     <p>
                         Vishwakarma Premier League
                         <br />
-                        Providing reliable tech since 1992
+                        Started From 2019
                     </p>
                 </aside>
                 <nav>
