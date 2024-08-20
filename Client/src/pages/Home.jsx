@@ -336,52 +336,65 @@ function Home() {
 
       {/* Hall of fame */}
       <section className='bg-base-500 h-auto py-16'>
-  <div className='mx-16'>
-    <div className="mx-auto pb-16 max-w-4xl">
-      <h1 className="md:text-[40px] text-xl font-bold text-center">Hall of Fame</h1>
-    </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div className="card card-compact bg-base-100 shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Img"
-            className="rounded-full w-full h-auto" // Added rounded class for circular image
-          />
-        </figure>
-        <div className="card-body text-center">
-          <h2 className="card-title">Team 1</h2>
+        <div className='mx-16'>
+          <div className="mx-auto pb-16 max-w-4xl">
+            <h1 className="md:text-[40px] text-xl font-bold text-center">Hall of Fame</h1>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="card card-compact bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  alt="Img"
+                  className="rounded-full w-full h-auto" // Added rounded class for circular image
+                />
+              </figure>
+              <div className="card-body text-center">
+                <h2 className="card-title">Team 1</h2>
+              </div>
+            </div>
+            <div className="card card-compact bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  alt="Img"
+                  className="rounded-full w-full h-auto"
+                />
+              </figure>
+              <div className="card-body text-center">
+                <h2 className="card-title">Team 2</h2>
+                <p>Akoli</p>
+              </div>
+            </div>
+            <div className="card card-compact bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  alt="Img"
+                  className="rounded-full w-full h-auto"
+                />
+              </figure>
+              <div className="card-body text-center">
+                <h2 className="card-title">Team 3</h2>
+                <p>Siyana</p>
+              </div>
+            </div>
+            <div className="card card-compact bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  alt="Img"
+                  className="rounded-full w-full h-auto"
+                />
+              </figure>
+              <div className="card-body text-center">
+                <h2 className="card-title">Team 3</h2>
+                <p>Siyana</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="card card-compact bg-base-100 shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Img"
-            className="rounded-full w-full h-auto"
-          />
-        </figure>
-        <div className="card-body text-center">
-          <h2 className="card-title">Team 2</h2>
-          <p>Akoli</p>
-        </div>
-      </div>
-      <div className="card card-compact bg-base-100 shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Img"
-            className="rounded-full w-full h-auto"
-          />
-        </figure>
-        <div className="card-body text-center">
-          <h2 className="card-title">Team 3</h2>
-          <p>Siyana</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
     </>
   );
 }
