@@ -363,11 +363,11 @@ function Home() {
                 />
               </figure>
               <div className="card-body text-center">
-                <h3>Dinesh Suthar</h3>
-                <p>Man of The Series</p>
+                <h3>Dinesh Suthar P</h3>
+                <p>Best Batsman</p>
               </div>
             </div>
-            <div className="card card-compact bg-base-100 w-60 shadow-xl">
+            <div className="card card-compact bg-base-100 w-60">
               <figure>
                 <img
                   src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
@@ -376,11 +376,11 @@ function Home() {
                 />
               </figure>
               <div className="card-body text-center">
-                <h3>Dinesh Suthar</h3>
-                <p>Man of The Series</p>
+                <h3>Arjun Suthar</h3>
+                <p>Best Bowler</p>
               </div>
             </div>
-            <div className="card card-compact bg-base-100 w-60 shadow-xl">
+            <div className="card card-compact bg-base-100 w-60">
               <figure>
                 <img
                   src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
@@ -389,8 +389,8 @@ function Home() {
                 />
               </figure>
               <div className="card-body text-center">
-                <h3>Dinesh Suthar</h3>
-                <p>Man of The Series</p>
+                <h3>Dilip Suthar</h3>
+                <p>Best Filder</p>
               </div>
             </div>
           </div>
