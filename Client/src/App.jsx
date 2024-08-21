@@ -12,6 +12,9 @@ import Aboutus from './pages/Aboutus';
 import Contactus from './pages/Contactus';
 import Profile from './pages/profile';
 import Profileform from './pages/Profileform';
+import Dashboard from './pages/Admin/Pages/Dashboard';
+import ABrand from './pages/Admin/Pages/ABrand';
+import { Brand_Form } from './pages/Admin/Pages/ABrand/Brand_Form';
 
 function App() {
   return (
@@ -29,6 +32,13 @@ function App() {
         <Route path="/contactus" element={<Contactus />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profileform" element={<Profileform />} />
+
+        {/* Admin Route */}
+
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/dashboard/brand" element={<ABrand />} />
+        <Route path="/dashboard/brand_form" element={<Brand_Form />} />
+
       </Routes>
     </Router>
   );
