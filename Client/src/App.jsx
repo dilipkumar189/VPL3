@@ -7,6 +7,11 @@ import Teamview from './pages/Teamview';
 import Sponser from './pages/Sponser';
 import Team from './pages/Team';
 import Advertiser from './pages/Advertiser';
+import Rules from './pages/Rules';
+import Aboutus from './pages/Aboutus';
+import Contactus from './pages/Contactus';
+import Profile from './pages/profile';
+import Profileform from './pages/Profileform';
 
 function App() {
   return (
@@ -19,6 +24,11 @@ function App() {
         <Route path="/sponser" element={<Sponser />} />
         <Route path="/team" element={<Team />} />
         <Route path="/advertiser" element={<Advertiser />} />
+        <Route path="/rules" element={<Rules />} />
+        <Route path="/about" element={<Aboutus />} />
+        <Route path="/contactus" element={<Contactus />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profileform" element={<Profileform />} />
       </Routes>
     </Router>
   );
