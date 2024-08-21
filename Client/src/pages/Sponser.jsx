@@ -9,87 +9,154 @@ export default function Sponser() {
             <section className='bg-base-100 h-auto py-16'>
                 <div className='mx-16'>
                     <div className="mx-auto pb-16 max-w-4xl">
-                        <h1 className="md:text-[40px] text-xl font-bold text-center">Hall of Fame</h1>
+                        <h1 className="md:text-[40px] text-xl font-bold text-center">Sponsers</h1>
                     </div>
                     <div>
-                        <h1 className="md:text-[40px] text-xl font-bold py-8">Heroes of 2023</h1>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-                            <div className="card card-compact bg-transparent md:w-40">
-                                <figure>
+                        <h1 className="md:text-[40px] text-xl font-bold py-8">Food Sponsers</h1>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
                                     <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        alt="Img"
-                                        className="rounded-full w-full h-auto"
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
                                     />
                                 </figure>
-                                <div className="card-body text-center">
-                                    <h3 className="font-bold">Dinesh Suthar</h3>
-                                    <p className="text-gray-500">Man of The Series</p>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-transparent md:w-40">
-                                <figure>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
                                     <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        alt="Img"
-                                        className="rounded-full w-full h-auto"
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
                                     />
                                 </figure>
-                                <div className="card-body text-center">
-                                    <h3 className="font-bold">Dinesh Suthar P</h3>
-                                    <p className="text-gray-500">Best Batsman</p>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-transparent md:w-40">
-                                <figure>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
                                     <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        alt="Img"
-                                        className="rounded-full w-full h-auto"
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
                                     />
                                 </figure>
-                                <div className="card-body text-center">
-                                    <h3 className="font-bold">Arjun Suthar</h3>
-                                    <p className="text-gray-500">Best Bowler</p>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-transparent md:w-40">
-                                <figure>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
                                     <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        alt="Img"
-                                        className="rounded-full w-full h-auto"
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
                                     />
                                 </figure>
-                                <div className="card-body text-center">
-                                    <h3 className="font-bold">Dilip Suthar</h3>
-                                    <p className="text-gray-500">Best Fielder</p>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-transparent md:w-40">
-                                <figure>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
                                     <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        alt="Img"
-                                        className="rounded-full w-full h-auto"
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
                                     />
                                 </figure>
-                                <div className="card-body text-center">
-                                    <h3 className="font-bold">Dilip Suthar</h3>
-                                    <p className="text-gray-500">Best Fielder</p>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-transparent md:w-40">
-                                <figure>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 className="md:text-[40px] text-xl font-bold py-8">Other Sponsers</h1>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
                                     <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        alt="Img"
-                                        className="rounded-full w-full h-auto"
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
                                     />
                                 </figure>
-                                <div className="card-body text-center">
-                                    <h3 className="font-bold">Dilip Suthar</h3>
-                                    <p className="text-gray-500">Best Fielder</p>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
+                                </div>
+                            </div>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
+                                    <img
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
+                                    />
+                                </figure>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
+                                </div>
+                            </div>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
+                                    <img
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
+                                    />
+                                </figure>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
+                                </div>
+                            </div>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
+                                    <img
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
+                                    />
+                                </figure>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
+                                </div>
+                            </div>
+                            <div className="card card-side bg-base-100 border-[1px] shadow-lg rounded-sm text-[10px] md:text-[15px]">
+                                <figure className='px-2'>
+                                    <img
+                                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                        alt="Sponser"
+                                        className=' md:w-[130px] w-[80px]  rounded-md '
+                                    />
+                                </figure>
+                                <div className="card-body px-4 py-[2px] md:py-[14px]">
+                                    <h2 className="font-bold text-center border-1">Day - 1</h2>
+                                    <h2 className="font-bold">Satish Suthar s/o Visaramji Suthar</h2>
+                                    <p>Click the button to watch on Jetflix app.</p>
                                 </div>
                             </div>
                         </div>

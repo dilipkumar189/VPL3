@@ -428,11 +428,11 @@ function Home() {
       </section>
 
 
-      {/* Advertize Section  */}
+      {/* Advertise Section  */}
       <section className='bg-base-500 py-16'>
         <div className='mx-16'>
           <div className="mx-auto pb-16 max-w-4xl">
-            <h1 className="md:text-[40px] text-xl font-bold text-center">Advertisements</h1>
+            <h1 className="md:text-[40px] text-xl font-bold text-center">Advertisement</h1>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
             <div className="advertisement">
