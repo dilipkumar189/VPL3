@@ -20,6 +20,7 @@ import Dashboard from './Admin/Pages/Dashboard';
 import ABrand from './Admin/Pages/ABrand';
 import { Brand_Form } from './Admin/Pages/ABrand/Brand_Form';
 import User from './Admin/Pages/User';
+import ATeam from './Admin/Pages/ATeam';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
 
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/dashboard/users" element={<User />} />
+        <Route path="/dashboard/teams" element={<ATeam />} />
         <Route path="/dashboard/brand" element={<ABrand />} />
         <Route path="/dashboard/brand_form" element={<Brand_Form />} />
 
