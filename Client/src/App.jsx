@@ -1,21 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Navbar from './components/Navbar';
-import Halloffame from './pages/Halloffame';
-import Teamview from './pages/Teamview';
-import Sponser from './pages/Sponser';
-import Team from './pages/Team';
-import Advertiser from './pages/Advertiser';
-import Rules from './pages/Rules';
-import Aboutus from './pages/Aboutus';
-import Contactus from './pages/Contactus';
-import Profile from './pages/profile';
-import Profileform from './pages/Profileform';
-import Dashboard from './pages/Admin/Pages/Dashboard';
-import ABrand from './pages/Admin/Pages/ABrand';
-import { Brand_Form } from './pages/Admin/Pages/ABrand/Brand_Form';
-import Teamform from './pages/Teamform';
+
+import Home from './User/pages/Home';
+import Navbar from './User/components/Navbar';
+import Halloffame from './User/pages/Halloffame';
+import Teamview from './User/pages/Teamview';
+import Sponser from './User/pages/Sponser';
+import Team from './User/pages/Team';
+import Advertiser from './User/pages/Advertiser';
+import Rules from './User/pages/Rules';
+import Aboutus from './User/pages/Aboutus';
+import Contactus from './User/pages/Contactus';
+import Profile from './User/pages/Profile';
+import Profileform from './User/pages/Profileform';
+import Teamform from './User/pages/Teamform';
+
+// Admin 
+import Dashboard from './Admin/Pages/Dashboard';
+import ABrand from './Admin/Pages/ABrand';
+import { Brand_Form } from './Admin/Pages/ABrand/Brand_Form';
+import User from './Admin/Pages/User';
 
 function App() {
   return (
@@ -38,6 +42,7 @@ function App() {
         {/* Admin Route */}
 
         <Route path="/admin" element={<Dashboard />} />
+        <Route path="/dashboard/users" element={<User />} />
         <Route path="/dashboard/brand" element={<ABrand />} />
         <Route path="/dashboard/brand_form" element={<Brand_Form />} />
 
