@@ -2,7 +2,7 @@
 export default function Header() {
   return (
     <>
-    <div className="px-4 sm:ml-64 border-b-[1px]">
+    <div className="px-4 sm:ml-64 border-b-[1px] sticky top-0 bg-white z-10">
     {/* Hide on mobile, show on medium screens and up */}
     <div className="nav justify-between items-center py-4 hidden md:flex">
       <div className="left-side flex items-center">

@@ -23,6 +23,7 @@ import User from './Admin/Pages/User';
 import ATeam from './Admin/Pages/ATeam';
 import ASponser from './Admin/Pages/ASponser';
 import AAdvertiser from './Admin/Pages/AAdvertiser';
+import SType from './Admin/Pages/SType';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
         <Route path="/dashboard/teams" element={<ATeam />} />
         <Route path="/dashboard/sponsers" element={<ASponser />} />
         <Route path="/dashboard/advertisers" element={<AAdvertiser />} />
+        <Route path="/dashboard/sponser_type" element={<SType />} />
 
         <Route path="/dashboard/brand" element={<ABrand />} />
         <Route path="/dashboard/brand_form" element={<Brand_Form />} />

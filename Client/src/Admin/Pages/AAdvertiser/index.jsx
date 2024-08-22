@@ -5,53 +5,117 @@ import Header from '../../Layouts/Header';
 import Sidebar from '../../Layouts/Sidebar';
 
 export default function AAdvertiser() {
-  return (
-    <div className="">
-        <Header />
-        <Sidebar />
-        <div className='px-4 mt-3 sm:ml-64'>
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 border-[1px] rounded-lg shadow-sm ">
-                <div className="grid grid-cols-9">
-                    <h1 className="text-gray-600 font-bold text-lg mb-3 col-span-7 md:col-span-8">Advertisers</h1>
-                    <div className="col-span-2 md:col-span-1 lg:ml-[20px]">
-                    <Link to={"/dashboard/news_form"} className="btn btn-primary text-[9px] lg:text-[15px] font-bold px-[6px] py-[4px] rounded-[5px] ">
-                        Add +
-                    </Link>
-                    </div>
-                </div>
-                <hr />
-                <div className="overflow-x-auto">
-                    <Table striped>
-                        <Table.Head>
-                            <Table.HeadCell>Image</Table.HeadCell>
-                            <Table.HeadCell>Type</Table.HeadCell>
-                            <Table.HeadCell>Name</Table.HeadCell>
-                            <Table.HeadCell>Speed</Table.HeadCell>
-                            <Table.HeadCell>Battery</Table.HeadCell>
-                            <Table.HeadCell>Color</Table.HeadCell>
-                            <Table.HeadCell>Price</Table.HeadCell>
-                            <Table.HeadCell>City</Table.HeadCell>
-                            <Table.HeadCell>Action</Table.HeadCell>
-                        </Table.Head>
-                        <Table.Body className="divide-y">
-                            {/* <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800"> */}
-                                <Table.Cell>Sliver</Table.Cell>
-                                <Table.Cell>Laptop</Table.Cell>
-                                <Table.Cell>$2999</Table.Cell>
-                                <Table.Cell>Edit</Table.Cell>
-                                <Table.Cell>Edit</Table.Cell>
-                                <Table.Cell>Edit</Table.Cell>
-                                <Table.Cell>Edit</Table.Cell>
-                                <Table.Cell>Edit</Table.Cell>
-                                <Table.Cell>Edit</Table.Cell>
-                            {/* </Table.Row> */}
-                        </Table.Body>
-                    </Table>
-                </div>
+    return (
+        <div className="">
+            <Header />
+            <Sidebar />
+            <div className="px-4 mt-3 sm:ml-64">
+                <table className="table">
+                    {/* head */}
+                    <thead className="bg-gray-100 sticky top-20 bg-white z-10">
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Author Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* row 1 */}
+                        <tr>
+                            <th>1</th>
+                            <td>
+                                <div className="flex items-center gap-3">
+                                    <div className="avatar">
+                                        <div className="mask mask-squircle h-12 w-12">
+                                            <img
+                                                src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                                alt="Avatar Tailwind CSS Component" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="font-bold">Hart Hagerty</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                Zemlak, Daniel and Leannon
+                                <br />
+                                <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                            </td>
+                            <th>
+                                <button className="btn btn-ghost btn-xs">details</button>
+                            </th>
+                        </tr>
+                        {/* row 2 */}
+                        <tr>
+                            <th>2</th>
+                            <td>
+                                <div className="flex items-center gap-3">
+                                    <div className="avatar">
+                                        <div className="mask mask-squircle h-12 w-12">
+                                            <img
+                                                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+                                                alt="Avatar Tailwind CSS Component" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="font-bold">Brice Swyre</div>
+                                        <div className="text-sm opacity-50">China</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                Carroll Group
+                                <br />
+                                <span className="badge badge-ghost badge-sm">Tax Accountant</span>
+                            </td>
+                            <th>
+                                <button className="btn btn-ghost btn-xs">details</button>
+                            </th>
+                        </tr>
+                        {/* row 3 */}
+                        <tr>
+                            <th>3</th>
+                            <td>
+                                <div className="flex items-center gap-3">
+                                    <div className="avatar">
+                                        <div className="mask mask-squircle h-12 w-12">
+                                            <img
+                                                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+                                                alt="Avatar Tailwind CSS Component" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="font-bold">Brice Swyre</div>
+                                        <div className="text-sm opacity-50">China</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                Carroll Group
+                                <br />
+                                <span className="badge badge-ghost badge-sm">Tax Accountant</span>
+                            </td>
+                            <th>
+                                <button className="btn btn-ghost btn-xs">details</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                    {/* foot */}
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Job</th>
+                            <th>Favorite Color</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-    </div>    
-  )
+    )
 }
 
 

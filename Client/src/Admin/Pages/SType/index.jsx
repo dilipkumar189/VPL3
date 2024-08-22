@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../Layouts/Header';
 import Sidebar from '../../Layouts/Sidebar';
 
-export default function ATeam() {
+export default function SType() {
     return (
         <div className="">
             <Header />
@@ -15,8 +15,7 @@ export default function ATeam() {
                     <thead className="bg-gray-100 sticky top-20 bg-white z-10">
                         <tr>
                             <th></th>
-                            <th>Team Name</th>
-                            <th>Village</th>
+                            <th>Sponser Type</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -24,22 +23,19 @@ export default function ATeam() {
                         {/* row 1 */}
                         <tr>
                             <th>1</th>
-                            <td className='font-bold'>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
+                            <td>Cy Ganderton</td>
                             <td>Blue</td>
                         </tr>
                         {/* row 2 */}
                         <tr className="hover">
                             <th>2</th>
-                            <td className='font-bold'>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
+                            <td>Hart Hagerty</td>
                             <td>Purple</td>
                         </tr>
                         {/* row 3 */}
                         <tr>
                             <th>3</th>
-                            <td className='font-bold'>Brice Swyre</td>
-                            <td>Tax Accountant</td>
+                            <td>Brice Swyre</td>
                             <td>Red</td>
                         </tr>
                     </tbody>
