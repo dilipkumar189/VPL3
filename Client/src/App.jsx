@@ -15,6 +15,7 @@ import Profileform from './pages/Profileform';
 import Dashboard from './pages/Admin/Pages/Dashboard';
 import ABrand from './pages/Admin/Pages/ABrand';
 import { Brand_Form } from './pages/Admin/Pages/ABrand/Brand_Form';
+import Teamform from './pages/Teamform';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/contactus" element={<Contactus />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profileform" element={<Profileform />} />
+        <Route path="/addteam" element={<Teamform />} />
 
         {/* Admin Route */}
 
