@@ -127,7 +127,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                to={"/dashboard/brand"}
+                to={"/dashboard/sponsers"}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
               >
                 <svg 
@@ -144,7 +144,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                to={"/dashboard/evstartups"}
+                to={"/dashboard/advertisers"}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
               >
                 <svg 
