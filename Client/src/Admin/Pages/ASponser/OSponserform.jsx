@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../Layouts/Header';
 import Sidebar from '../../Layouts/Sidebar';
 
-export default function Advertiserform() {
+export default function OSponserform() {
     return (
         <div className="">
             <Header />
@@ -11,7 +11,7 @@ export default function Advertiserform() {
                 <div className="mx-auto my-4 max-w-7xl px-4 py-4 sm:px-6 lg:px-8 border-[1px] rounded-lg shadow-sm sticky top-20 bg-white z-10">
                     <div className="grid grid-cols-9 border-b-[1px]">
                         <h1 className="text-gray-600 font-bold text-lg mb-3 col-span-7 md:col-span-8">
-                            Add Advertiser
+                            Add Other Sponser
                         </h1>
                     </div>
                     <form>

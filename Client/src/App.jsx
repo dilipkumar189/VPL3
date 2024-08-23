@@ -21,9 +21,13 @@ import ABrand from './Admin/Pages/ABrand';
 import { Brand_Form } from './Admin/Pages/ABrand/Brand_Form';
 import User from './Admin/Pages/User';
 import ATeam from './Admin/Pages/ATeam';
-import ASponser from './Admin/Pages/ASponser';
 import AAdvertiser from './Admin/Pages/AAdvertiser';
 import SType from './Admin/Pages/SType';
+import FSponser from './Admin/Pages/ASponser/FSponser';
+import OSponser from './Admin/Pages/ASponser/OSponser';
+import FSponserform from './Admin/Pages/ASponser/FSponserform';
+import OSponserform from './Admin/Pages/ASponser/OSponserform';
+import Advertiserform from './Admin/Pages/AAdvertiser/Advertiserform';
 
 function App() {
   return (
@@ -48,9 +52,13 @@ function App() {
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/dashboard/users" element={<User />} />
         <Route path="/dashboard/teams" element={<ATeam />} />
-        <Route path="/dashboard/sponsers" element={<ASponser />} />
         <Route path="/dashboard/advertisers" element={<AAdvertiser />} />
+        <Route path="/dashboard/advertiserform" element={<Advertiserform />} />
         <Route path="/dashboard/sponser_type" element={<SType />} />
+        <Route path="/dashboard/fsponser" element={<FSponser />} />
+        <Route path="/dashboard/fsponserform" element={<FSponserform />} />
+        <Route path="/dashboard/osponser" element={<OSponser />} />
+        <Route path="/dashboard/osponserform" element={<OSponserform />} />
 
         <Route path="/dashboard/brand" element={<ABrand />} />
         <Route path="/dashboard/brand_form" element={<Brand_Form />} />
