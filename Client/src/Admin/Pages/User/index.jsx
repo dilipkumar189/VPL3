@@ -12,7 +12,7 @@ export default function User() {
             <div className="px-4 mt-3 sm:ml-64">
                 <table className="table">
                     {/* head */}
-                    <thead className="bg-gray-100 sticky top-20 bg-white z-10">
+                    <thead className="bg-gray-200 sticky top-20 bg-white z-10">
                         <tr>
                             <th>S.No</th>
                             <th>Name</th>
@@ -23,7 +23,7 @@ export default function User() {
                     </thead>
                     <tbody>
                         {/* row 1 */}
-                        <tr>
+                        <tr className='hover'>
                             <th>1</th>
                             <td>
                                 <div className="flex items-center gap-3">
@@ -46,12 +46,12 @@ export default function User() {
                                 <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
                             </td>
                             <td><input type="checkbox" className="toggle toggle-sm toggle-success" /></td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
+                            <td>
+                                <button className="btn btn-sm btn-outline btn-error">Delete</button>
+                            </td>
                         </tr>
                         {/* row 2 */}
-                        <tr>
+                        <tr className='hover'>
                             <th>2</th>
                             <td>
                                 <div className="flex items-center gap-3">
@@ -74,12 +74,12 @@ export default function User() {
                                 <span className="badge badge-ghost badge-sm">Tax Accountant</span>
                             </td>
                             <td><input type="checkbox" className="toggle toggle-sm toggle-success" /></td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
+                            <td>
+                                <button className="btn btn-sm btn-outline btn-error">Delete</button>
+                            </td>
                         </tr>
                         {/* row 3 */}
-                        <tr>
+                        <tr className='hover'>
                             <th>3</th>
                             <td>
                                 <div className="flex items-center gap-3">
@@ -102,9 +102,9 @@ export default function User() {
                                 <span className="badge badge-ghost badge-sm">Tax Accountant</span>
                             </td>
                             <td><input type="checkbox" className="toggle toggle-sm toggle-success" /></td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
+                            <td>
+                                <button className="btn btn-sm btn-outline btn-error">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                     {/* foot */}

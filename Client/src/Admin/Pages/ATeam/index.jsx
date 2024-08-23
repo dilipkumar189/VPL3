@@ -12,7 +12,7 @@ export default function ATeam() {
             <div className="px-4 mt-3 sm:ml-64">
                 <table className="table">
                     {/* head */}
-                    <thead className="bg-gray-100 sticky top-20 bg-white z-10">
+                    <thead className="bg-gray-200 sticky top-20 bg-white z-10">
                         <tr>
                             <th></th>
                             <th>Team Name</th>
@@ -22,26 +22,26 @@ export default function ATeam() {
                     </thead>
                     <tbody>
                         {/* row 1 */}
-                        <tr>
+                        <tr className="hover">
                             <th>1</th>
                             <td className='font-bold'>Cy Ganderton</td>
                             <td>Quality Control Specialist</td>
-                            <td>Blue</td>
+                            <td><button className="btn btn-sm btn-outline">View</button></td>
                         </tr>
                         {/* row 2 */}
                         <tr className="hover">
                             <th>2</th>
                             <td className='font-bold'>Hart Hagerty</td>
                             <td>Desktop Support Technician</td>
-                            <td>Purple</td>
+                            <td><button className="btn btn-sm btn-outline">View</button></td>
                         </tr>
-                        {/* row 3 */}
-                        <tr>
+                        <tr className="hover">
                             <th>3</th>
-                            <td className='font-bold'>Brice Swyre</td>
-                            <td>Tax Accountant</td>
-                            <td>Red</td>
+                            <td className='font-bold'>Hart Hagerty</td>
+                            <td>Desktop Support Technician</td>
+                            <td><button className="btn btn-sm btn-outline">View</button></td>
                         </tr>
+        
                     </tbody>
                 </table>
             </div>
