@@ -28,6 +28,7 @@ import OSponser from './Admin/Pages/ASponser/OSponser';
 import FSponserform from './Admin/Pages/ASponser/FSponserform';
 import OSponserform from './Admin/Pages/ASponser/OSponserform';
 import Advertiserform from './Admin/Pages/AAdvertiser/Advertiserform';
+import STypeform from './Admin/Pages/SType/STypeform';
 
 function App() {
   return (
@@ -54,7 +55,8 @@ function App() {
         <Route path="/dashboard/teams" element={<ATeam />} />
         <Route path="/dashboard/advertisers" element={<AAdvertiser />} />
         <Route path="/dashboard/advertiserform" element={<Advertiserform />} />
-        <Route path="/dashboard/sponser_type" element={<SType />} />
+        <Route path="/dashboard/sponsertype" element={<SType />} />
+        <Route path="/dashboard/sponsertypeform" element={<STypeform />} />
         <Route path="/dashboard/fsponser" element={<FSponser />} />
         <Route path="/dashboard/fsponserform" element={<FSponserform />} />
         <Route path="/dashboard/osponser" element={<OSponser />} />
