@@ -8,12 +8,12 @@ export default function Halloffame() {
             <Navbar />
             <section className='bg-base-100 h-auto py-16'>
                 <div className='mx-16'>
-                    <div className="mx-auto pb-16 max-w-4xl">
-                        <h1 className="md:text-[40px] text-xl font-bold text-center">Hall of Fame</h1>
+                    <div className="mx-auto md:mb-12 max-w-4xl">
+                        <h1 className="md:text-[40px] text-[26px] font-bold text-center">Hall of Fame</h1>
                     </div>
                     <div>
-                        <h1 className="md:text-[40px] text-xl font-bold py-8">Heroes of 2023</h1>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                        <h1 className="md:text-[36px] text-xl font-bold py-8">Heroes of 2023</h1>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
                             <div className="card card-compact bg-transparent md:w-40">
                                 <figure>
                                     <img

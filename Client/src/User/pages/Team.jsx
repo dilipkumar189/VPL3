@@ -12,8 +12,8 @@ export default function Team() {
                         <h1 className="md:text-[40px] text-xl font-bold text-center">VPL - 3  Teams</h1>
                     </div>
                     <div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                            <div className="card card-compact bg-base-100 w-full sm:w-full md:w-96 shadow-xl">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="card card-compact bg-base-100 w-full sm:w-full lg:w-94 shadow-xl">
                                 <figure>
                                     <img
                                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -24,7 +24,7 @@ export default function Team() {
                                     <p>Bagra</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-base-100 w-full sm:w-full md:w-96 shadow-xl">
+                            <div className="card card-compact bg-base-100 w-full sm:w-full lg:w-94 shadow-xl">
                                 <figure>
                                     <img
                                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -35,7 +35,7 @@ export default function Team() {
                                     <p>Bagra</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-base-100 w-full sm:w-full md:w-96 shadow-xl">
+                            <div className="card card-compact bg-base-100 w-full sm:w-full lg:w-94 shadow-xl">
                                 <figure>
                                     <img
                                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -46,7 +46,7 @@ export default function Team() {
                                     <p>Bagra</p>
                                 </div>
                             </div>
-                            <div className="card card-compact bg-base-100 w-full sm:w-full md:w-96 shadow-xl">
+                            <div className="card card-compact bg-base-100 w-full sm:w-full lg:w-94 shadow-xl">
                                 <figure>
                                     <img
                                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"

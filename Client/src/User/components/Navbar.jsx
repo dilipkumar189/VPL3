@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
     return (
         <div className="navbar bg-base-300 sticky top-0 z-50">
             <div className="flex-1">
-                <a className="btn btn-ghost md:text-xl">Vishwakrma Premier League</a>
+                <a className="btn btn-ghost md:text-xl">VPL - 3</a>
             </div>
             <div className="flex-none">
                 <div className="navbar-start">
@@ -26,9 +27,14 @@ export default function Navbar() {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><a>Homepage</a></li>
-                            <li><a>Portfolio</a></li>
-                            <li><a>About</a></li>
+                            <li><Link to={'#'}>Homepage</Link></li>
+                            <li><Link to={'#'}>Teams</Link></li>
+                            <li><Link to={'#'}>Sponsers</Link></li>
+                            <li><Link to={'#'}>Hall Of Fame</Link></li>
+                            <li><Link to={'#'}>Advertisers</Link></li>
+                            <li><Link to={'#'}>Rules & Regulation</Link></li>
+                            <li><Link to={'#'}>Contact Us</Link></li>
+                            <li><Link to={'#'}>About Us</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -74,12 +80,8 @@ export default function Navbar() {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li>
-                            <a className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </a>
+                            <a className="justify-between">Profile</a>
                         </li>
-                        <li><a>Settings</a></li>
                         <li><a>Logout</a></li>
                     </ul>
                 </div>

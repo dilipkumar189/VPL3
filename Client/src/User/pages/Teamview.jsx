@@ -12,7 +12,7 @@ export default function Teamview() {
                         <h1 className="md:text-[40px] text-xl font-bold text-center">DHANDHAR - 11 BAGRA</h1>
                     </div>
                     <div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
                             <div className="card card-compact bg-transparent md:w-40">
                                 <figure>
                                     <img

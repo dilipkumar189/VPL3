@@ -11,7 +11,7 @@ export default function Advertiser() {
           <div className="mx-auto pb-16 max-w-4xl">
             <h1 className="md:text-[40px] text-xl font-bold text-center">Advertisement</h1>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
             <div className="advertisement">
               <img
                 src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"

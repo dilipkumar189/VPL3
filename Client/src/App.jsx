@@ -11,8 +11,10 @@ import Advertiser from './User/pages/Advertiser';
 import Rules from './User/pages/Rules';
 import Aboutus from './User/pages/Aboutus';
 import Contactus from './User/pages/Contactus';
+// import Profile from './User/pages/Profile';
+// import Profileform from './User/pages/Profileform';
 import Profile from './User/pages/Profile';
-import Profileform from './User/pages/Profileform';
+import EditProfile from './User/pages/Profile/editProfile';
 import Teamform from './User/pages/Teamform';
 
 // Admin 
@@ -29,12 +31,16 @@ import Advertiserform from './Admin/Pages/AAdvertiser/Advertiserform';
 import STypeform from './Admin/Pages/SType/STypeform';
 import AProfile from './Admin/Pages/AProfile';
 import AProfileform from './Admin/Pages/AProfile/AProfileform';
+import Login from './User/pages/login';
+import SignUp from './User/pages/Signup';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/nav" element={<Navbar />} />
         <Route path="/halloffame" element={<Halloffame />} />
         <Route path="/teamview" element={<Teamview />} />
@@ -45,7 +51,7 @@ function App() {
         <Route path="/about" element={<Aboutus />} />
         <Route path="/contactus" element={<Contactus />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/profileform" element={<Profileform />} />
+        <Route path="/profileform" element={<EditProfile/>} />
         <Route path="/addteam" element={<Teamform />} />
 
         {/* Admin Route */}
