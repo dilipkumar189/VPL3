@@ -17,8 +17,6 @@ import Teamform from './User/pages/Teamform';
 
 // Admin 
 import Dashboard from './Admin/Pages/Dashboard';
-import ABrand from './Admin/Pages/ABrand';
-import { Brand_Form } from './Admin/Pages/ABrand/Brand_Form';
 import User from './Admin/Pages/User';
 import ATeam from './Admin/Pages/ATeam';
 import AAdvertiser from './Admin/Pages/AAdvertiser';
@@ -29,6 +27,8 @@ import FSponserform from './Admin/Pages/ASponser/FSponserform';
 import OSponserform from './Admin/Pages/ASponser/OSponserform';
 import Advertiserform from './Admin/Pages/AAdvertiser/Advertiserform';
 import STypeform from './Admin/Pages/SType/STypeform';
+import AProfile from './Admin/Pages/AProfile';
+import AProfileform from './Admin/Pages/AProfile/AProfileform';
 
 function App() {
   return (
@@ -61,9 +61,8 @@ function App() {
         <Route path="/dashboard/fsponserform" element={<FSponserform />} />
         <Route path="/dashboard/osponser" element={<OSponser />} />
         <Route path="/dashboard/osponserform" element={<OSponserform />} />
-
-        <Route path="/dashboard/brand" element={<ABrand />} />
-        <Route path="/dashboard/brand_form" element={<Brand_Form />} />
+        <Route path="/dashboard/profile" element={<AProfile />} />
+        <Route path="/dashboard/profileform" element={<AProfileform />} />
 
       </Routes>
     </Router>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const [activeButton, setActiveButton] = useState(location.pathname);
   const sidebarRef = useRef(null);
 
   const toggleSidebar = () => {
@@ -25,6 +27,10 @@ export default function Sidebar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  const handleButtonClick = (path) => {
+    setActiveButton(path); // Set the active button
+  };
 
   return (
     <>
@@ -68,6 +74,7 @@ export default function Sidebar() {
               <a
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-700"
+                onClick={() => handleButtonClick("VPL")}
               >
                 <span className="ml-3">VPL - 3</span>
               </a>
@@ -75,7 +82,8 @@ export default function Sidebar() {
             <li>
               <Link
                 to={"/admin"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/admin" ? "bg-gray-200" : ""}`}
+                onClick={() => handleButtonClick("/admin")}
               >
                 <svg
                   className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -93,7 +101,8 @@ export default function Sidebar() {
             <li>
               <Link
                 to={"/dashboard/users"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/dashboard/users" ? "bg-gray-200" : ""}`}
+                onClick={() => handleButtonClick("/dashboard/users")}
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -110,7 +119,8 @@ export default function Sidebar() {
             <li>
               <Link
                 to={"/dashboard/teams"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/dashboard/teams" ? "bg-gray-200" : ""}`}
+                onClick={() => handleButtonClick("/dashboard/teams")}
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -144,7 +154,8 @@ export default function Sidebar() {
                   <li className="mb-2">
                     <Link
                       to={"/dashboard/fsponser"}
-                      className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                      className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/dashboard/fsponser" ? "bg-gray-200" : ""}`}
+                      onClick={() => handleButtonClick("/dashboard/fsponser")}
                     >
                       <svg
                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -161,7 +172,8 @@ export default function Sidebar() {
                   <li className="mb-2">
                     <Link
                       to={"/dashboard/osponser"}
-                      className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                      className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/dashboard/osponser" ? "bg-gray-200" : ""}`}
+                      onClick={() => handleButtonClick("/dashboard/osponser")}
                     >
                       <svg
                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -181,7 +193,8 @@ export default function Sidebar() {
             <li>
               <Link
                 to={"/dashboard/advertisers"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/dashboard/advertisers" ? "bg-gray-200" : ""}`}
+                onClick={() => handleButtonClick("/dashboard/advertisers")}
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -198,7 +211,8 @@ export default function Sidebar() {
             <li>
               <Link
                 to={"/dashboard/sponsertype"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/dashboard/sponsertype" ? "bg-gray-200" : ""}`}
+                onClick={() => handleButtonClick("/dashboard/sponsertype")}
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -214,8 +228,9 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                to={"#"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700"
+                to={"/dashboard/profile"}
+                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-red-700 ${activeButton === "/dashboard/profile" ? "bg-gray-200" : ""}`}
+                onClick={() => handleButtonClick("/dashboard/profile")}
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
