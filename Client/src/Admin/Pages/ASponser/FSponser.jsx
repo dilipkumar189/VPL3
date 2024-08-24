@@ -10,8 +10,8 @@ export default function FSponser() {
             <Sidebar />
             <div className="px-4 mt-3 sm:ml-64">
                 <div className="mx-auto my-4 max-w-7xl px-4 py-4 sm:px-6 lg:px-8 border-[1px] rounded-lg shadow-sm sticky top-20 bg-white z-9">
-                    <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
-                        <div className="sm:col-span-5 my-5">
+                    <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+                        <div className="sm:col-span-5 mb-5">
                             <h1 className='font-bold text-lg text-gray-600'>
                                 Food Sponsers
                             </h1>

@@ -1,46 +1,39 @@
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <>
-    <div className="px-4 sm:ml-64 border-b-[1px] sticky top-0 bg-white z-10">
-    {/* Hide on mobile, show on medium screens and up */}
-    <div className="nav justify-between items-center py-4 hidden md:flex">
-      <div className="left-side flex items-center">
-        <a href="/" className="text-gray-800 font-bold text-lg">
-          Home 
-        </a>
-        <a href="/" className="text-gray-800 font-bold text-lg">
-          / Dashboard
-        </a>
-      </div>
-      <div className="right-side flex items-center space-x-4">
-        <button className="text-gray-800 hover:text-gray-600 focus:outline-none">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-            />
-          </svg>
-        </button>
-        <div className="profile flex items-center space-x-2">
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Profile"
-            className="rounded-full w-8 h-8"
-          />
-          <span className="text-gray-800 font-medium">John Doe</span>
+      <div className="px-4 sm:ml-64 border-b-[1px] sticky top-0 bg-white z-10">
+        {/* Hide on mobile, show on medium screens and up */}
+        <div className="nav justify-between items-center py-2 hidden md:flex">
+          <div className="left-side flex items-center">
+            <Link to={"#"} className="text-gray-800 font-bold text-lg">
+              Vishwakarma Premier League
+            </Link>
+          </div>
+          <div className="right-side flex items-center space-x-4">
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                <li> 
+                  <Link to={'/dashboard/profile'} className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+                <li><a>Logout</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  </>
+    </>
   )
 }

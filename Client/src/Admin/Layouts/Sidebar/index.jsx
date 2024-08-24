@@ -70,14 +70,8 @@ export default function Sidebar() {
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-700"
-                onClick={() => handleButtonClick("VPL")}
-              >
-                <span className="ml-3">VPL - 3</span>
-              </a>
+            <li className="flex items-center p-2 rounded-sm bg-gray-100 text-dark">
+                <span className="ml-3">VPL Cricket Tournament</span>
             </li>
             <li>
               <Link
