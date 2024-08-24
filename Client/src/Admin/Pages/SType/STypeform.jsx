@@ -18,7 +18,7 @@ export default function STypeform() {
                         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-5">
                                 <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
-                                    First name
+                                    Sponser Type
                                 </label>
                                 <div className="mt-2">
                                     <input
