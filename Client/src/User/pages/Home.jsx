@@ -17,8 +17,8 @@ function Home() {
     <>
       <BackgroundSlider />
       <Navbar />
-      <section className='main page'>
-        <div
+      <section className='main page h-[600px]'>
+        {/* <div
           className="hero min-h-screen relative"
           style={{
             zIndex: 1,
@@ -27,8 +27,7 @@ function Home() {
             height: "100%",
           }}
         >
-          <BackgroundSlider />
-          <div className="hero-overlay bg-opacity-60"></div>
+          <div className="hero-overlay mt-[-15px] bg-opacity-50"></div>
           <div className="hero-content text-neutral-content text-center">
             <div className="max-w-xl">
               <h1 className="mb-5 sm:text-5xl text-3xl font-bold">Vishwakarma Premier League</h1>
@@ -38,7 +37,7 @@ function Home() {
           <div className="absolute bottom-8 left-8 text-white">
             <h2 className="text-4xl font-bold">VPL</h2>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* About us section  */}
@@ -69,8 +68,8 @@ function Home() {
       </section>
 
       {/* Sponser section  */}
-      <section className='bg-base-500 md:h-[550px] h-[400px] py-16'>
-        <div className='mx-16'>
+      <section className='bg-base-500 md:h-[550px] h-[400px] py-16 z-0'>
+        <div className='sm:mx-16 mx-8'>
           <div className="mx-auto md:mb-16 mb-4 max-w-4xl">
             <h1 className="md:text-[40px] text-xl font-bold text-center">Tournament Sponsers</h1>
           </div>
@@ -83,222 +82,99 @@ function Home() {
             // pagination={{ clickable: true }}
             className="mySwiper py-2"
             breakpoints={{
-              640: { // For mobile devices (less than 640px)
-                slidesPerView: 1, // Show 1 slide
+              240: {
+                slidesPerView: 1.25,
+                slidesPerGroup: 3,
+                spaceBetween: 20,
               },
-              768: { // For tablets (between 640px and 768px)
-                slidesPerView: 2, // Show 2 slides
+              640: {
+                slidesPerView: 1.25,
+                slidesPerGroup: 3,
+                spaceBetween: 20,
               },
-              1024: { // For desktops (768px and larger)
-                slidesPerView: 3, // Show 3 slides
+              768: {
+                slidesPerView: 2.25,
+                slidesPerGroup: 3,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3,
+                slidesPerGroup: 3, // Show 3 slides per group
+                spaceBetween: 20, // Add space between slides
+              },
+              1200: {
+                slidesPerView: 3.25, // Show 3 full slides and 4th slide at 25%
+                slidesPerGroup: 3,
+                spaceBetween: 20,
               },
             }}
           >
             <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-35  shadow-xl">
+              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
                 <figure>
                   <img
                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                     alt="Img" />
                 </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
+                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
+                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
+                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
                 </div>
               </div>
             </SwiperSlide>
 
-
             <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30 sm:w-15  shadow-xl">
+              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
                 <figure>
                   <img
                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                     alt="Img" />
                 </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
+                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
+                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
+                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
                 </div>
               </div>
             </SwiperSlide>
 
-
             <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
+              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
                 <figure>
                   <img
                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                     alt="Img" />
                 </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
+                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
+                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
+                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
                 </div>
               </div>
             </SwiperSlide>
 
-
             <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
+              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
                 <figure>
                   <img
                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                     alt="Img" />
                 </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
+                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
+                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
+                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
                 </div>
               </div>
             </SwiperSlide>
 
-
             <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
+              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
                 <figure>
                   <img
                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                     alt="Img" />
                 </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
+                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
+                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
+                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
                 </div>
               </div>
             </SwiperSlide>
