@@ -12,6 +12,7 @@ import Footer from '../components/Footer';
 import BackgroundSlider from '../components/backgroundSlider';
 import TeamComponent from '../components/TeamComponent';
 import SponserComponent from '../components/SponserComponent';
+import AdvertiseComponent from '../components/AdvertiseComponent';
 
 function Home() {
   return (
@@ -597,6 +598,9 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Advertise Componenet  */}
+      <AdvertiseComponent />
 
       <Footer />
     </>

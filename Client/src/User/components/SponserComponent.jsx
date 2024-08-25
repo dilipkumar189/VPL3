@@ -33,7 +33,7 @@ export default function SponserComponent() {
                             </figure>
                             <div className="card-body text-center">
                                 <h3 className="font-bold">Madan Suthar s/o Pratap ji Suthar</h3>
-                                <p className="text-gray-500">Bagra</p>
+                                <p className="text-gray-400">Bagra</p>
                             </div>
                         </div>
                         <div className="card card-compact bg-transparent md:w-40">
@@ -46,7 +46,7 @@ export default function SponserComponent() {
                             </figure>
                             <div className="card-body text-center">
                                 <h3 className="font-bold">Praveen Suthar s/o Joraram ji Suthar</h3>
-                                <p className="text-gray-500">Noon</p>
+                                <p className="text-gray-400">Noon</p>
                             </div>
                         </div>
                         <div className="card card-compact bg-transparent md:w-40">
@@ -59,7 +59,7 @@ export default function SponserComponent() {
                             </figure>
                             <div className="card-body text-center">
                                 <h3 className="font-bold">Mahendra Suthar s/o Rama ji Suthar</h3>
-                                <p className="text-gray-500">Akoli</p>
+                                <p className="text-gray-400">Akoli</p>
                             </div>
                         </div>
                         <div className="card card-compact bg-transparent md:w-40">
@@ -72,7 +72,7 @@ export default function SponserComponent() {
                             </figure>
                             <div className="card-body text-center">
                                 <h3 className="font-bold">Goutam Suthar s/o Trilok ji Suthar</h3>
-                                <p className="text-gray-500">Siyana</p>
+                                <p className="text-gray-400">Siyana</p>
                             </div>
                         </div>
                     </div>
