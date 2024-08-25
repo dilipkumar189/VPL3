@@ -1,23 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import BackgroundSlider from '../components/backgroundSlider';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-// import {Img1} from "../../assets/img/img1.jpg"
-// import {abc} from "../../assets/img/img11.jpg"
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import BackgroundSlider from '../components/backgroundSlider';
+import TeamComponent from '../components/TeamComponent';
 
 function Home() {
   return (
     <>
       <BackgroundSlider />
       <Navbar />
-      <section className='main page h-[600px]'>
+      <section className='main page h-[550px]'>
         {/* <div
           className="hero min-h-screen relative"
           style={{
@@ -41,25 +41,26 @@ function Home() {
       </section>
 
       {/* About us section  */}
-      <section className='bg-base-200 lg:h-[480px] h-[650px]'>
-        <div className="py-16   ">
+      <section className='lg:h-[420px] h-[650px]'>
+        <div className="py-2">
           <div className="mx-auto max-w-6xl px-6 md:leading-5 leading-4 md:text-[16px] text-[11px] text-pretty">
-            <h1 className="md:text-[40px] text-xl font-bold text-center sm:leading-9">Welcome to Vishwakarma Premier League</h1>
-            <div className='grid grid-cols-3 border-2 md:mt-10 mt-6'>
-              <div className='sm:col-span-1 col-span-3 border-2 '>
-                <div className="sm:w-60 w-[230px] mx-auto">
-                  <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201909/vishwakarma-x378.png?w3m5BcVLlkMOITAiy9dlWoXI4UIXpOpO" />
+            {/* <h1 className="md:text-[40px] text-xl font-bold sm:leading-9">Welcome to Vishwakarma Premier League</h1> */}
+            <div className='grid grid-cols-5 md:mt-10 mt-6'>
+              <div className='sm:col-span-3 col-span-3'>
+                <div className="sm:w-[600px] w-[230px] mx-auto">
+                  <img src="https://as2.ftcdn.net/v2/jpg/03/10/60/17/1000_F_310601729_qiwUg48OztkDTVrTPJBIHVpUlXerujqb.jpg" />
                 </div>
               </div>
-              <div className='sm:col-span-2 col-span-3 border-2 sm:pl-3 lg:pl-0 lg:mt-4'>
-                <p className="">
-                  Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                  quasi. In deleniti eaque aut repudiandae et a id nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis maiores, suscipit quasi optio delectus cupiditate eius nesciunt fugit assumenda! Cum vero tenetur non!
-                </p>
-                <p className="md:my-3 my-2">
-                  The tournament not only aims to crown a champion but also to provide a platform for players to gain invaluable experience and exposure. With rigorous training and preparation, teams are set to compete fiercely, promising an entertaining and memorable event for players and spectators alike. Join us in celebrating the spirit of cricket and witness the emergence of future stars!
-                </p>
-
+              <div className='sm:col-span-2 col-span-3 text-center sm:pl-3 lg:pl-0 lg:mt-8'>
+                <h1 className="md:text-[60px] text-xl font-bold sm:leading-9">PARTICIPATE</h1>
+                <h1 className="md:text-[60px] text-xl mt-10 font-bold sm:leading-9">YOUR TEAM</h1>
+                <h1 className="md:text-[60px] text-xl mt-10 mb-16 font-bold sm:leading-9">NOW</h1>
+                <Link
+                  to={'#'}
+                  className="rounded-md bg-slate-800 mt-6 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+                >
+                  Register Now
+                </Link>
               </div>
             </div>
 
@@ -68,150 +69,81 @@ function Home() {
       </section>
 
       {/* Sponser section  */}
-      <section className='bg-base-500 md:h-[550px] h-[400px] py-16 z-0'>
-        <div className='sm:mx-16 mx-8'>
-          <div className="mx-auto md:mb-16 mb-4 max-w-4xl">
-            <h1 className="md:text-[40px] text-xl font-bold text-center">Tournament Sponsers</h1>
-          </div>
-          <Swiper
-
-            modules={[Navigation, Pagination]}
-            spaceBetween={40}
-            // navigation
-            speed={1500}
-            // pagination={{ clickable: true }}
-            className="mySwiper py-2"
-            breakpoints={{
-              240: {
-                slidesPerView: 1.25,
-                slidesPerGroup: 3,
-                spaceBetween: 20,
-              },
-              640: {
-                slidesPerView: 1.25,
-                slidesPerGroup: 3,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 2.25,
-                slidesPerGroup: 3,
-                spaceBetween: 20,
-              },
-              1024: {
-                slidesPerView: 3,
-                slidesPerGroup: 3, // Show 3 slides per group
-                spaceBetween: 20, // Add space between slides
-              },
-              1200: {
-                slidesPerView: 3.25, // Show 3 full slides and 4th slide at 25%
-                slidesPerGroup: 3,
-                spaceBetween: 20,
-              },
-            }}
-          >
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
-                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
-                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
-                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
-                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-[300px] w-60 sm:35 shadow-lg">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-2  md:p-6 leading-4 h-[70px] lg:h-[90px] my-0">
-                  <h2 className="lg:card-title font-semibold text-[14px] lg:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px]  lg:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-
-
-
-            {/* <SwiperSlide>
-              <div className='bg-green-200 p-8 rounded-lg'>
-                <h2 className='text-2xl font-bold mb-4'>Slide-7</h2>
-                <p>Slide seven content</p>
-              </div>
-            </SwiperSlide> */}
-          </Swiper>
-        </div>
+      <section className='md:h-[500px] h-[400px] py-16 z-0'>
+        <TeamComponent />
       </section>
 
       {/* Rules and Regulation  */}
-      <section className='bg-base-200 lg:h-[440px] h-[600px]'>
-        <div className="sm:py-16 py-14 hidden sm:block">
+      <section className='bg-black text-white lg:h-[440px] h-[600px]'>
+        <div className="sm:py-6 py-14 hidden sm:block">
           <div className="mx-auto max-w-6xl px-6 md:leading-5 leading-4 md:text-[16px] text-[11px] text-pretty">
-            <h1 className="md:text-[40px] text-xl font-bold text-center">Rules & Regulation</h1>
-            <div className='grid grid-cols-3 border-2 md:mt-10 mt-6'>
-              <div className='sm:col-span-2 col-span-3 border-2 sm:pl-3 lg:pl-0 lg:mt-4'>
-                <p className="">
-                  Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                  quasi. In deleniti eaque aut repudiandae et a id nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis maiores, suscipit quasi optio delectus cupiditate eius nesciunt fugit assumenda! Cum vero tenetur non!
-                </p>
-                <p className="md:my-3 my-2">
-                  The tournament not only aims to crown a champion but also to provide a platform for players to gain invaluable experience and exposure. With rigorous training and preparation, teams are set to compete fiercely, promising an entertaining and memorable event for players and spectators alike. Join us in celebrating the spirit of cricket and witness the emergence of future stars!
-                </p>
+            <div className='grid grid-cols-4 md:mt-0 mt-6'>
+              <div className='sm:col-span-2 col-span-3 sm:pl-3 lg:pl-0 lg:mt-4'>
+                <h1 className="md:text-[40px] text-xl font-bold">RULES & REGULATION</h1>
+                <div className="px-6 py-5 grid grid-cols-8">
+                  <div className='col-span-1 my-2'>
+                    <div className="avatar">
+                      <div className="w-12 rounded-full">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5IbgBf-NJ0vZJLiSQmkbxuypYyl-B5K7C3g&s" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className='col-span-7 my-2'>
+                    <h1 className='md:text-[20px] text-xl font-semibold'>
+                       Team
+                    </h1>
+                    <div className=''>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing </p>
 
+                    </div>
+                  </div>
+
+                
+                  <div className='col-span-1 my-2'>
+                    <div className="avatar">
+                      <div className="w-12 rounded-full">
+                        <img src="https://www.shutterstock.com/image-vector/cricket-stadium-audience-vector-background-600nw-2367285537.jpg" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className='col-span-7 my-2'>
+                    <h1 className='md:text-[20px] text-xl font-semibold'>
+                       Ground
+                    </h1>
+                    <div className=''>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing </p>
+
+                    </div>
+                  </div>
+
+                  <div className='col-span-1 my-2'>
+                    <div className="avatar">
+                      <div className="w-12 rounded-full">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlHmtFv-O4lGVu3GJxK5diDmk3EbP5_If-jg&s" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className='col-span-7 mt-2 mb-12'>
+                    <h1 className='md:text-[20px] text-xl font-semibold'>
+                       Match
+                    </h1>
+                    <div className=''>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing </p>
+
+                    </div>
+                  </div>
+
+                </div>
+                <Link
+                  to={'#'}
+                  className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-sm hover:bg-slate-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200"
+                >
+                  View Rules & Regulation &#11166;
+                </Link>
               </div>
-              <div className='sm:col-span-1 col-span-3 border-2 '>
-                <div className="sm:w-60 w-[230px] mx-auto">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkvQG3dC3PhHj_H1ybPG9GYc0GdftNb1qrQQ&s" />
+              <div className='sm:col-span-2 col-span-3'>
+                <div className="sm:w-[530px] w-[230px] mx-auto">
+                  <img src="https://media.istockphoto.com/id/1434729638/photo/red-leather-cricket-ball-on-a-cricket-bat-front-view.jpg?s=1024x1024&w=is&k=20&c=lQpRqjn4SUZfgAOL73N6MFnqTgaITkIZVLn7VDGAXCY=" className="" />
                 </div>
               </div>
             </div>
