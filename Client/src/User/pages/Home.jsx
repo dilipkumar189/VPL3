@@ -175,7 +175,6 @@ function Home() {
         </div>
       </section>
 
-      <SponserComponent />
 
       {/* Teams Section  */}
       <section className='bg-base-500 md:h-[550px] h-[400px] py-16'>
@@ -406,7 +405,7 @@ function Home() {
                 <h2 className='text-2xl font-bold mb-4'>Slide-7</h2>
                 <p>Slide seven content</p>
               </div>
-            </SwiperSlide> */}
+              </SwiperSlide> */}
           </Swiper>
         </div>
       </section>
@@ -600,6 +599,7 @@ function Home() {
       </section>
 
       {/* Advertise Componenet  */}
+      <SponserComponent />
       <AdvertiseComponent />
 
       <Footer />
