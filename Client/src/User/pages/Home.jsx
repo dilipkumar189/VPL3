@@ -11,6 +11,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BackgroundSlider from '../components/backgroundSlider';
 import TeamComponent from '../components/TeamComponent';
+import SponserComponent from '../components/SponserComponent';
 
 function Home() {
   return (
@@ -74,7 +75,7 @@ function Home() {
       </section>
 
       {/* Rules and Regulation  */}
-      <section className='bg-black text-white lg:h-[440px] h-[600px]'>
+      <section className='bg-black text-gray-200 lg:h-[440px] h-[600px]'>
         <div className="sm:py-6 py-14 hidden sm:block">
           <div className="mx-auto max-w-6xl px-6 md:leading-5 leading-4 md:text-[16px] text-[11px] text-pretty">
             <div className='grid grid-cols-4 md:mt-0 mt-6'>
@@ -173,6 +174,7 @@ function Home() {
         </div>
       </section>
 
+      <SponserComponent />
 
       {/* Teams Section  */}
       <section className='bg-base-500 md:h-[550px] h-[400px] py-16'>
