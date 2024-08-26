@@ -10,7 +10,7 @@ import Team from './User/pages/Team';
 import Advertiser from './User/pages/Advertiser';
 import Rules from './User/pages/Rules';
 import AboutUs from './User/pages/AboutUs';
-import Contactus from './User/pages/Contactus';
+import ContactUs from './User/pages/ContactUs';
 // import Profile from './User/pages/Profile';
 // import Profileform from './User/pages/Profileform';
 import Profile from './User/pages/Profile';
@@ -49,7 +49,7 @@ function App() {
         <Route path="/advertiser" element={<Advertiser />} />
         <Route path="/rules" element={<Rules />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/contactus" element={<Contactus />} />
+        <Route path="/contactus" element={<ContactUs />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profileform" element={<EditProfile/>} />
         <Route path="/addteam" element={<Teamform />} />
