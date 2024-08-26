@@ -76,7 +76,7 @@ export default function HallOfComponent() {
                       </div>
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
                         <p className='font-semibold'>Player of the tournament</p>
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Bhavesh Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
                           <p className='block'>M Dhandar 11</p>
@@ -97,7 +97,7 @@ export default function HallOfComponent() {
                       </div>
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
                         <p className='font-semibold'>Best Batsman </p>
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Madan Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
                           <p className='block'>M Dhandar 11</p>
@@ -118,7 +118,7 @@ export default function HallOfComponent() {
                       </div>
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
                         <p className='font-semibold'>Best Bowler </p>
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Arjun Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
                           <p className='block'>M Dhandar 11</p>
@@ -139,7 +139,7 @@ export default function HallOfComponent() {
                       </div>
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
                         <p className='font-semibold'>Best Filder</p>
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Dilip Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
                           <p className='block'>M Dhandar 11</p>
@@ -160,7 +160,7 @@ export default function HallOfComponent() {
                       </div>
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
                         <p className='font-semibold'>Best Filder</p>
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Dilip Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
                           <p className='block'>M Dhandar 11</p>
