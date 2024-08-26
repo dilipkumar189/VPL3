@@ -31,7 +31,7 @@ export default function Navbar() {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-slate-600 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><Link to={'#'}>Homepage</Link></li>
+                            <li><Link to={'#'}>Home</Link></li>
                             <li><Link to={'#'}>Teams</Link></li>
                             <li><Link to={'#'}>Sponsers</Link></li>
                             <li><Link to={'#'}>Hall Of Fame</Link></li>
