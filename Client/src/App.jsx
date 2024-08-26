@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './User/pages/Home';
 // import Navbar from './User/components/Navbar';
 import HallOfFame from './User/pages/HallOfFame';
-import Teamview from './User/pages/Teamview';
+import TeamView from './User/pages/TeamView';
 import Sponser from './User/pages/Sponser';
 import Team from './User/pages/Team';
 import Advertiser from './User/pages/Advertiser';
@@ -43,7 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         {/* <Route path="/nav" element={<Navbar />} /> */}
         <Route path="/halloffame" element={<HallOfFame />} />
-        <Route path="/teamview" element={<Teamview />} />
+        <Route path="/teamview" element={<TeamView />} />
         <Route path="/sponser" element={<Sponser />} />
         <Route path="/team" element={<Team />} />
         <Route path="/advertiser" element={<Advertiser />} />
