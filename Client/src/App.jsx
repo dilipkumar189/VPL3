@@ -51,7 +51,7 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/profileform" element={<EditProfile/>} />
+        <Route path="/editprofile" element={<EditProfile/>} />
         <Route path="/addteam" element={<Teamform />} />
 
         {/* Admin Route */}
