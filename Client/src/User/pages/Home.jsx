@@ -13,6 +13,7 @@ import BackgroundSlider from '../components/backgroundSlider';
 import TeamComponent from '../components/TeamComponent';
 import SponserComponent from '../components/SponserComponent';
 import AdvertiseComponent from '../components/AdvertiseComponent';
+import HallOfComponent from '../components/HallofComponent';
 
 function Home() {
   return (
@@ -40,9 +41,16 @@ function Home() {
             <h2 className="text-4xl font-bold">VPL</h2>
           </div>
         </div> */}
+        <div className="absolute bottom-8 left-8 text-white">
+          <p className="text-[80px] font-bold p-0">VPL SEASON-3</p>
+          <div className='ms-[20px] mt-[-20px]'>
+            <h3 className='text-[20px] font-bold'>VENUE - BAGRA</h3>
+            <h3 className='text-[18px] font-bold'>FROM 02-11-2024 TO 06-11-2024</h3>
+          </div>
+        </div>
       </section>
 
-      {/* About us section  */}
+      {/* Register section  */}
       <section className='lg:h-[420px] h-[650px]'>
         <div className="py-2">
           <div className="mx-auto max-w-6xl px-6 md:leading-5 leading-4 md:text-[16px] text-[11px] text-pretty">
@@ -70,14 +78,12 @@ function Home() {
         </div>
       </section>
 
-      {/* Sponser section  */}
-      <section className='md:h-[500px] h-[400px] py-16 z-0'>
-        <TeamComponent />
-      </section>
+      {/* Team section  */}
+      <TeamComponent />
 
       {/* Rules and Regulation  */}
-      <section className='bg-black text-gray-200 lg:h-[440px] h-[600px]'>
-        <div className="sm:py-6 py-14 hidden sm:block">
+      <section className='bg-black text-gray-200 lg:h-[460px] h-[600px]'>
+        <div className="sm:py-10 py-14 hidden sm:block">
           <div className="mx-auto max-w-6xl px-6 md:leading-5 leading-4 md:text-[16px] text-[11px] text-pretty">
             <div className='grid grid-cols-4 md:mt-0 mt-6'>
               <div className='sm:col-span-2 col-span-3 sm:pl-3 lg:pl-0 lg:mt-4'>
@@ -92,7 +98,7 @@ function Home() {
                   </div>
                   <div className='col-span-7 my-2'>
                     <h1 className='md:text-[20px] text-xl font-semibold'>
-                       Team
+                      Team
                     </h1>
                     <div className=''>
                       <p>Lorem ipsum, dolor sit amet consectetur adipisicing </p>
@@ -100,7 +106,7 @@ function Home() {
                     </div>
                   </div>
 
-                
+
                   <div className='col-span-1 my-2'>
                     <div className="avatar">
                       <div className="w-12 rounded-full">
@@ -110,7 +116,7 @@ function Home() {
                   </div>
                   <div className='col-span-7 my-2'>
                     <h1 className='md:text-[20px] text-xl font-semibold'>
-                       Ground
+                      Ground
                     </h1>
                     <div className=''>
                       <p>Lorem ipsum, dolor sit amet consectetur adipisicing </p>
@@ -127,7 +133,7 @@ function Home() {
                   </div>
                   <div className='col-span-7 mt-2 mb-12'>
                     <h1 className='md:text-[20px] text-xl font-semibold'>
-                       Match
+                      Match
                     </h1>
                     <div className=''>
                       <p>Lorem ipsum, dolor sit amet consectetur adipisicing </p>
@@ -175,433 +181,16 @@ function Home() {
         </div>
       </section>
 
+      {/* Hall Of Fame  */}
+      <HallOfComponent />
 
-      {/* Teams Section  */}
-      <section className='bg-base-500 md:h-[550px] h-[400px] py-16'>
-        <div className='mx-16'>
-          <div className="mx-auto md:mb-16 mb-4 max-w-4xl">
-            <h1 className="md:text-[40px] text-xl font-bold text-center">Participate Teams</h1>
-          </div>
-          <Swiper
-
-            modules={[Navigation, Pagination]}
-            spaceBetween={40}
-            // navigation
-            speed={1500}
-            // pagination={{ clickable: true }}
-            className="mySwiper py-2"
-            breakpoints={{
-              640: { // For mobile devices (less than 640px)
-                slidesPerView: 1, // Show 1 slide
-              },
-              768: { // For tablets (between 640px and 768px)
-                slidesPerView: 2, // Show 2 slides
-              },
-              1024: { // For desktops (768px and larger)
-                slidesPerView: 3, // Show 3 slides
-              },
-            }}
-          >
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className=''>
-              <div className="card card-compact bg-base-100 lg:w-96 w-30  shadow-xl">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Img" />
-                </figure>
-                <div className="p-4 md:p-6 leading-3">
-                  <h2 className="card-title text-[14px] md:text-[18px] mt-0">Mandan Suthar</h2>
-                  <p className='text-[14px] md:text-[17px]'>Bagra</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-
-
-
-
-            {/* <SwiperSlide>
-              <div className='bg-green-200 p-8 rounded-lg'>
-                <h2 className='text-2xl font-bold mb-4'>Slide-7</h2>
-                <p>Slide seven content</p>
-              </div>
-              </SwiperSlide> */}
-          </Swiper>
-        </div>
-      </section>
-
-      {/* Hall of fame */}
-      <section className='bg-base-200 h-auto py-16'>
-        <div className='mx-16'>
-          <div className="mx-auto pb-16 max-w-4xl">
-            <h1 className="md:text-[40px] text-xl font-bold text-center">Hall of Fame</h1>
-          </div>
-          <div>
-            <h1 className="md:text-[40px] text-xl font-bold py-8">Heroes of 2023</h1>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-              <div className="card card-compact bg-transparent md:w-40">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Img"
-                    className="rounded-full w-full h-auto"
-                  />
-                </figure>
-                <div className="card-body text-center">
-                  <h3 className="font-bold">Dinesh Suthar</h3>
-                  <p className="text-gray-500">Man of The Series</p>
-                </div>
-              </div>
-              <div className="card card-compact bg-transparent md:w-40">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Img"
-                    className="rounded-full w-full h-auto"
-                  />
-                </figure>
-                <div className="card-body text-center">
-                  <h3 className="font-bold">Dinesh Suthar P</h3>
-                  <p className="text-gray-500">Best Batsman</p>
-                </div>
-              </div>
-              <div className="card card-compact bg-transparent md:w-40">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Img"
-                    className="rounded-full w-full h-auto"
-                  />
-                </figure>
-                <div className="card-body text-center">
-                  <h3 className="font-bold">Arjun Suthar</h3>
-                  <p className="text-gray-500">Best Bowler</p>
-                </div>
-              </div>
-              <div className="card card-compact bg-transparent md:w-40">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Img"
-                    className="rounded-full w-full h-auto"
-                  />
-                </figure>
-                <div className="card-body text-center">
-                  <h3 className="font-bold">Dilip Suthar</h3>
-                  <p className="text-gray-500">Best Fielder</p>
-                </div>
-              </div>
-              <div className="card card-compact bg-transparent md:w-40">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Img"
-                    className="rounded-full w-full h-auto"
-                  />
-                </figure>
-                <div className="card-body text-center">
-                  <h3 className="font-bold">Dilip Suthar</h3>
-                  <p className="text-gray-500">Best Fielder</p>
-                </div>
-              </div>
-              <div className="card card-compact bg-transparent md:w-40">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Img"
-                    className="rounded-full w-full h-auto"
-                  />
-                </figure>
-                <div className="card-body text-center">
-                  <h3 className="font-bold">Dilip Suthar</h3>
-                  <p className="text-gray-500">Best Fielder</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* Advertise Section  */}
-      <section className='bg-base-500 py-16'>
-        <div className='mx-16'>
-          <div className="mx-auto pb-16 max-w-4xl">
-            <h1 className="md:text-[40px] text-xl font-bold text-center">Advertisement</h1>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 1"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 2"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 3"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 4"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 5"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 6"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 6"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 6"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 6"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 6"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 6"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="advertisement">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Ad 6"
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Advertise Componenet  */}
-      <SponserComponent />
+      {/* Advertiser  */}
       <AdvertiseComponent />
 
+      {/*  Sponser */}
+      <SponserComponent />
+
+      {/* Footer  */}
       <Footer />
     </>
   );

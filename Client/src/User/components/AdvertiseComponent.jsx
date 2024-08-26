@@ -19,10 +19,10 @@ export default function AdvertiseComponent() {
 
   return (
     <section className='h-auto py-8'>
-      <div className='mx-16'>
-        {/* <div className="pb-16 max-w-4xl">
-          <h1 className="md:text-[40px] text-xl font-bold">ADVERTISERS</h1>
-        </div> */}
+      <div className="pb-16 max-w-4xl">
+        <h1 className="md:text-[40px] mx-8 text-xl font-bold">ADVERTISERS</h1>
+      </div>
+      <div className='mx-8'>
         <div>
           <Swiper
             modules={[Autoplay]}
