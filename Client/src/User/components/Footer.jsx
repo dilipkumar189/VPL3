@@ -23,7 +23,7 @@ export default function Footer() {
                         </div>
 
                 </aside>
-                <aside className='grid grid-cols-4  gap-10 sm:gap-8 '>
+                <aside className='grid grid-cols-4  gap-10 sm:gap-4 px-2 lg:px-24 '>
 
                     <div className='sm:leading-6 leading-5 mt-[-12px] sm:mt-0 col-span-2 sm:col-span-1'>
                         <h6 className="footer-title">Features</h6>
@@ -56,8 +56,8 @@ export default function Footer() {
                         <h6 className="footer-title"></h6>
                         <ul className='text-slate-600'>
 
-                        <li><a className="link link-hover">Vishwakarma Colony, Railway Station Road, Bagra(Jalore)</a></li>
-                        <li><a className="link link-hover">vpl2024@gmail.com</a></li>
+                        <li className='lg:leading-4  leading-3'><a className="link link-hover text-[11px] sm:text-[13px]">Address : Vishwakarma Colony, Railway Station Road, Bagra(Jalore)</a></li>
+                        <li><a className="link link-hover text-[11px] sm:text-[13px]">Email : vpl2024@gmail.com</a></li>
                      
                             <li className='flex '>
 
