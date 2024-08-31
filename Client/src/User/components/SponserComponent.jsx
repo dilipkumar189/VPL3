@@ -13,46 +13,46 @@ export default function SponserComponent() {
                         <div className="card card-compact bg-transparent md:w-40">
                             <figure>
                                 <img
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                    src="https://media-bom2-1.cdn.whatsapp.net/v/t61.24694-24/414353888_387722727039084_7157126952723137476_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_Q5AaIBR7LfhemAGQ2Ul_Xg1QBdJEf0UNn0zBWh595T_yp_NZ&oe=66DFAFC9&_nc_sid=5e03e0&_nc_cat=109"
                                     alt="Img"
                                     className="rounded-full w-full h-auto"
                                 />
                             </figure>
                             <div className="card-body text-center">
-                                <h3 className="font-bold">Dinesh Suthar s/o Puraji Suthar</h3>
+                                <h3 className="font-bold">Satish Suthar s/o Visaram ji Suthar</h3>
                                 <p className="text-gray-400">Bagra</p>
                             </div>
                         </div>
                         <div className="card card-compact bg-transparent md:w-40">
                             <figure>
                                 <img
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                    src="https://cricheroes-media-mumbai.s3.ap-south-1.amazonaws.com/user_profile/1665210898490_Tpah52Jdz3Ui.jpeg?width=16&quality=75&format=auto"
                                     alt="Img"
                                     className="rounded-full w-full h-auto"
                                 />
                             </figure>
                             <div className="card-body text-center">
-                                <h3 className="font-bold">Madan Suthar s/o Pratap ji Suthar</h3>
+                                <h3 className="font-bold">Ramesh Suthar s/o Vasana ji Suthar</h3>
                                 <p className="text-gray-400">Bagra</p>
                             </div>
                         </div>
                         <div className="card card-compact bg-transparent md:w-40">
                             <figure>
                                 <img
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                    src="https://media-bom2-1.cdn.whatsapp.net/v/t61.24694-24/411803592_868034805016752_4905107543296484106_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_Q5AaIOpiSYbuSjtYDZGUjvJ5Qq4for9NtYKLu1VOdfgs8hKF&oe=66DFA62C&_nc_sid=5e03e0&_nc_cat=105"
                                     alt="Img"
                                     className="rounded-full w-full h-auto"
                                 />
                             </figure>
                             <div className="card-body text-center">
-                                <h3 className="font-bold">Praveen Suthar s/o Joraram ji Suthar</h3>
-                                <p className="text-gray-400">Noon</p>
+                                <h3 className="font-bold">Ramesh Suthar s/o Dhuda ji Suthar</h3>
+                                <p className="text-gray-400">Bagra</p>
                             </div>
                         </div>
                         <div className="card card-compact bg-transparent md:w-40">
                             <figure>
                                 <img
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                    src="https://media-bom2-1.cdn.whatsapp.net/v/t61.24694-24/423956246_786756486613169_7178690588453350797_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_Q5AaIA1WcPVGYdauoxjw1GUTWgKLT5EJ2byXWCKFvqwf7zVG&oe=66DFA5E1&_nc_sid=5e03e0&_nc_cat=108"
                                     alt="Img"
                                     className="rounded-full w-full h-auto"
                                 />
@@ -65,14 +65,14 @@ export default function SponserComponent() {
                         <div className="card card-compact bg-transparent md:w-40">
                             <figure>
                                 <img
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                    src="https://media-bom2-1.cdn.whatsapp.net/v/t61.24694-24/384817044_1046678703800068_2213166948591631058_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_Q5AaINHqkKu8CwR64aF_lTfvVcz_zs0yfkHuf_hD7-57YgGw&oe=66DFB1B3&_nc_sid=5e03e0&_nc_cat=107"
                                     alt="Img"
                                     className="rounded-full w-full h-auto"
                                 />
                             </figure>
                             <div className="card-body text-center">
-                                <h3 className="font-bold">Goutam Suthar s/o Trilok ji Suthar</h3>
-                                <p className="text-gray-400">Siyana</p>
+                                <h3 className="font-bold">Madan Suthar s/o Pratap ji Suthar</h3>
+                                <p className="text-gray-400">Bagra</p>
                             </div>
                         </div>
                     </div>

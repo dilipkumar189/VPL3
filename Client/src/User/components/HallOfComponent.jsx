@@ -69,7 +69,7 @@ export default function HallOfComponent() {
                     <div className=" bg-base-100 w-[230px] sm:35 shadow-lg ">
                       <div>
                         <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLcrUF1ECOSc6-xd9PKRVOpl1mk-md15_ajw&usqp=CAU"
+                          src="https://cricheroes-media-mumbai.s3.ap-south-1.amazonaws.com/user_profile/1636336732540_rlOva4bJJOX7.jpg?width=16&quality=75&format=auto"
                           alt="Img"
                           className='w-[230px] h-[210px]'
                         />
@@ -77,10 +77,10 @@ export default function HallOfComponent() {
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
                         <p className='font-semibold'>Player of the tournament</p>
                         <div className="grid grid-cols-2 mt-2">
-                          <p className='block'>Bhavesh Suthar</p>
-                          <p className='text-right px-2 '>Bagra</p>
-                          <p className='block'>M Dhandar 11</p>
-                          <p className='text-right px-2 '>Run : 392</p>
+                          <p className='block'>Dinesh Suthar</p>
+                          <p className='text-right px-2 '>Akoli</p>
+                          <p className='block'>SC AKOLI</p>
+                          <p className='text-right px-2 '>Run : 116, W : 7</p>
 
                         </div>
                       </div>
@@ -90,7 +90,7 @@ export default function HallOfComponent() {
                     <div className=" bg-base-100 w-[230px] sm:35">
                       <div>
                         <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw0TKzq3dSSCEriaxhoDg_rfz2U8bMsFHqVw&usqp=CAU"
+                          src="https://cricheroes-media-mumbai.s3.ap-south-1.amazonaws.com/user_profile/1724598968025_mFZfJUy7GXA4.jpeg?width=16&quality=75&format=auto"
                           alt="Img"
                           className='w-[230px] h-[210px]'
                         />
@@ -98,10 +98,10 @@ export default function HallOfComponent() {
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
                         <p className='font-semibold'>Best Batsman </p>
                         <div className="grid grid-cols-2 mt-2">
-                          <p className='block'>Madan Suthar</p>
+                          <p className='block'>Dinesh Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
-                          <p className='block'>M Dhandar 11</p>
-                          <p className='text-right px-2 '>Run : 432</p>
+                          <p className='block'>RISING STAR</p>
+                          <p className='text-right px-2 '>Run : 130</p>
 
                         </div>
                       </div>
@@ -111,7 +111,7 @@ export default function HallOfComponent() {
                     <div className=" bg-base-100 w-[230px] sm:35">
                       <div>
                         <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShsi4Pxp0bIIs679AUTHJO6iZ5nRGacmPOjg&usqp=CAU"
+                          src="https://cricheroes-media-mumbai.s3.ap-south-1.amazonaws.com/user_profile/1700195351230_lFyKgpkcj9Ci.jpg?width=16&quality=75&format=auto"
                           alt="Img"
                           className='w-[230px] h-[210px]'
                         />
@@ -121,8 +121,8 @@ export default function HallOfComponent() {
                         <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Arjun Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
-                          <p className='block'>M Dhandar 11</p>
-                          <p className='text-right px-2 '>Wicket : 12</p>
+                          <p className='block'>M DHANDHAR 11</p>
+                          <p className='text-right px-2 '>Wicket : 11</p>
 
                         </div>
                       </div>
@@ -132,7 +132,7 @@ export default function HallOfComponent() {
                     <div className=" bg-base-100 w-[230px] sm:35">
                       <div>
                         <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWmBXZ6n6lDE409Hl8kPt6R7zUCijaiLslIw&usqp=CAU"
+                          src="https://cricheroes-media-mumbai.s3.ap-south-1.amazonaws.com/user_profile/1696739491287_4bbFBWInP1jB.jpg?width=16&quality=75&format=auto"
                           alt="Img"
                           className='w-[230px] h-[210px]'
                         />
@@ -142,8 +142,8 @@ export default function HallOfComponent() {
                         <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Dilip Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
-                          <p className='block'>M Dhandar 11</p>
-                          <p className='text-right px-2 '>Catch : 12</p>
+                          <p className='block'>M DHANDHAR 11</p>
+                          <p className='text-right px-2 '>Catch : 13</p>
 
                         </div>
                       </div>
@@ -153,18 +153,39 @@ export default function HallOfComponent() {
                     <div className=" bg-base-100 w-[230px] sm:35">
                       <div>
                         <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShsi4Pxp0bIIs679AUTHJO6iZ5nRGacmPOjg&usqp=CAU"
+                          src="https://cricheroes-media-mumbai.s3.ap-south-1.amazonaws.com/user_profile/1696739491287_4bbFBWInP1jB.jpg?width=16&quality=75&format=auto"
                           alt="Img"
                           className='w-[230px] h-[210px]'
                         />
                       </div>
                       <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
-                        <p className='font-semibold'>Best Filder</p>
+                        <p className='font-semibold'>Second Best Batsman</p>
                         <div className="grid grid-cols-2 mt-2">
                           <p className='block'>Dilip Suthar</p>
                           <p className='text-right px-2 '>Bagra</p>
-                          <p className='block'>M Dhandar 11</p>
-                          <p className='text-right px-2 '>Catch : 12</p>
+                          <p className='block'>M DHANDHAR 11</p>
+                          <p className='text-right px-2 '>RUN : 127</p>
+
+                        </div>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide className=''>
+                    <div className=" bg-base-100 w-[230px] sm:35">
+                      <div>
+                        <img
+                          src="https://cricheroes-media-mumbai.s3.ap-south-1.amazonaws.com/user_profile/1636336732540_rlOva4bJJOX7.jpg?width=16&quality=75&format=auto"
+                          alt="Img"
+                          className='w-[230px] h-[210px]'
+                        />
+                      </div>
+                      <div className='h-[70px] bg-slate-700 leading-4 p-2 text-slate-200 text-[12px]'>
+                        <p className='font-semibold'>Second Best Bowler</p>
+                        <div className="grid grid-cols-2 mt-2">
+                          <p className='block'>Dinesh Suthar</p>
+                          <p className='text-right px-2 '>Bagra</p>
+                          <p className='block'>SC AKOLI</p>
+                          <p className='text-right px-2 '>Wicket : 7</p>
 
                         </div>
                       </div>

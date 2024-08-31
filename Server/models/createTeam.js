@@ -53,7 +53,7 @@ const teamSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    player1: playerSchema,
+    player1: {},
     player2: playerSchema,
     player3: playerSchema,
     player4: playerSchema,

@@ -33,6 +33,7 @@ import AProfile from './Admin/Pages/AProfile';
 import AProfileform from './Admin/Pages/AProfile/AProfileform';
 import Login from './User/pages/login';
 import SignUp from './User/pages/Signup';
+import Dteamform from './User/pages/Dteamform';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/editprofile" element={<EditProfile/>} />
         <Route path="/addteam" element={<Teamform />} />
+        <Route path="/daddteam" element={<Dteamform />} />
 
         {/* Admin Route */}
 
