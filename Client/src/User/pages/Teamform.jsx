@@ -55,19 +55,43 @@ export default function Teamform() {
         formData.append('logo', teamData.logo);
         formData.append('player1', JSON.stringify(teamData.player1));
         formData.append('player2', JSON.stringify(teamData.player2));
+        formData.append('player3', JSON.stringify(teamData.player3));
+        formData.append('player4', JSON.stringify(teamData.player4));
+        formData.append('player5', JSON.stringify(teamData.player5));
+        formData.append('player6', JSON.stringify(teamData.player6));
+        formData.append('player7', JSON.stringify(teamData.player7));
+        formData.append('player8', JSON.stringify(teamData.player8));
+        formData.append('player9', JSON.stringify(teamData.player9));
+        formData.append('player10', JSON.stringify(teamData.player10));
+        formData.append('player11', JSON.stringify(teamData.player11));
+        formData.append('player12', JSON.stringify(teamData.player12));
+        formData.append('player13', JSON.stringify(teamData.player13));
+        formData.append('player14', JSON.stringify(teamData.player14));
         formData.append('player1Image', teamData.player1.image);
-        // formData.append('player2Image', teamData.player2.image);
+        formData.append('player2Image', teamData.player2.image);
+        formData.append('player3Image', teamData.player3.image);
+        formData.append('player4Image', teamData.player4.image);
+        formData.append('player5Image', teamData.player5.image);
+        formData.append('player6Image', teamData.player6.image);
+        formData.append('player7Image', teamData.player7.image);
+        formData.append('player8Image', teamData.player8.image);
+        formData.append('player9Image', teamData.player9.image);
+        formData.append('player10Image', teamData.player10.image);
+        formData.append('player11Image', teamData.player11.image);
+        formData.append('player12Image', teamData.player12.image);
+        formData.append('player13Image', teamData.player13.image);
+        formData.append('player14Image', teamData.player14.image);
     
-        try {
-          const response = await axios.post('http://localhost:5000/api/team', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-          });
-          console.log(response.data);
-          // Handle success (e.g., show a success message, reset form)
-        } catch (error) {
-          console.error('Error submitting form:', error);
-          // Handle error (e.g., show error message)
-        }
+        // try {
+        //   const response = await axios.post('http://localhost:5000/api/team', formData, {
+        //     headers: { 'Content-Type': 'multipart/form-data' }
+        //   });
+        //   console.log(response.data);
+        //   // Handle success (e.g., show a success message, reset form)
+        // } catch (error) {
+        //   console.error('Error submitting form:', error);
+        //   // Handle error (e.g., show error message)
+        // }
       };
 
     return (
