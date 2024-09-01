@@ -16,17 +16,19 @@ export default function Teamform() {
                             <h2 className=" font-semibold my-0 text-gray-900">Team Information</h2>
                             <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-6">
                                 <div className="sm:col-span-3 col-span-1">
-                                    <label htmlFor="team" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="team_name" className="block text-sm font-medium leading-6 text-gray-900">
                                         Team Name
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="team"
-                                            name="team"
+                                            id="team_name"
                                             type="text"
+                                            name="team_name"
+                                            onChange={handleChange}
                                             className="block w-full rounded-sm sm:rounded-md
                                              border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
                                             placeholder='Enter Team name'
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -38,82 +40,98 @@ export default function Teamform() {
                                     <div className="mt-2">
                                         <input
                                             id="village"
-                                            name="village"
                                             type="text"
+                                            name="village"
+                                            onChange={handleChange}
                                             className="block w-full rounded-sm sm:rounded-md
                                              border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                                            placeholder='Enter Team name'
+                                            placeholder='Enter Village name'
+                                            required
                                         />
                                     </div>
                                 </div>
                                 <div className="sm:col-span-3 col-span-1">
-                                    <label htmlFor="spn1" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="sponser_1" className="block text-sm font-medium leading-6 text-gray-900">
                                         Sponsor-1
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="spn1"
-                                            name="spn1"
+                                            id="sponser_1"
                                             type="text"
+                                            name="sponser_1"
+                                            onChange={handleChange}
                                             className="block w-full rounded-sm sm:rounded-md
                                              border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
                                             placeholder='Enter Sponsor-1 name'
+                                            required
                                         />
                                     </div>
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                    <label htmlFor="spn-2" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="sponser_2" className="block text-sm font-medium leading-6 text-gray-900">
                                         Sponsor-2
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="spn-2"
-                                            name="spn-2"
+                                            id="sponser_2"
                                             type="text"
+                                            name="sponser_2"
+                                            onChange={handleChange}
                                             className="block w-full rounded-sm sm:rounded-md
                                              border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
                                             placeholder='Enter Sponsor-2 name'
+                                            required
                                         />
                                     </div>
                                 </div>
                                 <div className="sm:col-span-3 col-span-1">
-                                    <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="captain" className="block text-sm font-medium leading-6 text-gray-900">
                                         Captain Name
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="first-name"
-                                            name="first-name"
+                                            id="captain"
                                             type="text"
+                                            name="captain"
+                                            onChange={handleChange}
                                             className="block w-full rounded-sm sm:rounded-md
                                              border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                                            placeholder='Enter Team Name'
+                                            placeholder='Enter Captain Name'
+                                            required
                                         />
                                     </div>
                                 </div>
                                 <div className="sm:col-span-3 col-span-1">
-                                    <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="mobile" className="block text-sm font-medium leading-6 text-gray-900">
                                         Mobile No.
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="first-name"
-                                            name="first-name"
+                                            id="mobile"
                                             type="text"
+                                            name="mobile"
+                                            onChange={handleChange}
                                             className="block w-full rounded-sm sm:rounded-md
                                              border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                                            placeholder='Enter Team Name'
+                                            placeholder='Enter Mobile Number'
+                                            required
                                         />
                                     </div>
                                 </div>
                                 <div className="sm:col-span-3 col-span-1">
-                                    <label htmlFor="first-name" className="block text-sm font-medium leading-6  text-gray-900">
+                                    <label htmlFor="logo" className="block text-sm font-medium leading-6  text-gray-900">
                                         Team Logo
                                     </label>
                                     <div className="mt-2">
-                                        <input type="file" className="sm:file-input md:file-input-bordered border-[1px] rounded-sm border-black text-[11px] bg-white md:h-10 w-[160px]  md:w-full md:max-w-xs" />
-
+                                        <input 
+                                            id="logo" 
+                                            type="file"
+                                            name="logo"
+                                            onChange={(e) => handleFileChange(e, 'logo')}
+                                            className="sm:file-input md:file-input-bordered border-[1px] rounded-sm border-black text-[11px] bg-white md:h-10 w-[160px]  md:w-full md:max-w-xs" 
+                                            required
+                                        />                                     
                                     </div>
                                 </div>
                             </div>
