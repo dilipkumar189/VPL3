@@ -490,7 +490,7 @@ export default function Teamform() {
                                 </tr>
                                 <tr className="hover:bg-gray-100 mx-0 ">
                                     <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                                        13
+                                        14
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
                                         <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player13'/>
