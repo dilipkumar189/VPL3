@@ -47,10 +47,14 @@ export default function Teamform() {
         e.preventDefault();
         const formData = new FormData();
         formData.append('team_name', teamData.team_name);
-        formData.append('mobile_no', teamData.mobile_no);
+        formData.append('village', teamData.village);
+        formData.append('sponser_1', teamData.sponser_1);
+        formData.append('sponser_2', teamData.sponser_2);
+        formData.append('captain', teamData.captain);
+        formData.append('mobile', teamData.mobile);
         formData.append('logo', teamData.logo);
         formData.append('player1', JSON.stringify(teamData.player1));
-        // formData.append('player2', JSON.stringify(teamData.player2));
+        formData.append('player2', JSON.stringify(teamData.player2));
         formData.append('player1Image', teamData.player1.image);
         // formData.append('player2Image', teamData.player2.image);
     
