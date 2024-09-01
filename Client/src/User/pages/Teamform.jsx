@@ -3,14 +3,77 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 export default function Teamform() {
+    const [teamData, setTeamData] = useState({
+        team_name: '',
+        village: '',
+        sponser_1: '',
+        sponser_2: '',
+        captain: '',
+        mobile: '',
+        logo: null,
+        player1: { name: '', adhar: '', village: '', role: '', image: null },
+        player2: { name: '', adhar: '', village: '', role: '', image: null },
+        player3: { name: '', adhar: '', village: '', role: '', image: null },
+        player4: { name: '', adhar: '', village: '', role: '', image: null },
+        player5: { name: '', adhar: '', village: '', role: '', image: null },
+        player6: { name: '', adhar: '', village: '', role: '', image: null },
+        player7: { name: '', adhar: '', village: '', role: '', image: null },
+        player8: { name: '', adhar: '', village: '', role: '', image: null },
+        player9: { name: '', adhar: '', village: '', role: '', image: null },
+        player10: { name: '', adhar: '', village: '', role: '', image: null },
+        player11: { name: '', adhar: '', village: '', role: '', image: null },
+        player12: { name: '', adhar: '', village: '', role: '', image: null },
+        player13: { name: '', adhar: '', village: '', role: '', image: null },
+        player14: { name: '', adhar: '', village: '', role: '', image: null },
+        
+      });
+
+      const handleChange = (e, player = null) => {
+        if (player) {
+          setTeamData({
+            ...teamData,
+            [player]: { ...teamData[player], [e.target.name]: e.target.value }
+          });
+        } else {
+          setTeamData({ ...teamData, [e.target.name]: e.target.value });
+        }
+      };
+
+      const handleFileChange = (e, field) => {
+        setTeamData({ ...teamData, [field]: e.target.files[0] });
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('team_name', teamData.team_name);
+        formData.append('mobile_no', teamData.mobile_no);
+        formData.append('logo', teamData.logo);
+        formData.append('player1', JSON.stringify(teamData.player1));
+        // formData.append('player2', JSON.stringify(teamData.player2));
+        formData.append('player1Image', teamData.player1.image);
+        // formData.append('player2Image', teamData.player2.image);
+    
+        try {
+          const response = await axios.post('http://localhost:5000/api/team', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          });
+          console.log(response.data);
+          // Handle success (e.g., show a success message, reset form)
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          // Handle error (e.g., show error message)
+        }
+      };
+
     return (
         <>
-        <Navbar />
+            <Navbar />
             <div className='border-2 lg:mx-[200px]'>
 
                 <h1 className='text-center mt-10 text-[25px] font-semibold'>Add Team</h1>
 
-                <form className='lg:w-[800px] md:py-10 py-2 mx-auto '>
+                <form onSubmit={handleSubmit} className='lg:w-[800px] md:py-10 py-2 mx-auto '>
                     <div className="">
                         <div className="border-b py-6 border-gray-900/10 md:px-[100px] px-2">
                             <h2 className=" font-semibold my-0 text-gray-900">Team Information</h2>
@@ -124,14 +187,14 @@ export default function Teamform() {
                                         Team Logo
                                     </label>
                                     <div className="mt-2">
-                                        <input 
-                                            id="logo" 
+                                        <input
+                                            id="logo"
                                             type="file"
                                             name="logo"
                                             onChange={(e) => handleFileChange(e, 'logo')}
-                                            className="sm:file-input md:file-input-bordered border-[1px] rounded-sm border-black text-[11px] bg-white md:h-10 w-[160px]  md:w-full md:max-w-xs" 
+                                            className="sm:file-input md:file-input-bordered border-[1px] rounded-sm border-black text-[11px] bg-white md:h-10 w-[160px]  md:w-full md:max-w-xs"
                                             required
-                                        />                                     
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -160,53 +223,112 @@ export default function Teamform() {
                                         1
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player1'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player1')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar1' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player1')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village1'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player1')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
                                         {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                                        <select id="" className='border-2 text-[13px]' name="role1" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player1')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img1'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player1.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
-
-
 
                                 <tr className="hover:bg-gray-100 mx-0 ">
                                     <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
                                         2
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player2'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player2')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar2' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player2')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village2'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player2')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role2" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player2')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img2'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player2.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -216,24 +338,55 @@ export default function Teamform() {
                                         3
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player3'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player3')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar3' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player3')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village3'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player3')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role3" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player3')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img3'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player3.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -243,24 +396,55 @@ export default function Teamform() {
                                         4
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player4'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player4')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar4' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player4')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village4'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player4')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role4" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player4')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img4'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player4.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -270,51 +454,113 @@ export default function Teamform() {
                                         5
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player5'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player5')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar5' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player5')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village5'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player5')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role5" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player5')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img5'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player5.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
-                                
+
 
                                 <tr className="hover:bg-gray-100 mx-0 ">
                                     <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
                                         6
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player6'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player6')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar6' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player6')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village6'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player6')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role6" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player6')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img6'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player6.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -324,52 +570,114 @@ export default function Teamform() {
                                         7
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player7'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player7')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar7' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player7')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village7'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player7')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role7" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player7')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img7'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player7.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
-                                </tr>                                
-                                
-                                
-                                
+                                </tr>
+
+
+
                                 <tr className="hover:bg-gray-100 mx-0 ">
                                     <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
                                         8
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player8'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player8')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar8' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player8')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village8'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player8')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role8" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player8')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img8'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player8.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -379,24 +687,55 @@ export default function Teamform() {
                                         9
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player9'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player9')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar9' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player9')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village9'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player9')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role9" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player9')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img9'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player9.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -406,24 +745,55 @@ export default function Teamform() {
                                         10
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player10'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player10')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar10' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player10')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village10'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player10')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role10" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player10')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img10'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player10.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -432,24 +802,55 @@ export default function Teamform() {
                                         11
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player11'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player11')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar11' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player11')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village11'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player11')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role11" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player11')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img11'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player11.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -459,24 +860,55 @@ export default function Teamform() {
                                         12
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player12'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player12')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar12' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player12')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village12'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player12')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role12" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player12')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img12'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player12.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -486,24 +918,55 @@ export default function Teamform() {
                                         13
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player13'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player13')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar13' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player13')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village13'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player13')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role13" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player13')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img13'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player13.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-100 mx-0 ">
@@ -511,24 +974,55 @@ export default function Teamform() {
                                         14
                                     </td>
                                     <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player13'/>
+                                        <input
+                                            type="text"
+                                            name='name'
+                                            onChange={(e) => handleChange(e, 'player14')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar13' />
+                                        <input
+                                            type="text"
+                                            name='adhar'
+                                            onChange={(e) => handleChange(e, 'player14')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village13'/>
+                                        <input
+                                            type="text"
+                                            name='village'
+                                            onChange={(e) => handleChange(e, 'player14')}
+                                            className='px-2 md:w-[150px] w-[100px]'
+                                            required
+                                        />
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                                        <select id="" className='border-2 text-[13px]' name="role13" >
-                                            <option value="" >Batsman</option>
-                                            <option value="" name="" id="">WK/Batsman</option>
-                                            <option value="" name="" id="">Bowler</option>
-                                            <option value="" name="" id="">All Rounder</option>
+                                        {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
+                                        <select
+                                            id=""
+                                            className='border-2 text-[13px]'
+                                            name="role"
+                                            onChange={(e) => handleChange(e, 'player14')}
+                                            defaultValue="Batsman"
+                                        >
+                                            <option value="Batsman">Batsman</option>
+                                            <option value="WK/Batsman">WK/Batsman</option>
+                                            <option value="Bowler">Bowler</option>
+                                            <option value="All Rounder">All Rounder</option>
                                         </select>
                                     </td>
                                     <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img13'/>
+                                        <input 
+                                            type="file" 
+                                            name='image' 
+                                            onChange={(e) => handleFileChange(e, 'player14.image')}
+                                            className='border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]' 
+                                            required
+                                        />
                                     </td>
                                 </tr>
 
@@ -551,7 +1045,7 @@ export default function Teamform() {
                 </form>
 
             </div>
-        <Footer />    
+            <Footer />
         </>
     )
 }
