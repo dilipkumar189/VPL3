@@ -12,8 +12,6 @@ export default function Teamform() {
 
                 <form className='lg:w-[800px] md:py-10 py-2 mx-auto '>
                     <div className="">
-
-
                         <div className="border-b py-6 border-gray-900/10 md:px-[100px] px-2">
                             <h2 className=" font-semibold my-0 text-gray-900">Team Information</h2>
                             <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-6">
@@ -82,6 +80,21 @@ export default function Teamform() {
                                 <div className="sm:col-span-3 col-span-1">
                                     <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                         Captain Name
+                                    </label>
+                                    <div className="mt-2">
+                                        <input
+                                            id="first-name"
+                                            name="first-name"
+                                            type="text"
+                                            className="block w-full rounded-sm sm:rounded-md
+                                             border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
+                                            placeholder='Enter Team Name'
+                                        />
+                                    </div>
+                                </div>
+                                <div className="sm:col-span-3 col-span-1">
+                                    <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                        Mobile No.
                                     </label>
                                     <div className="mt-2">
                                         <input
@@ -450,6 +463,31 @@ export default function Teamform() {
                                 </tr>
 
 
+                                <tr className="hover:bg-gray-100 mx-0 ">
+                                    <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
+                                        13
+                                    </td>
+                                    <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
+                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='player13'/>
+                                    </td>
+                                    <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
+                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='Aadhar13' />
+                                    </td>
+                                    <td className="border-[1px] border-black px-0 border-b w-[100px]">
+                                        <input type="text" className=' px-2 md:w-[150px] w-[100px]' name='village13'/>
+                                    </td>
+                                    <td className="border-[1px] border-black px-0 border-b w-[100px]">
+                                        <select id="" className='border-2 text-[13px]' name="role13" >
+                                            <option value="" >Batsman</option>
+                                            <option value="" name="" id="">WK/Batsman</option>
+                                            <option value="" name="" id="">Bowler</option>
+                                            <option value="" name="" id="">All Rounder</option>
+                                        </select>
+                                    </td>
+                                    <td className="border-[1px] border-black px-0 border-b w-[150px]">
+                                        <input type="file" className='border-[1px]  md:w-[150px] w-[100px] text-[11px] h-[28px]' name='img13'/>
+                                    </td>
+                                </tr>
                                 <tr className="hover:bg-gray-100 mx-0 ">
                                     <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
                                         13
