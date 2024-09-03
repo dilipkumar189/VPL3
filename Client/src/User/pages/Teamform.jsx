@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { createTeam } from '../../services/api';
 
 export default function Teamform() {
     const [teamData, setTeamData] = useState({
@@ -82,6 +83,8 @@ export default function Teamform() {
         formData.append('player13Image', teamData.player13.image);
         formData.append('player14Image', teamData.player14.image);
     
+        await createTeam(teamData);
+        console.log("Data insert ho gya", teamData);
         // try {
         //   const response = await axios.post('http://localhost:5000/api/team', formData, {
         //     headers: { 'Content-Type': 'multipart/form-data' }
