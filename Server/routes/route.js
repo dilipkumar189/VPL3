@@ -1,8 +1,11 @@
 const express = require('express');
 const upload = require('../middlewares/createTeam');
 const { createTeam } = require('../controllers/addTeam');
+const { addSponserType } = require('../controllers/sponser');
 const router = express.Router();
 
+
+router.post('/addsponsertype', addSponserType);
 
 router.post('/addteam', upload.fields([
     { name: 'logo', maxCount: 1 },
