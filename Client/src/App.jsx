@@ -16,6 +16,7 @@ import ContactUs from './User/pages/ContactUs';
 import Profile from './User/pages/Profile';
 import EditProfile from './User/pages/Profile/editProfile';
 import Teamform from './User/pages/Teamform';
+import Teamform2 from './User/pages/Teamform2';
 
 // Admin 
 import Dashboard from './Admin/Pages/Dashboard';
@@ -54,6 +55,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/editprofile" element={<EditProfile/>} />
         <Route path="/addteam" element={<Teamform />} />
+        <Route path="/addteam2" element={<Teamform2 />} />
         <Route path="/daddteam" element={<Dteamform />} />
 
         {/* Admin Route */}
