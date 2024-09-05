@@ -1,12 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const sponserSchema = new mongoose.Schema({
-    sptype : {
-        type: String,
-        required: true
-    }
-}, { timestamps: true });
+const sptypeSchema = new mongoose.Schema({
+  sptype: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  }
+});
 
-const Sponser = mongoose.model("sponserType", sponserSchema);
+const Sptype = mongoose.model('Sponsertype', sptypeSchema);
 
-module.exports = Sponser;
+module.exports = Sptype;

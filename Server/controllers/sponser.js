@@ -1,22 +1,38 @@
-const Sponser = require("../models/sponserType");
+const Sptype = require('../models/sponserType'); // Adjust the path as needed
 
-exports.addSponserType = async (req, res) => {
-    const sptype = req.body; 
+const addSptype = async (req, res) => {
+  try {
+    const { sptype } = req.body;
 
-    try {
-        const spType = new Sponser(sptype);
-        const savedSponserType = await spType.save();
+    // Create a new sptype
+    const newSptype = new Sptype({ sptype });
 
-        console.log(savedSponserType);
-        res.status(201).json({
-            message: "Sponsor type added successfully",
-            data: savedSponserType
-        });
-    } catch (error) {
-        console.error("Error: ", error);
-        res.status(500).json({
-            message: "An error occurred while adding the sponsor type",
-            error: error.message
-        });
+    // Save the new sptype to the database
+    const savedSptype = await newSptype.save();
+
+    res.status(201).json({
+      success: true,
+      data: savedSptype,
+      message: 'Sptype added successfully'
+    });
+  } catch (error) {
+    // Check if the error is a duplicate key error
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: 'This sptype already exists'
+      });
     }
-}
+
+    // Handle other errors
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while adding the sptype',
+      error: error.message
+    });
+  }
+};
+
+module.exports = {
+  addSptype
+};
