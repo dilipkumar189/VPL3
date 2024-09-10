@@ -4,7 +4,7 @@ import axios from 'axios';
 const URL = 'http://localhost:4000';
 // const URL = 'http://74.208.226.181:5000';
 
-// dilip api --------------
+// dilip api ----------
 
 export const createTeam = async(data) => {
   try {
