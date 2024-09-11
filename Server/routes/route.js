@@ -5,7 +5,6 @@ const router = express.Router();
 // crate team 
 const { createTeam } = require('../controllers/addTeam');
 // const { addSptype } = require('../controllers/sponser');
-// const { createTeam2 } = require('../controllers/addTeam2');
 // bhavesh 
 const { signUser, loginUser, getUser, editUserCaptain } = require('../controllers/userController');
 const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon } = require('../controllers/sponsorController');
