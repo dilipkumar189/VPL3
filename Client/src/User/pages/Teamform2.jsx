@@ -6,15 +6,15 @@ import Footer from '../components/Footer';
 
 export default function Teamform() {
     const [teamData, setTeamData] = useState({
-        team_name: '1',
-        village: '1',
-        sponser_1: '1',
-        sponser_2: '1',
-        captain: '1',
-        mobile: '2',
+        team_name: '',
+        village: '',
+        sponser_1: '',
+        sponser_2: '',
+        captain: '',
+        mobile: '',
         logo: null,
-        player1: { name: '2', adhar: '2', village: '1', role: '2', image: null },
-        player2: { name: '2', adhar: '2', village: '2', role: '2', image: null }
+        player1: { name: '', adhar: '', village: '', role: '', image: null },
+        player2: { name: '', adhar: '', village: '', role: '', image: null }
       });
     
       const handleChange = (e, player = null) => {
@@ -32,57 +32,57 @@ export default function Teamform() {
         setTeamData({ ...teamData, [field]: e.target.files[0] });
       };
     
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        
-        // Append basic team data
-        formData.append('team_name', teamData.team_name);
-        formData.append('village', teamData.village);
-        formData.append('sponser_1', teamData.sponser_1);
-        formData.append('sponser_2', teamData.sponser_2);
-        formData.append('captain', teamData.captain);
-        formData.append('mobile', teamData.mobile);
-        
-        // Append logo if it exists
-        if (teamData.logo) {
-            formData.append('logo', teamData.logo);
-        }
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
     
-        // Append player1 data
-        formData.append('player1_name', teamData.player1.name);
-        formData.append('player1_adhar', teamData.player1.adhar);
-        formData.append('player1_village', teamData.player1.village);
-        formData.append('player1_role', teamData.player1.role);
-        if (teamData.player1.image) {
-            formData.append('player1Image', teamData.player1.image);
-        }
+    // Append basic team data
+    formData.append('team_name', teamData.team_name);
+    formData.append('village', teamData.village);
+    formData.append('sponser_1', teamData.sponser_1);
+    formData.append('sponser_2', teamData.sponser_2);
+    formData.append('captain', teamData.captain);
+    formData.append('mobile', teamData.mobile);
     
-        // Append player2 data
-        formData.append('player2_name', teamData.player2.name);
-        formData.append('player2_adhar', teamData.player2.adhar);
-        formData.append('player2_village', teamData.player2.village);
-        formData.append('player2_role', teamData.player2.role);
-        if (teamData.player2.image) {
-            formData.append('player2Image', teamData.player2.image);
-        }
-    
-        // Debugging: Log the formData contents
-        for (let pair of formData.entries()) {
-            console.log(`${pair[0]}: ${pair[1]}`);
-        }
-    
-        try {
-            const response = await axios.post('http://localhost:4000/api/addteam2', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            console.log(response.data);
-            // Handle success (e.g., show a success message, reset form)
-        } catch (error) {
-            console.error('Error submitting form:', error.response ? error.response.data : error.message);
-            // Handle error (e.g., show error message)
-        }
-    };
+    // Append logo if it exists
+    if (teamData.logo) {
+        formData.append('logo', teamData.logo);
+    }
+
+    // Append player1 data
+    formData.append('player1_name', teamData.player1.name);
+    formData.append('player1_adhar', teamData.player1.adhar);
+    formData.append('player1_village', teamData.player1.village);
+    formData.append('player1_role', teamData.player1.role);
+    if (teamData.player1.image) {
+        formData.append('player1Image', teamData.player1.image);
+    }
+
+    // Append player2 data
+    formData.append('player2_name', teamData.player2.name);
+    formData.append('player2_adhar', teamData.player2.adhar);
+    formData.append('player2_village', teamData.player2.village);
+    formData.append('player2_role', teamData.player2.role);
+    if (teamData.player2.image) {
+        formData.append('player2Image', teamData.player2.image);
+    }
+
+    // Debugging: Log the formData contents
+    for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+    }
+
+    try {
+        const response = await axios.post('http://localhost:4000/api/addteam2', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        console.log(response.data);
+        // Handle success (e.g., show a success message, reset form)
+    } catch (error) {
+        console.error('Error submitting form:', error.response ? error.response.data : error.message);
+        // Handle error (e.g., show error message)
+    }
+};
     return (
         <>
             <Navbar />

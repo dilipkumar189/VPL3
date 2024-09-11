@@ -1,20 +1,29 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const advertiserSchema = new mongoose.Schema({
-    shop_name: {
-        type: String,
-        required: true,
-        unique: true
+const adSchema = new mongoose.Schema({
+    shopName : {
+        type : String,
+        required : false,
     },
-    logo: {
-        type: String,
-        required: true
+    ownerName : {
+        type : String,
+        required : false,
     },
-    author_name: {
-        type: String,
-        required: true
+    village : {
+        type : String,
+        required : false,
     },
-    
-    
-    
+    amount : {
+        type : String,
+        required : false,
+    },
+    shopLogo : {
+        type : String,
+        required : false,
+    },
 })
+
+const advertiser = mongoose.model('advertiser', adSchema);
+
+module.exports = advertiser; 
+
