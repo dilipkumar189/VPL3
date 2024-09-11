@@ -3,11 +3,8 @@ const { uploadFile } = require("../utils/cloudinary");
 
 
 const addAdvertise = async (req, res) => {
-
     try {
-
         const { shopName, ownerName, village, amount } = req.body;
-
         // Upload image to Cloudinary
         const result = await uploadFile(req.file.path);
         const shopLogo = result.secure_url

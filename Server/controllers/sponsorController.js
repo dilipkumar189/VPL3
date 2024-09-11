@@ -76,9 +76,7 @@ const getFoodSpon = async (req,res)=>{
                     // ---- other sponsor ----
 
 const addOtherSpon = async (req, res) => {
-
     try {
-
         const { sponType, fullName, village, amount } = req.body;
 
         // Upload image to Cloudinary
