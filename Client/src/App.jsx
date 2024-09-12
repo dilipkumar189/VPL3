@@ -1,84 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { userRoutes, adminRoutes } from "./routes";
+import { ErrorFallback, PageNotFound } from "./components";
 
-import Home from './User/pages/Home';
-// import Navbar from './User/components/Navbar';
-import HallOfFame from './User/pages/HallOfFame';
-import TeamView from './User/pages/TeamView';
-import Sponser from './User/pages/Sponser';
-import Team from './User/pages/Team';
-import Advertiser from './User/pages/Advertiser';
-import Rules from './User/pages/Rules';
-import AboutUs from './User/pages/AboutUs';
-import ContactUs from './User/pages/ContactUs';
-// import Profile from './User/pages/Profile';
-// import Profileform from './User/pages/Profileform';
-import Profile from './User/pages/Profile';
-import EditProfile from './User/pages/Profile/editProfile';
-import Teamform from './User/pages/Teamform';
-import Teamform2 from './User/pages/Teamform2';
-
-import Login from './User/pages/login';
-import SignUp from './User/pages/Signup';
-import Dteamform from './User/pages/Dteamform';
-
-// Admin 
-import Dashboard from './Admin/Pages/Dashboard';
-import User from './Admin/Pages/User';
-import ATeam from './Admin/Pages/ATeam';
-import AAdvertiser from './Admin/Pages/AAdvertiser';
-import Advertiserform from './Admin/Pages/AAdvertiser/Advertiserform';
-import SType from './Admin/Pages/SType';
-import STypeform from './Admin/Pages/SType/STypeform';
-import FSponser from './Admin/Pages/ASponser/FSponser';
-import FSponserform from './Admin/Pages/ASponser/FSponserform';
-import OSponser from './Admin/Pages/ASponser/OSponser';
-import OSponserform from './Admin/Pages/ASponser/OSponserform';
-import AProfile from './Admin/Pages/AProfile';
-import AProfileform from './Admin/Pages/AProfile/AProfileform';
-
-
+const router = createBrowserRouter([
+  ...userRoutes,
+  ...adminRoutes,
+  { path: "/error/*", element: <ErrorFallback /> },
+  { path: "*", element: <PageNotFound /> },
+]);
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/nav" element={<Navbar />} /> */}
-        <Route path="/halloffame" element={<HallOfFame />} />
-        <Route path="/teamview" element={<TeamView />} />
-        <Route path="/sponser" element={<Sponser />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/advertiser" element={<Advertiser />} />
-        <Route path="/rules" element={<Rules />} />
-        <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/editprofile" element={<EditProfile/>} />
-        <Route path="/addteam" element={<Teamform />} />
-        <Route path="/addteam2" element={<Teamform2 />} />
-        <Route path="/daddteam" element={<Dteamform />} />
-
-        {/* Admin Route */}
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/dashboard/users" element={<User />} />
-        <Route path="/dashboard/teams" element={<ATeam />} />
-        <Route path="/dashboard/advertisers" element={<AAdvertiser />} />
-        <Route path="/dashboard/advertiserform" element={<Advertiserform />} />
-        <Route path="/dashboard/sponsertype" element={<SType />} />
-        <Route path="/dashboard/sponsertypeform" element={<STypeform />} />
-        <Route path="/dashboard/fsponser" element={<FSponser />} />
-        <Route path="/dashboard/fsponserform" element={<FSponserform />} />
-        <Route path="/dashboard/osponser" element={<OSponser />} />
-        <Route path="/dashboard/osponserform" element={<OSponserform />} />
-        <Route path="/dashboard/profile" element={<AProfile />} />
-        <Route path="/dashboard/profileform" element={<AProfileform />} />
-
-      </Routes>
-    </Router>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
