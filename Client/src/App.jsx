@@ -18,23 +18,26 @@ import EditProfile from './User/pages/Profile/editProfile';
 import Teamform from './User/pages/Teamform';
 import Teamform2 from './User/pages/Teamform2';
 
+import Login from './User/pages/login';
+import SignUp from './User/pages/Signup';
+import Dteamform from './User/pages/Dteamform';
+
 // Admin 
 import Dashboard from './Admin/Pages/Dashboard';
 import User from './Admin/Pages/User';
 import ATeam from './Admin/Pages/ATeam';
 import AAdvertiser from './Admin/Pages/AAdvertiser';
-import SType from './Admin/Pages/SType';
-import FSponser from './Admin/Pages/ASponser/FSponser';
-import OSponser from './Admin/Pages/ASponser/OSponser';
-import FSponserform from './Admin/Pages/ASponser/FSponserform';
-import OSponserform from './Admin/Pages/ASponser/OSponserform';
 import Advertiserform from './Admin/Pages/AAdvertiser/Advertiserform';
+import SType from './Admin/Pages/SType';
 import STypeform from './Admin/Pages/SType/STypeform';
+import FSponser from './Admin/Pages/ASponser/FSponser';
+import FSponserform from './Admin/Pages/ASponser/FSponserform';
+import OSponser from './Admin/Pages/ASponser/OSponser';
+import OSponserform from './Admin/Pages/ASponser/OSponserform';
 import AProfile from './Admin/Pages/AProfile';
 import AProfileform from './Admin/Pages/AProfile/AProfileform';
-import Login from './User/pages/login';
-import SignUp from './User/pages/Signup';
-import Dteamform from './User/pages/Dteamform';
+
+
 
 function App() {
   return (
@@ -59,7 +62,6 @@ function App() {
         <Route path="/daddteam" element={<Dteamform />} />
 
         {/* Admin Route */}
-
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/dashboard/users" element={<User />} />
         <Route path="/dashboard/teams" element={<ATeam />} />
