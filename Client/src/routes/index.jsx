@@ -17,7 +17,7 @@ import {
   Login,
   SignUp,
   // Dteamform
-} from "../User/Pages";
+} from "../User/pages";
 
 import {
   Dashboard,
