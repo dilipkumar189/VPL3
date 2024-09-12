@@ -72,6 +72,23 @@ export const getSponsorType = async () => {
     console.log("Error :- " , error);
   }
 };
+
+export const userData = async () => {
+  try {
+    return await axios.get(`${URL}/user`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+};
+
+export const updateCaptain = async (data) => {
+  try {
+    return await axios.patch(`${URL}/editCaptain`, data); 
+  } catch (error) {
+    console.log("Error :- ", error)
+  }
+};
+
 // dilip api ----------
 
 export const createTeam = async(data) => {
