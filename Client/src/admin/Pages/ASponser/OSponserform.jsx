@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../Layouts/Header';
-import Sidebar from '../../Layouts/Sidebar';
+import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
 import { Link, useNavigate } from 'react-router-dom';
 import { addOtherSP, getSponsorType } from '../../../services/api';
 

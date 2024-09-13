@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import Header from '../../Layouts/Header';
-import Sidebar from '../../Layouts/Sidebar';
+import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
 import { getFoodSP } from '../../../services/api';
 
 export default function FSponser() {

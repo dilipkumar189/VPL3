@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../../Layouts/Header';
-import Sidebar from '../../Layouts/Sidebar';
+import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
 import { Link } from 'react-router-dom';
 
 export default function AProfileform() {

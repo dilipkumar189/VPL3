@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import Header from '../../Layouts/Header';
-import Sidebar from '../../Layouts/Sidebar';
+import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
 
 export default function AProfile() {
     return (
