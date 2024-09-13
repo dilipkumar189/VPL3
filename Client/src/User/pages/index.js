@@ -1,28 +1,21 @@
-import Home from './Home';
-// import Navbar from './Navbar';
-import HallOfFame from './HallOfFame';
-import TeamView from './TeamView';
-import Sponser from './Sponser';
-import Team from './Team';
-import Advertiser from './Advertiser';
-import Rules from './Rules';
-import AboutUs from './AboutUs';
-import ContactUs from './ContactUs';
-// import Profile from './Profile';
-// import Profileform from './Profileform';
-import Profile from './Profile';
-import EditProfile from './Profile/editProfile';
-import Teamform from './Teamform';
-import Teamform2 from './Teamform2';
+import Home from './home';
+import HallOfFame from './hall_of_fame';
+import TeamView from './team_view';
+import Sponser from './sponser';
+import Team from './team';
+import Advertiser from './advertiser';
+import Rules from './rules';
+import AboutUs from './aboutus';
+import ContactUs from './contactus';
+import Profile from './profile';
+import ProfileForm from './profile_form';
+import TeamForm from './team_form';
 
 import Login from './login';
-import SignUp from './Signup';
-// import Dteamform from './Dteamform';
-
+import SignUp from './signup';
 
 export {
     Home,
-    // Navbar,
     HallOfFame,
     TeamView,
     Sponser,
@@ -32,11 +25,8 @@ export {
     AboutUs,
     ContactUs,
     Profile,
-    // Profileform,
-    EditProfile,
-    Teamform,
-    Teamform2,
+    ProfileForm,
+    TeamForm,
     Login,
-    SignUp,
-    // Dteamform
+    SignUp
     };

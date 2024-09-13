@@ -1,29 +1,29 @@
-import Dashboard from './Dashboard';
-import User from './User';
-import ATeam from './ATeam';
-import AAdvertiser from './AAdvertiser';
-import Advertiserform from './AAdvertiser/Advertiserform';
-import SType from './SType';
-import STypeform from './SType/STypeform';
-import FSponser from './ASponser/FSponser';
-import FSponserform from './ASponser/FSponserform';
-import OSponser from './ASponser/OSponser';
-import OSponserform from './ASponser/OSponserform';
-import AProfile from './AProfile';
-import AProfileform from './AProfile/AProfileform';
+import Dashboard from './dashboard';
+import Users from './users';
+import Team from './team';
+import Advertiser from './advertiser';
+import AdvertiserForm from './advertiser_form';
+import SponserType from './sponser_type';
+import SponserTypeForm from './sponsertype_form';
+import FoodSponser from './food_sponser';
+import FoodSponserForm from './foodsponser_form';
+import OtherSponser from './other_sponser';
+import OtherSponserForm from './othersponser_form';
+import Profile from './profile';
+import ProfileForm from './profile_form';
   
   export {
     Dashboard,
-    User,
-    ATeam,
-    AAdvertiser,
-    Advertiserform,
-    SType,
-    STypeform,
-    FSponser,
-    FSponserform,
-    OSponser,
-    OSponserform,
-    AProfile,
-    AProfileform
+    Users,
+    Team,
+    Advertiser,
+    AdvertiserForm,
+    SponserType,
+    SponserTypeForm,
+    FoodSponser,
+    FoodSponserForm,
+    OtherSponser,
+    OtherSponserForm,
+    Profile,
+    ProfileForm
   };
