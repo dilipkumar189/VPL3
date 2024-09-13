@@ -33,7 +33,7 @@ import {
   OSponserform,
   AProfile,
   AProfileform,
-} from "../Admin/Pages";
+} from "../admin/pages";
 
 const userRoutes = [
   {
