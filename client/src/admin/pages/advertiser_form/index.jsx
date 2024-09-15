@@ -29,11 +29,21 @@ export default function AdvertiserForm() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("shopName", otherSp.shopName);
-    formData.append("shopLogo", otherSp.shopLogo);
-    formData.append("ownerName", otherSp.ownerName);
-    formData.append("village", otherSp.village);
-    formData.append("amount", otherSp.amount);
+    // formData.append("shopName", otherSp.shopName);
+    // formData.append("shopLogo", otherSp.shopLogo);
+    // formData.append("ownerName", otherSp.ownerName);
+    // formData.append("village", otherSp.village);
+    // formData.append("amount", otherSp.amount);
+    Object.keys(otherSp).forEach((key) => {
+      if (key !== "shopLogo") {
+        formData.append(key, otherSp[key]);
+      }
+    });
+
+    // Append shopLogo separately
+    if (otherSp.shopLogo) {
+      formData.append("shopLogo", otherSp.shopLogo);
+    }
 
     try {
       const response = await addAdvertise(formData);
