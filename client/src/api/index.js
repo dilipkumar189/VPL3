@@ -94,7 +94,7 @@ export const updateCaptain = async (data) => {
 export const createTeam = async(data) => {
   try {
       console.log("dekh lo");
-      return await axios.post(`${URL}/api/addteam`, data);
+      return await axios.post(`${URL}/addteam`, data);
   } catch(error){
       console.log("Sorry bhai galti se bol diya, nhi ho rha", error);
   }
@@ -109,11 +109,3 @@ export const createTeam2 = async(data) => {
   }
 }
 
-export const addSptype = async(data) => {
-  try {
-      console.log("dekh lo");
-      return await axios.post(`${URL}/api/addsponsertype`, data);
-  } catch(error){
-      console.log("Sorry bhai galti se bol diya, nhi ho rha", error);
-  }
-}
