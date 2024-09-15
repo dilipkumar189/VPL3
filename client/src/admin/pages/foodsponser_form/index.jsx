@@ -29,11 +29,22 @@ export default function FoodSponserForm() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("sponDay", foodSp.sponDay);
-    formData.append("fullName", foodSp.fullName);
-    formData.append("village", foodSp.village);
-    formData.append("amount", foodSp.amount);
-    formData.append("spImage", foodSp.spImage);
+    // formData.append("sponDay", foodSp.sponDay);
+    // formData.append("fullName", foodSp.fullName);
+    // formData.append("village", foodSp.village);
+    // formData.append("amount", foodSp.amount);
+    // formData.append("spImage", foodSp.spImage);
+
+    Object.keys(foodSp).forEach((key) => {
+      if (key !== "spImage") {
+        formData.append(key, foodSp[key]);
+      }
+    });
+
+    // Append shopLogo separately
+    if (foodSp.spImage) {
+      formData.append("spImage", foodSp.spImage);
+    }
 
     try {
       const response = await addFoodSP(formData);

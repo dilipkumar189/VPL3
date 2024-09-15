@@ -13,36 +13,36 @@ const defaultValue = {
 };
 
 export default function AdvertiserForm() {
-  const [otherSp, setOtherSp] = useState(defaultValue);
+  const [advertiser, setAdvertiser] = useState(defaultValue);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setOtherSp({ ...otherSp, [name]: value });
+    setAdvertiser({ ...advertiser, [name]: value });
   };
 
   const handleFileChange = (e) => {
-    setOtherSp({ ...otherSp, shopLogo: e.target.files[0] });
+    setAdvertiser({ ...advertiser, shopLogo: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    // formData.append("shopName", otherSp.shopName);
-    // formData.append("shopLogo", otherSp.shopLogo);
-    // formData.append("ownerName", otherSp.ownerName);
-    // formData.append("village", otherSp.village);
-    // formData.append("amount", otherSp.amount);
-    Object.keys(otherSp).forEach((key) => {
+    // formData.append("shopName", advertiser.shopName);
+    // formData.append("shopLogo", advertiser.shopLogo);
+    // formData.append("ownerName", advertiser.ownerName);
+    // formData.append("village", advertiser.village);
+    // formData.append("amount", advertiser.amount);
+    Object.keys(advertiser).forEach((key) => {
       if (key !== "shopLogo") {
-        formData.append(key, otherSp[key]);
+        formData.append(key, advertiser[key]);
       }
     });
 
     // Append shopLogo separately
-    if (otherSp.shopLogo) {
-      formData.append("shopLogo", otherSp.shopLogo);
+    if (advertiser.shopLogo) {
+      formData.append("shopLogo", advertiser.shopLogo);
     }
 
     try {
@@ -83,7 +83,7 @@ export default function AdvertiserForm() {
                       type="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleChange}
-                      value={otherSp.shopName}
+                      value={advertiser.shopName}
                     />
                   </div>
                 </div>
@@ -121,7 +121,7 @@ export default function AdvertiserForm() {
                       type="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleChange}
-                      value={otherSp.ownerName}
+                      value={advertiser.ownerName}
                     />
                   </div>
                 </div>
@@ -140,7 +140,7 @@ export default function AdvertiserForm() {
                       type="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleChange}
-                      value={otherSp.village}
+                      value={advertiser.village}
                     />
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default function AdvertiserForm() {
                       type="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleChange}
-                      value={otherSp.amount}
+                      value={advertiser.amount}
                     />
                   </div>
                 </div>

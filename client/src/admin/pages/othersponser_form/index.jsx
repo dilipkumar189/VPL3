@@ -45,11 +45,21 @@ export default function OtherSponserForm() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("sponType", otherSp.sponType);
-    formData.append("fullName", otherSp.fullName);
-    formData.append("village", otherSp.village);
-    formData.append("amount", otherSp.amount);
-    formData.append("spOtherImage", otherSp.spOtherImage);
+    // formData.append("sponType", otherSp.sponType);
+    // formData.append("fullName", otherSp.fullName);
+    // formData.append("village", otherSp.village);
+    // formData.append("amount", otherSp.amount);
+    // formData.append("spOtherImage", otherSp.spOtherImage);
+
+    Object.keys(otherSp).forEach((key) => {
+      if (key !== "spOtherImage") {
+        formData.append(key, otherSp[key]);
+      }
+    });
+
+    if (otherSp.spOtherImage) {
+      formData.append("spOtherImage", otherSp.spOtherImage);
+    }
 
     try {
       const response = await addOtherSP(formData);

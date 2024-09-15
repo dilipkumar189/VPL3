@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
+// import toast from "react-hot-toast";
 import { addSponsorType } from "../../../api";
 
 const defaultValue = {
@@ -23,9 +24,17 @@ export default function SponserTypeForm() {
       console.log("Submitting sponsorType:", spType); // Log the state
       await addSponsorType(spType);
       alert("Sponsor type added successfully!");
+      // toast.success("Sponsor type added successfully!", {
+      //   duration: 3000,
+      //   position: "top-center",
+      // });
       navigate("/admin/sponsertype");
     } catch (error) {
       console.error("Error:", error);
+      // toast.error("Failed to add sponsor type. Please try again.", {
+      //   duration: 3000,
+      //   position: "top-center",
+      // });
     }
   };
 
