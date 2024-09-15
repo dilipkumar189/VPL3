@@ -39,7 +39,7 @@ export default function AdvertiserForm() {
       const response = await addAdvertise(formData);
       console.log(response);
       alert("Data inserted successfully");
-      navigate("/dashboard/advertisers");
+      navigate("/admin/advertisers");
     } catch (error) {
       console.error("Error:", error);
     }
