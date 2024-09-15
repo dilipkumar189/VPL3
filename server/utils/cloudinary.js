@@ -21,5 +21,3 @@ const uploadFile = async (filePath) => {
 module.exports = {
   uploadFile
 };
-
-// module.exports = cloudinary;
