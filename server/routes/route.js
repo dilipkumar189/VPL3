@@ -6,7 +6,7 @@ const router = express.Router();
 const { createTeam } = require('../controllers/addTeam');
 // bhavesh 
 const { signUser, loginUser, getUser, editUserCaptain } = require('../controllers/userController');
-const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon, deleteSponserType } = require('../controllers/sponsorController');
+const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon, deleteSponsorType } = require('../controllers/sponsorController');
 const { addAdvertise, getAdvertiser } = require('../controllers/advertiserCont');
 
 router.post("/sign", signUser);
@@ -16,7 +16,7 @@ router.patch('/editCaptain', editUserCaptain);
 
 router.post("/sponsorType", addSponsorType); 
 router.get("/getSponsorType", getSponsorType);
-router.delete("/deleteSponserType/:id", deleteSponserType);
+router.delete("/deletesponsertype/:id", deleteSponsorType);
 
 
 router.post('/addFoodSpon', upload.single('spImage'), addFoodSpon);

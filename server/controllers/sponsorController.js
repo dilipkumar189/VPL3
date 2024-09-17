@@ -37,20 +37,21 @@ const getSponsorType = async (req, res) => {
     }
 }
 
-const deleteSponserType = async(req, res) => {
-    const {id} = req.params;
-    try{
-        const deleteSponser = await Sponser.findByIdAndDelete(id);
-
-        if(!deleteSponser) {
-            return res.status(400).json({message: "SponserType not found"});
+const deleteSponsorType = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedSponsor = await Sponsor.findByIdAndDelete(id);
+        
+        if (!deletedSponsor) {
+            return res.status(404).json({ message: "Sponsor type not found" });
         }
-        res.status(200).json({message: "SponserType deleted successfully"});
-    } catch(error) {
+        
+        res.status(200).json({ message: "Sponsor type deleted successfully", deletedSponsor });
+    } catch (error) {
         console.error(error);
-        res.status(500).json({message: "Internal server error"});
+        res.status(500).json({ message: "Internal server error" });
     }
-}
+};
 
 
                 // ----- Food Sponsor -----
@@ -128,7 +129,7 @@ const getOtherSpon = async (req,res)=>{
 module.exports = {
     addSponsorType,
     getSponsorType,
-    deleteSponserType,
+    deleteSponsorType,
     addFoodSpon,
     getFoodSpon,
     addOtherSpon,
