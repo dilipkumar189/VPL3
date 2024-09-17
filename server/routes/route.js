@@ -6,8 +6,8 @@ const router = express.Router();
 const { createTeam } = require('../controllers/addTeam');
 // bhavesh 
 const { signUser, loginUser, getUser, editUserCaptain } = require('../controllers/userController');
-const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon, deleteSponsorType } = require('../controllers/sponsorController');
-const { addAdvertise, getAdvertiser } = require('../controllers/advertiserCont');
+const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon, deleteSponsorType, deleteFoodSpon, deleteOtherSpon } = require('../controllers/sponsorController');
+const { addAdvertise, getAdvertiser, deleteAdvertiser } = require('../controllers/advertiserCont');
 
 router.post("/sign", signUser);
 router.post("/login", loginUser);
@@ -21,11 +21,15 @@ router.delete("/deletesponsertype/:id", deleteSponsorType);
 
 router.post('/addFoodSpon', upload.single('spImage'), addFoodSpon);
 router.get('/getFoodSpon', getFoodSpon);
+router.delete('/food-sponser/:id', deleteFoodSpon);
+
 router.post('/addOtherSpon', upload.single('spOtherImage'), addOtherSpon);
 router.get('/getOtherSpon', getOtherSpon);
+router.delete('/other-sponser/:id', deleteOtherSpon);
 
 router.post('/addAdvertise', upload.single('shopLogo'), addAdvertise);
 router.get('/getAdvertise',  getAdvertiser);
+router.delete('/advertiser/:id', deleteAdvertiser);
 
 
 
