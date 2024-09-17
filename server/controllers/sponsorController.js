@@ -1,8 +1,7 @@
 const Sponsor = require("../models/sponsor");
-const { uploadFile } = require("../utils/cloudinary");
+const { uploadFile, deleteFile } = require("../utils/cloudinary");
 const foodSpon = require("../models/foodSponsor");
-const otherSpon = require("../models/otherSponsor") 
-
+const otherSpon = require("../models/otherSponsor");
 
 
 // ----- Sponsor Type ------
@@ -88,6 +87,30 @@ const getFoodSpon = async (req,res)=>{
     }
 }
 
+const deleteFoodSpon = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const sponsor = await foodSpon.findById(id);
+
+        if (!sponsor) {
+            return res.status(404).json({ message: "Food sponsor not found" });
+        }
+
+        const publicId = sponsor.spImage.split('/').pop().split('.')[0];
+        const cloudinaryResult = await deleteFile(publicId);
+
+        if (cloudinaryResult.result !== 'ok') {
+            throw new Error('Failed to delete image from Cloudinary');
+        }
+        await foodSpon.findByIdAndDelete(id);
+
+        res.status(200).json({ message: "Food sponsor and associated image deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting food sponsor:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
 
                     // ---- other sponsor ----
 
@@ -125,6 +148,32 @@ const getOtherSpon = async (req,res)=>{
     }
 }
 
+const deleteOtherSpon = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const sponsor = await otherSpon.findById(id);
+
+        if (!sponsor) {
+            return res.status(404).json({ message: "Other sponsor not found" });
+        }
+
+        const publicId = sponsor.spOtherImage.split('/').pop().split('.')[0];
+        const cloudinaryResult = await deleteFile(publicId);
+
+        if (cloudinaryResult.result !== 'ok') {
+            throw new Error('Failed to delete image from Cloudinary');
+        }
+        await otherSpon.findByIdAndDelete(id);
+
+        res.status(200).json({ message: "Other sponsor and associated image deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting other sponsor:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 
 module.exports = {
     addSponsorType,
@@ -132,6 +181,8 @@ module.exports = {
     deleteSponsorType,
     addFoodSpon,
     getFoodSpon,
+    deleteFoodSpon,
     addOtherSpon,
     getOtherSpon,
+    deleteOtherSpon
 };
