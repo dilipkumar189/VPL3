@@ -16,7 +16,7 @@ router.patch('/editCaptain', editUserCaptain);
 
 router.post("/sponsorType", addSponsorType); 
 router.get("/getSponsorType", getSponsorType);
-router.delete("/deletesponsertype/:id", deleteSponsorType);
+router.delete("/deletesponsortype/:id", deleteSponsorType);
 
 
 router.post('/addFoodSpon', upload.single('spImage'), addFoodSpon);
