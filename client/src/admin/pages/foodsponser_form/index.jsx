@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 import { addFoodSP } from "../../../api";
 
 const defaultValue = {
@@ -49,15 +50,25 @@ export default function FoodSponserForm() {
     try {
       const response = await addFoodSP(formData);
       console.log(response);
-      alert("Data inserted successfully");
-      navigate("/admin/fsponser");
+      // alert("Data inserted successfully");
+      toast.success("Sponsor added successfully!", {
+        duration: 2000,
+      });
+
+      setTimeout(() => {
+        navigate("/admin/fsponser");
+      }, 2000);
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Failed to add Sponsor. Please try again.", {
+        duration: 2000,
+      });
     }
   };
 
   return (
     <div>
+      <Toaster position="top-center" />
       <Header />
       <Sidebar />
       <div className="px-4 mt-3 sm:ml-64">
