@@ -21,9 +21,9 @@ export const getFoodSP = async () => {
   }
 };
 
-export const deleteFoodSpon = async ()  => {
+export const deleteFoodSpon = async (id)  => {
   try {
-    return await axios.delete(`${URL}/food-sponser/:id`);
+    return await axios.delete(`${URL}/food-sponser/${id}`);
   } catch (error) {
 
     console.log("Error : ", error);
@@ -47,9 +47,9 @@ export const getOtherSP = async () => {
   }
 };
 
-export const deleteOtherSpon = async () => {
+export const deleteOtherSpon = async (id) => {
   try {
-    return await axios.delete(`${URL}/other-sponser/:id`);
+    return await axios.delete(`${URL}/other-sponser/${id}`);
   } catch (error){
     console.log("Error : ", error);
   }
