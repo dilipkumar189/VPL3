@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { getSponsorType } from "../../../api";
+import { deleteSponsorType, getSponsorType } from "../../../api";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function SponserType() {
   const [user, setUser] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [selectedSponserId, setSelectedSponserId] = useState(null);
 
   const getSponrorTypeData = async () => {
     try {
@@ -20,8 +23,31 @@ export default function SponserType() {
     getSponrorTypeData();
   }, []);
 
+  const handleDeleteClick = (sponserId) => {
+    setSelectedSponserId(sponserId);
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteSponsorType(selectedSponserId);
+      toast.success("Sponsor type deleted successfully!");
+      setShowConfirmation(false);
+      getSponrorTypeData(); // Refresh the list after deletion
+    } catch (error) {
+      console.log("Error deleting the SponserType : ", error);
+      toast.error("Failed to delete sponsor type. Please try again.");
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);
+    setSelectedSponserId(null);
+  };
+
   return (
     <div className="">
+      <Toaster position="top-center" />
       <Header />
       <Sidebar />
       <div className="px-4 mt-3 sm:ml-64">
@@ -41,7 +67,6 @@ export default function SponserType() {
           </div>
 
           <table className="table">
-            {/* head */}
             <thead className="sticky top-0 sm:top-[65px] bg-white z-10">
               <tr>
                 <th>S No.</th>
@@ -56,7 +81,7 @@ export default function SponserType() {
                     <th>{index + 1}</th>
                     <td>{userData.sponsorType}</td>
                     <td>
-                      <button>
+                      <button onClick={() => handleDeleteClick(userData._id)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           x="0px"
@@ -85,6 +110,37 @@ export default function SponserType() {
           </table>
         </div>
       </div>
+
+      {showConfirmation && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Delete Confirmation
+              </h3>
+              <div className="mt-2 px-7 py-3">
+                <p className="text-sm text-gray-500">
+                  Are you sure you want to delete this sponsor type?
+                </p>
+              </div>
+              <div className="items-center px-4 py-3">
+                <button
+                  onClick={handleConfirmDelete}
+                  className="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-24 mr-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={handleCancelDelete}
+                  className="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-24 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
