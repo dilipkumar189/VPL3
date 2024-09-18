@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
-// import toast from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import { addSponsorType } from "../../../api";
 
 const defaultValue = {
@@ -19,27 +19,30 @@ export default function SponserTypeForm() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     try {
-      console.log("Submitting sponsorType:", spType); // Log the state
+      console.log("Submitting sponsorType:", spType);
       await addSponsorType(spType);
-      alert("Sponsor type added successfully!");
-      // toast.success("Sponsor type added successfully!", {
-      //   duration: 3000,
-      //   position: "top-center",
-      // });
-      navigate("/admin/sponsertype");
+
+      toast.success("Sponsor type added successfully!", {
+        duration: 2000,
+      });
+
+      // Use setTimeout to delay navigation
+      setTimeout(() => {
+        navigate("/admin/sponsertype");
+      }, 2000); // 3000ms delay to match toast duration
     } catch (error) {
       console.error("Error:", error);
-      // toast.error("Failed to add sponsor type. Please try again.", {
-      //   duration: 3000,
-      //   position: "top-center",
-      // });
+      toast.error("Failed to add sponsor type. Please try again.", {
+        duration: 2000,
+      });
     }
   };
 
   return (
     <div className="">
+      <Toaster position="top-center" />
       <Header />
       <Sidebar />
       <div className="px-4 mt-3 sm:ml-64">
