@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { getAdvertiser } from "../../../api";
+import { deleteAdvertiser, getAdvertiser } from "../../../api";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function Advertiser() {
   const [user, setUser] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [selectedAdvertiserId, setSelectedAdvertiserId] = useState(null);
 
   const getAdvertiseData = async () => {
     try {
@@ -20,8 +23,31 @@ export default function Advertiser() {
     getAdvertiseData();
   }, []);
 
+  const handleDeleteClick = (advertiserId) => {
+    setSelectedAdvertiserId(advertiserId);
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteAdvertiser(selectedAdvertiserId);
+      toast.success("Advertiser deleted successfully!");
+      setShowConfirmation(false);
+      getAdvertiseData(); // Refresh the list after deletion
+    } catch (error) {
+      console.log("Error deleting the Advertiser : ", error);
+      toast.error("Failed to delete Advertiser. Please try again.");
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);
+    setSelectedAdvertiserId(null);
+  };
+
   return (
     <div className="">
+      <Toaster position="top-center" />
       <Header />
       <Sidebar />
       <div className="px-4 mt-3 sm:ml-64">
@@ -81,7 +107,9 @@ export default function Advertiser() {
                       <td>
                         <tr>
                           <td>
-                            <button>
+                            <button
+                              onClick={() => handleDeleteClick(userInfo._id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 x="0px"
@@ -171,6 +199,37 @@ export default function Advertiser() {
           </div>
         </div>
       </div>
+
+      {showConfirmation && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Delete Confirmation
+              </h3>
+              <div className="mt-2 px-7 py-3">
+                <p className="text-sm text-gray-500">
+                  Are you sure you want to delete this Advertiser?
+                </p>
+              </div>
+              <div className="items-center px-4 py-3">
+                <button
+                  onClick={handleConfirmDelete}
+                  className="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-24 mr-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={handleCancelDelete}
+                  className="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-24 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
