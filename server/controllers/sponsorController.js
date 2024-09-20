@@ -52,6 +52,46 @@ const deleteSponsorType = async (req, res) => {
     }
 };
 
+const editSponsorType = async (req, res) => {
+    const { id } = req.params;
+    const update = req.body; // Directly use the request body
+    
+    console.log('Request body:', req.body);
+
+    if (Object.keys(update).length === 0) {
+        return res.status(400).json({ message: "No update data provided" });
+    }
+
+    try {
+        // Check if updating sponsorType and if it already exists
+        if (update.sponsorType) {
+            const existingSponsorType = await Sponsor.findOne({ 
+                sponsorType: update.sponsorType, 
+                _id: { $ne: id } 
+            });
+            
+            if (existingSponsorType) {
+                return res.status(400).json({ message: "This sponsor type already exists" });
+            }
+        }
+
+        // Find and update the sponsor type
+        const updatedSponsor = await Sponsor.findByIdAndUpdate(
+            id,
+            { $set: update },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedSponsor) {
+            return res.status(404).json({ message: "Sponsor type not found" });
+        }
+
+        res.status(200).json(updatedSponsor);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
 
                 // ----- Food Sponsor -----
 
@@ -179,6 +219,7 @@ module.exports = {
     addSponsorType,
     getSponsorType,
     deleteSponsorType,
+    editSponsorType,
     addFoodSpon,
     getFoodSpon,
     deleteFoodSpon,
