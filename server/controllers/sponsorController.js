@@ -36,6 +36,22 @@ const getSponsorType = async (req, res) => {
     }
 }
 
+const getSponsorById = async (req, res) => {
+    try {
+        const { id } = req.params; // Extract the ID from the request parameters
+        const spData = await Sponsor.findById(id); // Find the sponsor by ID
+
+        if (!spData) {
+            return res.status(404).json({ message: "Sponsor not found" }); // Handle case where sponsor is not found
+        }
+
+        res.status(200).json(spData); // Return the found sponsor data
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" }); // Handle any other errors
+    }
+}
+
 const deleteSponsorType = async (req, res) => {
     try {
         const { id } = req.params;
@@ -292,6 +308,7 @@ const editOtherSponsor = async (req, res) => {
 module.exports = {
     addSponsorType,
     getSponsorType,
+    getSponsorById,
     deleteSponsorType,
     editSponsorType,
     addFoodSpon,
