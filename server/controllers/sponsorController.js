@@ -152,6 +152,44 @@ const deleteFoodSpon = async (req, res) => {
     }
 };
 
+const editFoodSponsor = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+        
+        // Find the existing food sponsor
+        const existingFoodSponsor = await foodSpon.findById(id);
+        if (!existingFoodSponsor) {
+            return res.status(404).json({ message: "Food Sponsor not found" });
+        }
+
+        // Handle file upload if a new image is provided
+        if (req.file) {
+            // Delete old image from Cloudinary
+            if (existingFoodSponsor.spImage) {
+                await deleteFile(existingFoodSponsor.spImage);
+            }
+            
+            // Upload new image
+            const result = await uploadFile(req.file.path);
+            updates.spImage = result.secure_url;
+        }
+
+        // Update only the fields that are provided in the request
+        Object.keys(updates).forEach((update) => {
+            existingFoodSponsor[update] = updates[update];
+        });
+
+        // Save the updated food sponsor
+        const updatedFoodSponsor = await existingFoodSponsor.save();
+
+        res.status(200).json(updatedFoodSponsor);
+    } catch (error) {
+        console.error("Error updating food sponsor:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
                     // ---- other sponsor ----
 
 const addOtherSpon = async (req, res) => {
@@ -213,7 +251,43 @@ const deleteOtherSpon = async (req, res) => {
     }
 };
 
+const editOtherSponsor = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+        
+        // Find the existing other sponsor
+        const existingOtherSponsor = await otherSpon.findById(id);
+        if (!existingOtherSponsor) {
+            return res.status(404).json({ message: "Other Sponsor not found" });
+        }
 
+        // Handle file upload if a new image is provided
+        if (req.file) {
+            // Delete old image from Cloudinary
+            if (existingOtherSponsor.spOtherImage) {
+                await deleteFile(existingOtherSponsor.spOtherImage);
+            }
+            
+            // Upload new image
+            const result = await uploadFile(req.file.path);
+            updates.spOtherImage = result.secure_url;
+        }
+
+        // Update only the fields that are provided in the request
+        Object.keys(updates).forEach((update) => {
+            existingOtherSponsor[update] = updates[update];
+        });
+
+        // Save the updated other sponsor
+        const updatedOtherSponsor = await existingOtherSponsor.save();
+
+        res.status(200).json(updatedOtherSponsor);
+    } catch (error) {
+        console.error("Error updating other sponsor:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
 
 module.exports = {
     addSponsorType,
@@ -223,7 +297,9 @@ module.exports = {
     addFoodSpon,
     getFoodSpon,
     deleteFoodSpon,
+    editFoodSponsor,
     addOtherSpon,
     getOtherSpon,
-    deleteOtherSpon
+    deleteOtherSpon,
+    editOtherSponsor
 };

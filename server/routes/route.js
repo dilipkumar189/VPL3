@@ -6,7 +6,7 @@ const router = express.Router();
 const { createTeam } = require('../controllers/addTeam');
 // bhavesh 
 const { signUser, loginUser, getUser, editUserCaptain } = require('../controllers/userController');
-const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon, deleteSponsorType, deleteFoodSpon, deleteOtherSpon, editSponsorType } = require('../controllers/sponsorController');
+const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon, deleteSponsorType, deleteFoodSpon, deleteOtherSpon, editSponsorType, editFoodSponsor, editOtherSponsor } = require('../controllers/sponsorController');
 const { addAdvertise, getAdvertiser, deleteAdvertiser, editAdvertiser } = require('../controllers/advertiserCont');
 
 router.post("/sign", signUser);
@@ -23,10 +23,14 @@ router.patch('/sponsor-type/:id', editSponsorType);
 router.post('/addFoodSpon', upload.single('spImage'), addFoodSpon);
 router.get('/getFoodSpon', getFoodSpon);
 router.delete('/food-sponser/:id', deleteFoodSpon);
+router.patch('/food-sponser/:id', upload.single('spImage'), editFoodSponsor);
+
 
 router.post('/addOtherSpon', upload.single('spOtherImage'), addOtherSpon);
 router.get('/getOtherSpon', getOtherSpon);
 router.delete('/other-sponser/:id', deleteOtherSpon);
+router.patch('/other-sponser/:id', upload.single('spOtherImage'), editOtherSponsor);
+
 
 router.post('/addAdvertise', upload.single('shopLogo'), addAdvertise);
 router.get('/getAdvertise',  getAdvertiser);
