@@ -7,7 +7,7 @@ const { createTeam } = require('../controllers/addTeam');
 // bhavesh 
 const { signUser, loginUser, getUser, editUserCaptain } = require('../controllers/userController');
 const { addSponsorType, getSponsorType, addFoodSpon, addOtherSpon, getFoodSpon, getOtherSpon, deleteSponsorType, deleteFoodSpon, deleteOtherSpon, editSponsorType } = require('../controllers/sponsorController');
-const { addAdvertise, getAdvertiser, deleteAdvertiser } = require('../controllers/advertiserCont');
+const { addAdvertise, getAdvertiser, deleteAdvertiser, editAdvertiser } = require('../controllers/advertiserCont');
 
 router.post("/sign", signUser);
 router.post("/login", loginUser);
@@ -31,7 +31,7 @@ router.delete('/other-sponser/:id', deleteOtherSpon);
 router.post('/addAdvertise', upload.single('shopLogo'), addAdvertise);
 router.get('/getAdvertise',  getAdvertiser);
 router.delete('/advertiser/:id', deleteAdvertiser);
-
+router.patch('/advertiser/:id', upload.single('shopLogo'), editAdvertiser);
 
 
 // dilip
