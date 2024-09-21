@@ -51,16 +51,16 @@ export default function AdvertiserForm() {
       console.log(response);
       // alert("Data inserted successfully");
       toast.success("Advertiser added successfully!", {
-        duration: 2000,
+        duration: 1000,
       });
 
       setTimeout(() => {
         navigate("/admin/advertisers");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       console.error("Error:", error);
       toast.error("Failed to add Advertiser. Please try again.", {
-        duration: 2000,
+        duration: 1000,
       });
     }
   };
@@ -176,7 +176,7 @@ export default function AdvertiserForm() {
                 </div>
                 <div className="mt-6 sm:ml-28 lg-ml-0 flex items-center justify-end gap-x-6">
                   <Link
-                    to={"/dashboard/advertisers"}
+                    to={"/admin/advertisers"}
                     className="text-sm font-semibold leading-6 text-gray-900"
                   >
                     Cancel
