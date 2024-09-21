@@ -67,16 +67,16 @@ export default function OtherSponserForm() {
       console.log(response);
       // alert("Data inserted successfully");
       toast.success("Sponser added successfully!", {
-        duration: 2000,
+        duration: 1000,
       });
 
       setTimeout(() => {
         navigate("/admin/osponser");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       console.error("Error:", error);
       toast.error("Failed to add Sponser. Please try again.", {
-        duration: 2000,
+        duration: 1000,
       });
     }
   };
@@ -200,7 +200,7 @@ export default function OtherSponserForm() {
               </div>
               <div className="mt-6 flex items-center justify-end gap-x-6">
                 <Link
-                  to={"/dashboard/osponser"}
+                  to={"/admin/osponser"}
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
                   Cancel
