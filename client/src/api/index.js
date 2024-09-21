@@ -96,6 +96,14 @@ export const getSponsorType = async () => {
   }
 };
 
+export const getSponsorById = async (id) => {
+  try {
+    return await axios.get(`${URL}/getSponsorType/${id}`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+};
+
 export const deleteSponsorType = async (id) => {
   try {
     return await axios.delete(`${URL}/deletesponsortype/${id}`);
@@ -103,6 +111,26 @@ export const deleteSponsorType = async (id) => {
     console.log("Error : ", error);
   }
 }
+
+// export const editSponsorType = async (id) => {
+//   try{
+//     return await axios.patch(`${URL}/sponsor-type/${id}`);
+//   } catch (error){
+//     console.log("Error : ", error);
+//   }
+// }
+
+export const editSponsorType = async (id, data) => {
+  try {
+    console.log("Sending data to update:", data); // Add this line
+    const response = await axios.patch(`${URL}/sponsor-type/${id}`, data);
+    console.log("Update response:", response); // Add this line
+    return response;
+  } catch (error) {
+    console.error("Error in editSponsorType:", error);
+    throw error;
+  }
+};
 
 export const userData = async () => {
   try {
