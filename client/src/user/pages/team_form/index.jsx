@@ -1,8 +1,17 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { createTeam } from "../../../api";
+import InputField from "../../components/InputField";
+
+const MAX_FILE_SIZE = 500 * 1024;
+
+const validateFileSize = (file) => {
+  if (file && file.size > MAX_FILE_SIZE) {
+    return false;
+  }
+  return true;
+};
 
 export default function TeamForm() {
   const [teamData, setTeamData] = useState({
@@ -13,1069 +22,283 @@ export default function TeamForm() {
     captain: "",
     mobile: "",
     logo: null,
-    player1: { name: "", adhar: "", village: "", role: "", image: null },
-    player2: { name: "", adhar: "", village: "", role: "", image: null },
-    player3: { name: "", adhar: "", village: "", role: "", image: null },
-    player4: { name: "", adhar: "", village: "", role: "", image: null },
-    player5: { name: "", adhar: "", village: "", role: "", image: null },
-    player6: { name: "", adhar: "", village: "", role: "", image: null },
-    player7: { name: "", adhar: "", village: "", role: "", image: null },
-    player8: { name: "", adhar: "", village: "", role: "", image: null },
-    player9: { name: "", adhar: "", village: "", role: "", image: null },
-    player10: { name: "", adhar: "", village: "", role: "", image: null },
-    player11: { name: "", adhar: "", village: "", role: "", image: null },
-    player12: { name: "", adhar: "", village: "", role: "", image: null },
-    player13: { name: "", adhar: "", village: "", role: "", image: null },
-    player14: { name: "", adhar: "", village: "", role: "", image: null },
   });
 
-  const handleChange = (e, player = null) => {
-    if (player) {
-      setTeamData({
-        ...teamData,
-        [player]: { ...teamData[player], [e.target.name]: e.target.value },
-      });
-    } else {
-      setTeamData({ ...teamData, [e.target.name]: e.target.value });
-    }
+  const [players, setPlayers] = useState(
+    Array(14)
+      .fill()
+      .map(() => ({
+        name: "",
+        adhar: "",
+        village: "",
+        role: "Batsman",
+        image: null,
+      }))
+  );
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTeamData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e, field) => {
-    setTeamData({ ...teamData, [field]: e.target.files[0] });
+    const file = e.target.files[0];
+    if (!validateFileSize(file)) {
+      toast.error("Image size should be less than 500 KB", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      e.target.value = ""; // Clear the file input
+      return;
+    }
+    setTeamData((prev) => ({ ...prev, [field]: file }));
+  };
+
+  const handlePlayerChange = (index, field, value) => {
+    if (field === "image") {
+      const file = value;
+      if (!validateFileSize(file)) {
+        toast.error(
+          `Player ${index + 1} image size should be less than 500 KB`,
+          {
+            position: "top-center",
+            autoClose: 3000,
+          }
+        );
+        return;
+      }
+    }
+    setPlayers((prevPlayers) => {
+      const updatedPlayers = [...prevPlayers];
+      updatedPlayers[index] = { ...updatedPlayers[index], [field]: value };
+      return updatedPlayers;
+    });
+  };
+
+  const validateForm = () => {
+    // Check if all team data fields are filled
+    const isTeamDataFilled = Object.values(teamData).every(
+      (value) => value !== "" && value !== null
+    );
+
+    // Check if all player information is filled
+    const isAllPlayersFilled = players.every(
+      (player) => player.name && player.adhar && player.village && player.image
+    );
+
+    return isTeamDataFilled && isAllPlayersFilled;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      toast.error("Please fill in all fields for the team and players", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    const loadingToastId = toast.loading("Submitting team data...", {
+      position: "top-center",
+    });
+
     const formData = new FormData();
-    formData.append("team_name", teamData.team_name);
-    formData.append("village", teamData.village);
-    formData.append("sponser_1", teamData.sponser_1);
-    formData.append("sponser_2", teamData.sponser_2);
-    formData.append("captain", teamData.captain);
-    formData.append("mobile", teamData.mobile);
-    formData.append("logo", teamData.logo);
+
+    // Append team data
+    Object.entries(teamData).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
     // Append player data
-    for (let i = 1; i <= 14; i++) {
-      const playerKey = `player${i}`;
-      formData.append(playerKey, JSON.stringify(teamData[playerKey]));
-      if (teamData[playerKey].image) {
-        formData.append(`${playerKey}Image`, teamData[playerKey].image);
+    players.forEach((player, index) => {
+      formData.append(`player${index + 1}`, JSON.stringify(player));
+      if (player.image) {
+        formData.append(`player${index + 1}Image`, player.image);
       }
-    }
+    });
 
     try {
-      await createTeam(formData);
+      const response = await fetch("http://localhost:4000/addTeam", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create team");
+      }
+
+      toast.dismiss(loadingToastId);
       toast.success("Team created successfully!", {
         position: "top-center",
-        autoClose: 1500,
+        autoClose: 3000,
       });
-      console.log("Data inserted successfully", teamData);
     } catch (error) {
-      console.error(
-        "Error inserting data:",
-        error.response ? error.response.data : error.message
-      );
+      console.error("Error creating team:", error);
+      toast.dismiss(loadingToastId);
       toast.error("Failed to create team.", {
         position: "top-center",
-        autoClose: 1500,
+        autoClose: 3000,
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
   return (
     <>
       <Navbar />
-      <div className="border-2 lg:mx-[200px]">
-        <h1 className="text-center mt-10 text-[25px] font-semibold">
-          Add Team
-        </h1>
-
-        <form
-          onSubmit={handleSubmit}
-          className="lg:w-[800px] md:py-10 py-2 mx-auto "
-        >
-          <div className="">
-            <div className="border-b py-6 border-gray-900/10 md:px-[100px] px-2">
-              <h2 className=" font-semibold my-0 text-gray-900">
-                Team Information
-              </h2>
-              <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-6">
-                <div className="sm:col-span-3 col-span-1">
-                  <label
-                    htmlFor="team_name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Team Name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="team_name"
-                      type="text"
-                      name="team_name"
-                      onChange={handleChange}
-                      className="block w-full rounded-sm sm:rounded-md
-                                             border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                      placeholder="Enter Team name"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="village"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Village
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="village"
-                      type="text"
-                      name="village"
-                      onChange={handleChange}
-                      className="block w-full rounded-sm sm:rounded-md
-                                             border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                      placeholder="Enter Village name"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-3 col-span-1">
-                  <label
-                    htmlFor="sponser_1"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Sponsor-1
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="sponser_1"
-                      type="text"
-                      name="sponser_1"
-                      onChange={handleChange}
-                      className="block w-full rounded-sm sm:rounded-md
-                                             border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                      placeholder="Enter Sponsor-1 name"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="sponser_2"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Sponsor-2
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="sponser_2"
-                      type="text"
-                      name="sponser_2"
-                      onChange={handleChange}
-                      className="block w-full rounded-sm sm:rounded-md
-                                             border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                      placeholder="Enter Sponsor-2 name"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-3 col-span-1">
-                  <label
-                    htmlFor="captain"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Captain Name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="captain"
-                      type="text"
-                      name="captain"
-                      onChange={handleChange}
-                      className="block w-full rounded-sm sm:rounded-md
-                                             border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                      placeholder="Enter Captain Name"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-3 col-span-1">
-                  <label
-                    htmlFor="mobile"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Mobile No.
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="mobile"
-                      type="text"
-                      name="mobile"
-                      onChange={handleChange}
-                      className="block w-full rounded-sm sm:rounded-md
-                                             border-[1px] px-2 sm:py-1.5 py-1 text-gray-900 shadow-sm   sm:text-sm text-[12px] sm:leading-6"
-                      placeholder="Enter Mobile Number"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-3 col-span-1">
-                  <label
-                    htmlFor="logo"
-                    className="block text-sm font-medium leading-6  text-gray-900"
-                  >
-                    Team Logo
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="logo"
-                      type="file"
-                      name="logo"
-                      onChange={(e) => handleFileChange(e, "logo")}
-                      className="sm:file-input md:file-input-bordered border-[1px] rounded-sm border-black text-[11px] bg-white md:h-10 w-[160px]  md:w-full md:max-w-xs"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
+      <div className="bg-gray-100 min-h-screen py-8">
+        <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="bg-indigo-600 text-white py-4 px-6">
+            <h1 className="text-2xl font-bold">Add Team</h1>
+          </div>
+          <form onSubmit={handleSubmit} className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <InputField
+                label="Team Name"
+                name="team_name"
+                value={teamData.team_name}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Village"
+                name="village"
+                value={teamData.village}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Sponsor 1"
+                name="sponser_1"
+                value={teamData.sponser_1}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Sponsor 2"
+                name="sponser_2"
+                value={teamData.sponser_2}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Captain"
+                name="captain"
+                value={teamData.captain}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Mobile"
+                name="mobile"
+                value={teamData.mobile}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Team Logo (max 500 KB)"
+                name="logo"
+                type="file"
+                onChange={(e) => handleFileChange(e, "logo")}
+              />
             </div>
-          </div>
 
-          {/* add team details */}
-
-          {/* <div className="overflow-x-auto"> */}
-          <div className="overflow-x-auto mt-20 ">
-            <table className=" md:w-[800px] w-[540px]">
-              <thead>
-                <tr className="text-[12px] bg-slate-200">
-                  <th className="py-2 border-[1px] border-black">Sr no.</th>
-                  <th className="py-2 border-[1px] border-black">Name</th>
-                  <th className="py-2 border-[1px] border-black">Aadhar No.</th>
-                  <th className="py-2 border-[1px] border-black">Village</th>
-                  <th className="py-2 border-[1px] border-black">Role</th>
-                  <th className="py-2 border-[1px] border-black">Image</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    1
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player1")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player1")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player1")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player1")}
-                      defaultValue="Batsman"
+            <h2 className="text-xl font-semibold mb-4">Player Information</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full table-auto">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="px-4 py-2">Name</th>
+                    <th className="px-4 py-2">Aadhar</th>
+                    <th className="px-4 py-2">Village</th>
+                    <th className="px-4 py-2">Role</th>
+                    <th className="px-4 py-2">Image</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {players.map((player, index) => (
+                    <tr
+                      key={index}
+                      className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
                     >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player1.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
+                      <td className="px-4 py-2">
+                        <InputField
+                          label={`Player ${index + 1} Name`}
+                          name={`player${index + 1}Name`}
+                          value={player.name}
+                          onChange={(e) =>
+                            handlePlayerChange(index, "name", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="px-4 py-2">
+                        <InputField
+                          label={`Player ${index + 1} Aadhar`}
+                          name={`player${index + 1}Adhar`}
+                          value={player.adhar}
+                          onChange={(e) =>
+                            handlePlayerChange(index, "adhar", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="px-4 py-2">
+                        <InputField
+                          label={`Player ${index + 1} Village`}
+                          name={`player${index + 1}Village`}
+                          value={player.village}
+                          onChange={(e) =>
+                            handlePlayerChange(index, "village", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="px-4 py-2">
+                        <select
+                          value={player.role}
+                          onChange={(e) =>
+                            handlePlayerChange(index, "role", e.target.value)
+                          }
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        >
+                          <option value="Batsman">Batsman</option>
+                          <option value="WK/Batsman">WK/Batsman</option>
+                          <option value="Bowler">Bowler</option>
+                          <option value="All Rounder">All Rounder</option>
+                        </select>
+                      </td>
+                      <td className="px-4 py-2">
+                        <InputField
+                          label={`Player ${index + 1} Image (max 500 KB)`}
+                          name={`player${index + 1}Image`}
+                          type="file"
+                          onChange={(e) =>
+                            handlePlayerChange(
+                              index,
+                              "image",
+                              e.target.files[0]
+                            )
+                          }
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    2
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player2")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player2")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player2")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player2")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player2.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    3
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player3")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player3")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player3")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player3")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player3.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    4
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player4")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player4")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player4")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player4")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player4.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    5
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player5")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player5")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player5")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player5")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player5.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    6
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player6")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player6")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player6")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player6")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player6.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    7
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player7")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player7")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player7")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player7")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player7.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    8
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player8")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player8")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player8")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player8")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player8.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    9
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player9")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player9")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player9")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player9")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player9.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    10
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player10")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player10")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player10")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player10")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player10.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    11
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player11")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player11")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player11")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player11")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player11.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    12
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player12")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player12")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player12")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player12")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player12.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    13
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player13")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player13")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player13")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player13")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player13.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-100 mx-0 ">
-                  <td className="border-[1px] border-black px-4 border-b md:w-[50px] w-[40px]">
-                    14
-                  </td>
-                  <td className="border-[1px] border-black p-0  border-b md:w-[150px] ">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={(e) => handleChange(e, "player14")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b md:w-[100px]">
-                    <input
-                      type="text"
-                      name="adhar"
-                      onChange={(e) => handleChange(e, "player14")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    <input
-                      type="text"
-                      name="village"
-                      onChange={(e) => handleChange(e, "player14")}
-                      className="px-2 md:w-[150px] w-[100px]"
-                      required
-                    />
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[100px]">
-                    {/* <input type="text" className=' px-2 md:w-[150px] w-[100px]' /> */}
-                    <select
-                      id=""
-                      className="border-2 text-[13px]"
-                      name="role"
-                      onChange={(e) => handleChange(e, "player14")}
-                      defaultValue="Batsman"
-                    >
-                      <option value="Batsman">Batsman</option>
-                      <option value="WK/Batsman">WK/Batsman</option>
-                      <option value="Bowler">Bowler</option>
-                      <option value="All Rounder">All Rounder</option>
-                    </select>
-                  </td>
-                  <td className="border-[1px] border-black px-0 border-b w-[150px]">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleFileChange(e, "player14.image")}
-                      className="border-[1px] md:w-[150px] w-[100px] text-[11px] h-[28px]"
-                      required
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="button"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Save
-            </button>
-          </div>
-        </form>
+            <div className="mt-6 flex justify-end">
+              <button
+                type="submit"
+                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Saving..." : "Save Team"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
+
+      <Toaster />
       <Footer />
     </>
   );
