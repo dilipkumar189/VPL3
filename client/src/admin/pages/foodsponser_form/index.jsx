@@ -52,16 +52,16 @@ export default function FoodSponserForm() {
       console.log(response);
       // alert("Data inserted successfully");
       toast.success("Sponsor added successfully!", {
-        duration: 2000,
+        duration: 1000,
       });
 
       setTimeout(() => {
         navigate("/admin/fsponser");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       console.error("Error:", error);
       toast.error("Failed to add Sponsor. Please try again.", {
-        duration: 2000,
+        duration: 1000,
       });
     }
   };
@@ -189,7 +189,7 @@ export default function FoodSponserForm() {
                 </div>
                 <div className="mt-6 flex sm:ml-28 lg-ml-0 items-center justify-end gap-x-6">
                   <Link
-                    to={"/dashboard/fsponser"}
+                    to={"/admin/fsponser"}
                     className="text-sm font-semibold leading-6 text-gray-900"
                   >
                     Cancel
