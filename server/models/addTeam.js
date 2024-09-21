@@ -1,25 +1,27 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const playerSchema = new mongoose.Schema({
   name: String,
   adhar: String,
   village: String,
   role: String,
-  image: String
+  image: String,
 });
 
-const teamSchema = new mongoose.Schema({
-  team_name: String,
-  village: String,
-  sponser_1: String,
-  sponser_2: String,
-  captain: String,
-  mobile: String,
-  logo: String,
-  player1: playerSchema,
-  player2: playerSchema
-}, { timestamps: true });
+const teamSchema = new mongoose.Schema(
+  {
+    team_name: String,
+    village: String,
+    sponser_1: String,
+    sponser_2: String,
+    captain: String,
+    mobile: String,
+    logo: String,
+    players: [playerSchema],
+  },
+  { timestamps: true }
+);
 
-const Team = mongoose.model('Team', teamSchema);
+const Team = mongoose.model("Team", teamSchema);
 
 module.exports = Team;
