@@ -109,7 +109,7 @@ const defaultValue = {
 export default function SponsorTypeForm() {
   const [spType, setSpType] = useState(defaultValue);
   const navigate = useNavigate();
-  const { id } = useParams(); // Get the id from URL if editing
+  const { id } = useParams();
 
   useEffect(() => {
     if (id) {
@@ -120,6 +120,7 @@ export default function SponsorTypeForm() {
   }, [id]);
 
   const fetchSponsorType = async () => {
+    toast.dismiss();
     try {
       const response = await getSponsorById(id);
       console.log("Fetched sponsor type:", response);
@@ -144,7 +145,7 @@ export default function SponsorTypeForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting spType:", spType); // Add this line
+    console.log("Submitting spType:", spType);
     try {
       let response;
       if (id) {
@@ -155,7 +156,7 @@ export default function SponsorTypeForm() {
         response = await addSponsorType(spType);
       }
 
-      console.log("API response:", response); // Add this line
+      console.log("API response:", response);
 
       if (response && response.data) {
         toast.success(
@@ -181,7 +182,6 @@ export default function SponsorTypeForm() {
 
   return (
     <div className="">
-      <Toaster position="top-center" />
       <Header />
       <Sidebar />
       <div className="px-4 mt-3 sm:ml-64">
@@ -230,6 +230,7 @@ export default function SponsorTypeForm() {
           </form>
         </div>
       </div>
+      <Toaster position="top-center" />
     </div>
   );
 }
