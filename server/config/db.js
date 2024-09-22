@@ -1,18 +1,23 @@
 const mongoose = require("mongoose");
 
-const connectDB = async() => {
-    console.log("MongoDB URI:", process.env.MONGODB_URI); 
-    try {
-        await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log("MongoDB Connected Successfully");
-    }
-    catch(error){
-        console.log("MongoDB connection error", error);
-        process.exit(1);
-    }
+const connectDB = async () => {
+  const mongoURI =
+    process.env.NODE_ENV === "production"
+      ? process.env.MONGODB_URI
+      : "mongodb://localhost:27017/vpl";
+
+  console.log("MongoDB URI:", mongoURI);
+
+  try {
+    await mongoose.connect(mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB Connected Successfully");
+  } catch (error) {
+    console.log("MongoDB connection error", error);
+    process.exit(1);
+  }
 };
 
-module.exports = connectDB; 
+module.exports = connectDB;
