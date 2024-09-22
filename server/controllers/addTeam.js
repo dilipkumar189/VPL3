@@ -6,7 +6,7 @@ exports.createTeam = async (req, res) => {
   try {
     const { team_name, village, sponser_1, sponser_2, captain, mobile, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, player12, player13, player14 } = req.body;
 
-    // Check if all required field are present
+    // Check if all required field are presents
     if (!team_name || !village || !sponser_1 || !sponser_2 || !captain || !mobile || !player1 || !player2 || !player3 || !player4 || !player5 || !player6 || !player7 || !player8 || !player9 || !player10 || !player11 || !player12 || !player13 || !player14) {
       return res.status(400).json({ message: 'All fields are required' });
     }
