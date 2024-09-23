@@ -54,22 +54,15 @@ router.patch("/food-sponser/:id", upload.single("spImage"), editFoodSponsor);
 router.post("/addOtherSpon", upload.single("spOtherImage"), addOtherSpon);
 router.get("/getOtherSpon", getOtherSpon);
 router.delete("/other-sponser/:id", deleteOtherSpon);
-router.patch(
-  "/other-sponser/:id",
-  upload.single("spOtherImage"),
-  editOtherSponsor
-);
+router.patch("/other-sponser/:id", upload.single("spOtherImage"), editOtherSponsor);
 
+// Advertiser Routes -----------------
 router.post("/addAdvertise", upload.single("shopLogo"), addAdvertise);
 router.get("/getAdvertise", getAdvertiser);
 router.get("/getAdvertise/:id", getAdvertiserById);
 router.delete("/advertiser/:id", deleteAdvertiser);
 router.patch("/advertiser/:id", upload.single("shopLogo"), editAdvertiser);
 
-// router.post('/addsponsertype', addSptype);
-router.get("/add", (req, res) => {
-  res.send("Hello man");
-});
 
 router.post(
   "/addteam",
