@@ -114,17 +114,34 @@ const editSponsorType = async (req, res) => {
 const addFoodSpon = async (req, res) => {
     try {
         const { sponDay, fullName, village, amount } = req.body;
+
+        // Check if a file was uploaded
+        if (!req.file) {
+            return res.status(400).json({ error: 'No image file uploaded.' });
+        }
+
+        console.log("File received:", req.file);
+
         // Upload image to Cloudinary
-        const result = await uploadFile(req.file.path);
-        const spImage = result.secure_url
-        
+        const result = await uploadFile(req.file);
+        console.log("Cloudinary Upload Result:", result);
+
+        const spImage = result;
+
+        // Create a new food sponsor instance
         const newFoodSpon = new foodSpon({
-            sponDay, fullName, village, amount, spImage
+            sponDay,
+            fullName,
+            village,
+            amount,
+            spImage
         });
-       
+
+        // Save the food sponsor information to the database
         const savedFoodSpon = await newFoodSpon.save();
-        console.log(newFoodSpon)
-        res.status(201).json(savedFoodSpon); 
+        console.log('New Food Sponsor Added:', savedFoodSpon);
+
+        res.status(201).json(savedFoodSpon);
     } catch (error) {
         console.error("Error adding food sponsor:", error);
         res.status(500).json({ error: error.message });
@@ -187,8 +204,8 @@ const editFoodSponsor = async (req, res) => {
             }
             
             // Upload new image
-            const result = await uploadFile(req.file.path);
-            updates.spImage = result.secure_url;
+            const result = await uploadFile(req.file);
+            updates.spImage = result;
         }
 
         // Update only the fields that are provided in the request
@@ -212,17 +229,29 @@ const addOtherSpon = async (req, res) => {
     try {
         const { sponType, fullName, village, amount } = req.body;
 
-        // Upload image to Cloudinary
-        const result = await uploadFile(req.file.path);
-        const spOtherImage = result.secure_url
+        if (!req.file) {
+            return res.status(400).json({ error: 'No image file uploaded.' });
+        }
 
+        // Upload image to Cloudinary
+        const result = await uploadFile(req.file);
+        console.log("Cloudinary Upload Result:", result); // This log is important
+
+        const spOtherImage = result; // Change this line
+
+        // Create a new sponsor instance
         const newOtherSpon = new otherSpon({
-            sponType, fullName, village, amount, spOtherImage
+            sponType,
+            fullName,
+            village,
+            amount,
+            spOtherImage
         });
 
         const savedSpon = await newOtherSpon.save();
-        console.log(newOtherSpon)
-        res.status(201).json(savedSpon); 
+        console.log('New Sponsor Added:', savedSpon);
+
+        res.status(201).json(savedSpon);
     } catch (error) {
         console.error("Error adding food sponsor:", error);
         res.status(500).json({ error: error.message });
@@ -286,8 +315,8 @@ const editOtherSponsor = async (req, res) => {
             }
             
             // Upload new image
-            const result = await uploadFile(req.file.path);
-            updates.spOtherImage = result.secure_url;
+            const result = await uploadFile(req.file);
+            updates.spOtherImage = result;
         }
 
         // Update only the fields that are provided in the request
