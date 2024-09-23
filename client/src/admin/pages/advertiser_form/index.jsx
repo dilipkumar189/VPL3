@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { Link, useNavigate } from "react-router-dom";
-import { Toaster, toast } from "react-hot-toast";
-import { addAdvertise } from "../../../api";
+import { addAdvertise, getAdvertiserById, editAdvertiser } from "../../../api";
 
 const defaultValue = {
   shopName: "",
@@ -15,55 +15,173 @@ const defaultValue = {
 
 export default function AdvertiserForm() {
   const [advertiser, setAdvertiser] = useState(defaultValue);
+  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      fetchAdvertiser();
+    }
+  }, [id]);
+
+  const fetchAdvertiser = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAdvertiserById(id);
+      setAdvertiser(response.data);
+    } catch (error) {
+      console.error("Error fetching advertiser:", error);
+      toast.error("Failed to load advertiser details.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAdvertiser({ ...advertiser, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setAdvertiser({ ...advertiser, shopLogo: e.target.files[0] });
+  const handleFileChange = (e, field) => {
+    const file = e.target.files[0];
+
+    // File size validation function
+    const validateFileSize = (file) => {
+      const maxSizeInBytes = 500 * 1024; // 500 KB
+      return file.size <= maxSizeInBytes;
+    };
+
+    if (file) {
+      if (!validateFileSize(file)) {
+        toast.error("Image size should be less than 500 KB", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+        e.target.value = ""; // Clear the file input
+        return;
+      }
+
+      setAdvertiser((prevAdvertiser) => ({
+        ...prevAdvertiser,
+        [field]: file,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    const loadingToastId = toast.loading(
+      id ? "Updating advertiser data ..." : "Submitting advertiser data ...",
+      {
+        position: "top-center",
+      }
+    );
 
     const formData = new FormData();
-    // formData.append("shopName", advertiser.shopName);
-    // formData.append("shopLogo", advertiser.shopLogo);
-    // formData.append("ownerName", advertiser.ownerName);
-    // formData.append("village", advertiser.village);
-    // formData.append("amount", advertiser.amount);
     Object.keys(advertiser).forEach((key) => {
-      if (key !== "shopLogo") {
+      if (
+        key !== "shopLogo" ||
+        (key === "shopLogo" && advertiser.shopLogo instanceof File)
+      ) {
         formData.append(key, advertiser[key]);
       }
     });
 
-    // Append shopLogo separately
-    if (advertiser.shopLogo) {
-      formData.append("shopLogo", advertiser.shopLogo);
-    }
-
     try {
-      const response = await addAdvertise(formData);
+      let response;
+      if (id) {
+        response = await editAdvertiser(id, formData);
+      } else {
+        response = await addAdvertise(formData);
+      }
       console.log(response);
-      // alert("Data inserted successfully");
-      toast.success("Advertiser added successfully!", {
-        duration: 1000,
-      });
 
+      toast.dismiss(loadingToastId);
+      navigate("/admin/advertisers");
       setTimeout(() => {
-        navigate("/admin/advertisers");
-      }, 1000);
+        toast.success(
+          id
+            ? "Advertiser updated successfully!"
+            : "Advertiser added successfully!",
+          {
+            position: "top-center",
+            autoClose: 1000,
+          }
+        );
+      }, 100);
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Failed to add Advertiser. Please try again.", {
-        duration: 1000,
-      });
+      toast.dismiss(loadingToastId);
+      toast.error(
+        id
+          ? "Failed to update advertiser. Please try again."
+          : "Failed to add advertiser. Please try again.",
+        {
+          position: "top-center",
+          autoClose: 1000,
+        }
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   const loadingToastId = toast.loading("Submitting team data...", {
+  //     position: "top-center",
+  //   });
+
+  //   const formData = new FormData();
+  //   Object.keys(advertiser).forEach((key) => {
+  //     if (
+  //       key !== "shopLogo" ||
+  //       (key === "shopLogo" && advertiser.shopLogo instanceof File)
+  //     ) {
+  //       formData.append(key, advertiser[key]);
+  //     }
+  //   });
+
+  //   try {
+  //     const toastId = toast.loading(
+  //       id ? "Updating advertiser..." : "Adding advertiser..."
+  //     );
+  //     let response;
+  //     if (id) {
+  //       response = await editAdvertiser(id, formData);
+  //     } else {
+  //       response = await addAdvertise(formData);
+  //     }
+  //     console.log(response);
+  //     toast.success(
+  //       id
+  //         ? "Advertiser updated successfully!"
+  //         : "Advertiser added successfully!",
+  //       { id: toastId }
+  //     );
+  //     setTimeout(() => navigate("/admin/advertisers"), 1000);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     toast.error(
+  //       id
+  //         ? "Failed to update advertiser. Please try again."
+  //         : "Failed to add advertiser. Please try again."
+  //     );
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="">
@@ -74,7 +192,7 @@ export default function AdvertiserForm() {
         <div className="mx-auto my-4 max-w-7xl px-4 py-4 sm:px-6 lg:px-8 border-[1px] rounded-lg shadow-sm sticky top-20 bg-white z-10">
           <div className="grid grid-cols-9 border-b-[1px]">
             <h1 className="text-gray-600 font-bold text-lg mb-3 col-span-7 md:col-span-8">
-              Add Advertiser
+              {id ? "Edit Advertiser" : "Add Advertiser"}
             </h1>
           </div>
           <form onSubmit={handleSubmit}>
@@ -111,7 +229,7 @@ export default function AdvertiserForm() {
                       name="shopLogo"
                       type="file"
                       className="file-input file-input-bordered file-input-sm w-full max-w-xs"
-                      onChange={handleFileChange}
+                      onChange={(e) => handleFileChange(e, "shopLogo")}
                     />
                   </div>
                 </div>
@@ -176,7 +294,7 @@ export default function AdvertiserForm() {
                 </div>
                 <div className="mt-6 sm:ml-28 lg-ml-0 flex items-center justify-end gap-x-6">
                   <Link
-                    to={"/admin/advertisers"}
+                    to="/admin/advertisers"
                     className="text-sm font-semibold leading-6 text-gray-900"
                   >
                     Cancel
@@ -184,8 +302,15 @@ export default function AdvertiserForm() {
                   <button
                     type="submit"
                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    disabled={isLoading}
                   >
-                    Save
+                    {id
+                      ? isLoading
+                        ? "Updating..."
+                        : "Update"
+                      : isLoading
+                      ? "Saving..."
+                      : "Save"}
                   </button>
                 </div>
               </div>
