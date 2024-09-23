@@ -63,10 +63,30 @@ export const addAdvertise = async(data) => {
   }
 }
 
+export const editAdvertiser = async (id, data) => {
+  try {
+    console.log("Sending data to update:", data); // Add this line
+    const response = await axios.patch(`${URL}/advertiser/${id}`, data);
+    console.log("Update response:", response); // Add this line
+    return response;
+  } catch (error) {
+    console.error("Error in editAdvertiser:", error);
+    throw error;
+  }
+};
+
 
 export const getAdvertiser = async () => {
   try {
     return await axios.get(`${URL}/getAdvertise`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+};
+
+export const getAdvertiserById = async (id) => {
+  try {
+    return await axios.get(`${URL}/getAdvertise/${id}`);   
   } catch (error) {
     console.log("Error :- " , error);
   }
