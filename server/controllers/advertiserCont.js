@@ -5,19 +5,30 @@ const { uploadFile, deleteFile } = require("../utils/cloudinary");
 const addAdvertise = async (req, res) => {
     try {
         const { shopName, ownerName, village, amount } = req.body;
-        // Upload image to Cloudinary
-        const result = await uploadFile(req.file.path);
-        const shopLogo = result.secure_url
 
+        if (!req.file) {
+            return res.status(400).json({ error: 'No image file uploaded.' });
+        }
+        // Upload image to Cloudinary
+        const result = await uploadFile(req.file);
+        console.log("Cloudinary Upload Result:", result); // This log is important
+
+        const shopLogo = result;
+
+        // Create a new advertiser instance
         const newAdvertise = new advertiser({
-            shopName, ownerName, village, amount, shopLogo
+            shopName, 
+            ownerName, 
+            village, 
+            amount, 
+            shopLogo
         });
 
         const saveAd = await newAdvertise.save();
-        console.log(newAdvertise)
+        console.log("New Advertiser added", saveAd);
         res.status(201).json(saveAd); 
     } catch (error) {
-        console.error("Error adding food sponsor:", error);
+        console.error("Error adding Advertiser:", error);
         res.status(500).json({ error: error.message });
     }
 };
@@ -28,6 +39,27 @@ const getAdvertiser = async (req,res)=>{
         const adverData = await advertiser.find();
         console.log(adverData)
         res.status(202).json(adverData);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const getAdvertiserById = async (req, res) => {
+    try {
+        // Extracting the ID from the request parameters
+        const { id } = req.params;
+
+        // Finding the advertiser by ID
+        const adverData = await advertiser.findById(id);
+
+        // Check if advertiser was found
+        if (!adverData) {
+            return res.status(404).json({ message: "Advertiser not found" });
+        }
+
+        console.log(adverData);
+        res.status(200).json(adverData);
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ error: error.message });
@@ -78,8 +110,8 @@ const editAdvertiser = async (req, res) => {
             }
             
             // Upload new image
-            const result = await uploadFile(req.file.path);
-            updates.shopLogo = result.secure_url;
+            const result = await uploadFile(req.file);
+            updates.shopLogo = result;
         }
 
         // Update only the fields that are provided in the request
@@ -100,6 +132,7 @@ const editAdvertiser = async (req, res) => {
 module.exports = {
     addAdvertise,
     getAdvertiser,
+    getAdvertiserById,
     deleteAdvertiser,
     editAdvertiser
 };
