@@ -119,6 +119,7 @@ const adminRoutes = [
       { path: "teams", element: <AdminTeam /> },
       { path: "advertisers", element: <AdminAdvertiser /> },
       { path: "advertiserform", element: <AdvertiserForm /> },
+      { path: "advertiserform/:id", element: <AdvertiserForm /> },
       { path: "sponsertype", element: <SponserType /> },
       { path: "sponsertypeform/:id?", element: <SponserTypeForm /> },
       { path: "fsponser", element: <FoodSponser /> },
