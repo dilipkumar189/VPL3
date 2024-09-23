@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { deleteAdvertiser, getAdvertiser } from "../../../api";
@@ -9,6 +9,7 @@ export default function Advertiser() {
   const [user, setUser] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedAdvertiserId, setSelectedAdvertiserId] = useState(null);
+  const navigate = useNavigate();
 
   const getAdvertiseData = async () => {
     try {
@@ -43,6 +44,10 @@ export default function Advertiser() {
   const handleCancelDelete = () => {
     setShowConfirmation(false);
     setSelectedAdvertiserId(null);
+  };
+
+  const handleEditClick = (userId) => {
+    navigate(`/admin/advertiserform/${userId}`);
   };
 
   return (
@@ -124,7 +129,9 @@ export default function Advertiser() {
                                 ></path>
                               </svg>
                             </button>
-                            <button>
+                            <button
+                              onClick={() => handleEditClick(userInfo._id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 x="0px"
