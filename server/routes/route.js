@@ -32,6 +32,7 @@ const {
   getAdvertiser,
   deleteAdvertiser,
   editAdvertiser,
+  getAdvertiserById,
 } = require("../controllers/advertiserCont");
 
 router.post("/sign", signUser);
@@ -61,6 +62,7 @@ router.patch(
 
 router.post("/addAdvertise", upload.single("shopLogo"), addAdvertise);
 router.get("/getAdvertise", getAdvertiser);
+router.get("/getAdvertise/:id", getAdvertiserById);
 router.delete("/advertiser/:id", deleteAdvertiser);
 router.patch("/advertiser/:id", upload.single("shopLogo"), editAdvertiser);
 
