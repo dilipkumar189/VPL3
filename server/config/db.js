@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
-  const mongoURI =
-    process.env.NODE_ENV === "production"
-      ? process.env.MONGODB_URI
-      : "mongodb://localhost:27017/vpl";
+  const mongoURI = process.env.MONGODB_URI
+    // process.env.NODE_ENV === "production"
+    //   ? process.env.MONGODB_URI
+    //   : "mongodb://localhost:27017/vpl3";
 
   console.log("MongoDB URI:", mongoURI);
 
