@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 
-const URL = 'https://vpl-api.vercel.app/';
+const URL = 'https://vpl-api.vercel.app';
 // const URL = 'http://74.208.226.181:5000';
 
 export const addFoodSP = async(data) => {
