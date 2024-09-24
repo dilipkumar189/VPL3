@@ -160,6 +160,27 @@ const getFoodSpon = async (req,res)=>{
     }
 }
 
+const getFoodSponsorById = async (req, res) => {
+    try {
+        // extracting the ID from the request parameters
+        const { id } = req.params;
+
+        // finding the food sponsor by ID
+        const foodSponsorData = await foodSpon.findById(id);
+
+        // check if food sponsor was found
+        if (!foodSponsorData) {
+            return res.status(404).json({ message: "Food Sponsor not found" });
+        }
+
+        console.log(foodSponsorData);
+        res.status(200).json(foodSponsorData);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 const deleteFoodSpon = async (req, res) => {
     try {
         const { id } = req.params;
@@ -271,6 +292,27 @@ const getOtherSpon = async (req,res)=>{
     }
 }
 
+const getOtherSponsorById = async (req, res) => {
+    try {
+        // extracting the ID from the request parameters
+        const { id } = req.params;
+
+        // finding the other sponsor by ID
+        const otherSponsorData = await otherSpon.findById(id);
+
+        // check if other sponsor was found
+        if (!otherSponsorData) {
+            return res.status(404).json({ message: "Other Sponsor not found" });
+        }
+
+        console.log(otherSponsorData);
+        res.status(200).json(otherSponsorData);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 const deleteOtherSpon = async (req, res) => {
     try {
         const { id } = req.params;
@@ -342,10 +384,12 @@ module.exports = {
     editSponsorType,
     addFoodSpon,
     getFoodSpon,
+    getFoodSponsorById,
     deleteFoodSpon,
     editFoodSponsor,
     addOtherSpon,
     getOtherSpon,
+    getOtherSponsorById,
     deleteOtherSpon,
     editOtherSponsor
 };
