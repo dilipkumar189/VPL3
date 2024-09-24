@@ -132,7 +132,7 @@ const editAdvertiser = async (req, res) => {
 module.exports = {
     addAdvertise,
     getAdvertiser,
-    getAdvertiserById,
+    getAdvertiserById, 
     deleteAdvertiser,
     editAdvertiser,
 };
