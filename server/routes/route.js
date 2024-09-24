@@ -26,6 +26,8 @@ const {
   editFoodSponsor,
   editOtherSponsor,
   getSponsorById,
+  getOtherSponsorById,
+  getFoodSponsorById,
 } = require("../controllers/sponsorController");
 const {
   addAdvertise,
@@ -40,19 +42,24 @@ router.post("/login", loginUser);
 router.get("/user", getUser);
 router.patch("/editCaptain", editUserCaptain);
 
+// SponsorType Route ------------
 router.post("/sponsorType", addSponsorType);
 router.get("/getSponsorType", getSponsorType);
 router.get("/getSponsorType/:id", getSponsorById);
 router.delete("/deletesponsortype/:id", deleteSponsorType);
 router.patch("/sponsor-type/:id", editSponsorType);
 
+// Food Sponsor Route --------------------
 router.post("/addFoodSpon", upload.single("spImage"), addFoodSpon);
 router.get("/getFoodSpon", getFoodSpon);
+router.get("/getFoodSpon/:id", getFoodSponsorById);
 router.delete("/food-sponser/:id", deleteFoodSpon);
 router.patch("/food-sponser/:id", upload.single("spImage"), editFoodSponsor);
 
+// Other Sponsor Route ----------------
 router.post("/addOtherSpon", upload.single("spOtherImage"), addOtherSpon);
 router.get("/getOtherSpon", getOtherSpon);
+router.get("/getOtherSpon/:id", getOtherSponsorById);
 router.delete("/other-sponser/:id", deleteOtherSpon);
 router.patch("/other-sponser/:id", upload.single("spOtherImage"), editOtherSponsor);
 
