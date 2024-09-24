@@ -47,13 +47,13 @@ const getAdvertiser = async (req,res)=>{
 
 const getAdvertiserById = async (req, res) => {
     try {
-        // Extracting the ID from the request parameters
+        // extracting the ID from the request parameters
         const { id } = req.params;
 
-        // Finding the advertiser by ID
+        // finding the advertiser by ID
         const adverData = await advertiser.findById(id);
 
-        // Check if advertiser was found
+        // check if advertiser was found
         if (!adverData) {
             return res.status(404).json({ message: "Advertiser not found" });
         }
@@ -96,13 +96,13 @@ const editAdvertiser = async (req, res) => {
         const { id } = req.params;
         const updates = req.body;
         
-        // Find the existing advertiser
+        // find the existing advertiser
         const existingAdvertiser = await advertiser.findById(id);
         if (!existingAdvertiser) {
             return res.status(404).json({ message: "Advertiser not found" });
         }
 
-        // Handle file upload if a new image is provided
+        // handle file upload if a new image is provided
         if (req.file) {
             // Delete old image from Cloudinary
             if (existingAdvertiser.shopLogo) {
@@ -134,5 +134,5 @@ module.exports = {
     getAdvertiser,
     getAdvertiserById,
     deleteAdvertiser,
-    editAdvertiser
+    editAdvertiser,
 };
