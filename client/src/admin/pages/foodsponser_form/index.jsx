@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { Link, useNavigate } from "react-router-dom";
-import { Toaster, toast } from "react-hot-toast";
-import { addFoodSP } from "../../../api";
+import { addFoodSP, editFoodSponsor, getFoodSponsorById } from "../../../api";
 
 const defaultValue = {
   sponDay: "",
@@ -14,68 +14,132 @@ const defaultValue = {
 };
 
 export default function FoodSponserForm() {
-  const [foodSp, setFoodSp] = useState(defaultValue);
+  const [foodSponsor, setFoodSponsor] = useState(defaultValue);
+  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      fetchFoodSponsor();
+    }
+  }, [id]);
+
+  const fetchFoodSponsor = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getFoodSponsorById(id);
+      setFoodSponsor(response.data);
+    } catch (error) {
+      console.error("Error fetching Food Sponsor:", error);
+      toast.error("Failed to load Food Sponsor details.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFoodSp({ ...foodSp, [name]: value });
+    setFoodSponsor({ ...foodSponsor, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setFoodSp({ ...foodSp, spImage: e.target.files[0] });
+  const handleFileChange = (e, field) => {
+    const file = e.target.files[0];
+
+    // File size validation function
+    const validateFileSize = (file) => {
+      const maxSizeInBytes = 500 * 1024; // 500 KB
+      return file.size <= maxSizeInBytes;
+    };
+
+    if (file) {
+      if (!validateFileSize(file)) {
+        toast.error("Image size should be less than 500 KB", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+        e.target.value = ""; // Clear the file input
+        return;
+      }
+
+      setFoodSponsor((prevFoodSponsor) => ({
+        ...prevFoodSponsor,
+        [field]: file,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    const loadingToastId = toast.loading(
+      id
+        ? "Updating food sponsor data ..."
+        : "Submitting food sponsor data ...",
+      {
+        position: "top-center",
+      }
+    );
 
     const formData = new FormData();
-    // formData.append("sponDay", foodSp.sponDay);
-    // formData.append("fullName", foodSp.fullName);
-    // formData.append("village", foodSp.village);
-    // formData.append("amount", foodSp.amount);
-    // formData.append("spImage", foodSp.spImage);
-
-    Object.keys(foodSp).forEach((key) => {
-      if (key !== "spImage") {
-        formData.append(key, foodSp[key]);
+    Object.keys(foodSponsor).forEach((key) => {
+      if (
+        key !== "spImage" ||
+        (key === "spImage" && foodSponsor.spImage instanceof File)
+      ) {
+        formData.append(key, foodSponsor[key]);
       }
     });
 
-    // Append shopLogo separately
-    if (foodSp.spImage) {
-      formData.append("spImage", foodSp.spImage);
-    }
-
     try {
-      const response = await addFoodSP(formData);
+      let response;
+      if (id) {
+        response = await editFoodSponsor(id, formData);
+      } else {
+        response = await addFoodSP(formData);
+      }
       console.log(response);
-      // alert("Data inserted successfully");
-      toast.success("Sponsor added successfully!", {
-        duration: 1000,
-      });
 
+      toast.dismiss(loadingToastId);
+      navigate("/admin/fsponser");
       setTimeout(() => {
-        navigate("/admin/fsponser");
-      }, 1000);
+        toast.success(
+          id
+            ? "Food Sponsor updated successfully!"
+            : "Food Sponsor added successfully!",
+          {
+            position: "top-center",
+            autoClose: 1000,
+          }
+        );
+      }, 100);
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Failed to add Sponsor. Please try again.", {
-        duration: 1000,
-      });
+      toast.dismiss(loadingToastId);
+      toast.error(
+        id
+          ? "Failed to update food sponsor. Please try again."
+          : "Failed to add food sponsor. Please try again.",
+        {
+          position: "top-center",
+          autoClose: 1000,
+        }
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="">
       <Toaster position="top-center" />
       <Header />
       <Sidebar />
       <div className="px-4 mt-3 sm:ml-64">
-        <div className="mx-auto my-4 max-w-7xl px-4 py-4 sm:px-6 lg:px-8 border-[1px] rounded-lg shadow-sm sticky top-20 bg-white z-9">
+        <div className="mx-auto my-4 max-w-7xl px-4 py-4 sm:px-6 lg:px-8 border-[1px] rounded-lg shadow-sm sticky top-20 bg-white z-10">
           <div className="grid grid-cols-9 border-b-[1px]">
             <h1 className="text-gray-600 font-bold text-lg mb-3 col-span-7 md:col-span-8">
-              Add Food Sponsor
+              {id ? "Edit Food Sponsor" : "Add Food Sponsor"}
             </h1>
           </div>
           <form onSubmit={handleSubmit}>
@@ -94,8 +158,8 @@ export default function FoodSponserForm() {
                       name="sponDay"
                       autoComplete="day-name"
                       className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      required
                       onChange={handleChange}
+                      value={foodSponsor.sponDay}
                     >
                       <option value="">Select Day</option>
                       <option value="Day-1">Day-1</option>
@@ -118,10 +182,8 @@ export default function FoodSponserForm() {
                       id="spImage"
                       name="spImage"
                       type="file"
-                      autoComplete="profile-name"
                       className="file-input file-input-bordered file-input-sm w-full max-w-xs"
-                      required
-                      onChange={handleFileChange}
+                      onChange={(e) => handleFileChange(e, "spImage")}
                     />
                   </div>
                 </div>
@@ -140,10 +202,9 @@ export default function FoodSponserForm() {
                       id="fullName"
                       name="fullName"
                       type="text"
-                      autoComplete="given-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      required
                       onChange={handleChange}
+                      value={foodSponsor.fullName}
                     />
                   </div>
                 </div>
@@ -160,10 +221,9 @@ export default function FoodSponserForm() {
                       id="village"
                       name="village"
                       type="text"
-                      autoComplete="family-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      required
                       onChange={handleChange}
+                      value={foodSponsor.village}
                     />
                   </div>
                 </div>
@@ -173,33 +233,38 @@ export default function FoodSponserForm() {
                     htmlFor="amount"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Sponsor Amount
+                    Amount
                   </label>
                   <div className="mt-2">
                     <input
                       id="amount"
                       name="amount"
                       type="text"
-                      autoComplete="family-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      required
                       onChange={handleChange}
+                      value={foodSponsor.amount}
                     />
                   </div>
                 </div>
-                <div className="mt-6 flex sm:ml-28 lg-ml-0 items-center justify-end gap-x-6">
+                <div className="mt-6 sm:ml-28 lg-ml-0 flex items-center justify-end gap-x-6">
                   <Link
-                    to={"/admin/fsponser"}
+                    to="/admin/fsponser"
                     className="text-sm font-semibold leading-6 text-gray-900"
                   >
                     Cancel
                   </Link>
-
                   <button
                     type="submit"
                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    disabled={isLoading}
                   >
-                    Save
+                    {id
+                      ? isLoading
+                        ? "Updating..."
+                        : "Update"
+                      : isLoading
+                      ? "Saving..."
+                      : "Save"}
                   </button>
                 </div>
               </div>
