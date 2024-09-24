@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { deleteFoodSpon, getFoodSP } from "../../../api";
@@ -9,6 +9,7 @@ export default function FoodSponser() {
   const [user, setUser] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedFoodSponsorId, setSelectedFoodSponsorId] = useState(null);
+  const navigate = useNavigate();
 
   const getFoodData = async () => {
     try {
@@ -43,6 +44,10 @@ export default function FoodSponser() {
   const handleCancelDelete = () => {
     setShowConfirmation(false);
     setSelectedFoodSponsorId(null);
+  };
+
+  const handleEditClick = (userId) => {
+    navigate(`/admin/fsponserform/${userId}`);
   };
 
   return (
@@ -121,7 +126,9 @@ export default function FoodSponser() {
                                 ></path>
                               </svg>
                             </button>
-                            <button>
+                            <button
+                              onClick={() => handleEditClick(userInfo._id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 x="0px"
