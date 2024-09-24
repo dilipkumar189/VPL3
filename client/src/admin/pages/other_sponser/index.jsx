@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { deleteOtherSpon, getOtherSP } from "../../../api";
@@ -9,6 +9,7 @@ export default function OtherSponser() {
   const [user, setUser] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedOtherSponsorId, setSelectedOtherSponsorId] = useState(null);
+  const navigate = useNavigate();
 
   const getOtherData = async () => {
     try {
@@ -43,6 +44,10 @@ export default function OtherSponser() {
   const handleCancelDelete = () => {
     setShowConfirmation(false);
     setSelectedOtherSponsorId(null);
+  };
+
+  const handleEditClick = (userId) => {
+    navigate(`/admin/osponserform/${userId}`);
   };
 
   return (
@@ -124,7 +129,9 @@ export default function OtherSponser() {
                                 ></path>
                               </svg>
                             </button>
-                            <button>
+                            <button
+                              onClick={() => handleEditClick(userInfo._id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 x="0px"
