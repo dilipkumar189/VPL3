@@ -21,6 +21,26 @@ export const getFoodSP = async () => {
   }
 };
 
+export const getFoodSponsorById = async (id) => {
+  try {
+    return await axios.get(`${URL}/getFoodSpon/${id}`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+};
+
+export const editFoodSponsor = async (id, data) => {
+  try {
+    console.log("Sending data to update:", data); // Add this line
+    const response = await axios.patch(`${URL}/food-sponser/${id}`, data);
+    console.log("Update response:", response); // Add this line
+    return response;
+  } catch (error) {
+    console.error("Error in editFoodSponsor:", error);
+    throw error;
+  }
+};
+
 export const deleteFoodSpon = async (id)  => {
   try {
     return await axios.delete(`${URL}/food-sponser/${id}`);
@@ -44,6 +64,26 @@ export const getOtherSP = async () => {
     return await axios.get(`${URL}/getOtherSpon`);   
   } catch (error) {
     console.log("Error :- " , error);
+  }
+};
+
+export const getOtherSponsorById = async (id) => {
+  try {
+    return await axios.get(`${URL}/getOtherSpon/${id}`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+};
+
+export const editOtherSponsor = async (id, data) => {
+  try {
+    console.log("Sending data to update:", data); // Add this line
+    const response = await axios.patch(`${URL}/other-sponser/${id}`, data);
+    console.log("Update response:", response); // Add this line
+    return response;
+  } catch (error) {
+    console.error("Error in editOtherSponsor:", error);
+    throw error;
   }
 };
 
