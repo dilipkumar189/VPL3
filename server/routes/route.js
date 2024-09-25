@@ -37,6 +37,8 @@ const {
   getAdvertiserById,
 } = require("../controllers/advertiserCont");
 
+const { addHallOfFame, getHallOfFame, getHallOfFameById, deleteHallOfFame, editHallOfFame } = require("../controllers/hallOfFame");
+
 router.post("/sign", signUser);
 router.post("/login", loginUser);
 router.get("/user", getUser);
@@ -69,6 +71,13 @@ router.get("/getAdvertise", getAdvertiser);
 router.get("/getAdvertise/:id", getAdvertiserById);
 router.delete("/advertiser/:id", deleteAdvertiser);
 router.patch("/advertiser/:id", upload.single("shopLogo"), editAdvertiser);
+
+// Hall Of Fame Routes -----------------
+router.post("/hall-of-fame", upload.single("hofImage"), addHallOfFame);
+router.get("/hall-of-fame", getHallOfFame);
+router.get("/hall-of-fame/:id", getHallOfFameById);
+router.delete("/hall-of-fame/:id", deleteHallOfFame);
+router.patch("/hall-of-fame/:id", upload.single("hofImage"), editHallOfFame);
 
 
 router.post(
