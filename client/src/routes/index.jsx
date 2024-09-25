@@ -29,8 +29,10 @@ import {
   FoodSponserForm,
   OtherSponser,
   OtherSponserForm,
+  HallOfFame as AdminHOF,
   Profile as AdminProfile,
   ProfileForm as AdminProfileForm,
+  HallOfFameForm,
 } from "../admin/pages";
 
 const userRoutes = [
@@ -128,6 +130,9 @@ const adminRoutes = [
       { path: "osponser", element: <OtherSponser /> },
       { path: "osponserform", element: <OtherSponserForm /> },
       { path: "osponserform/:id", element: <OtherSponserForm /> },
+      { path: "hall-of-fame", element: <AdminHOF /> },
+      { path: "hall-of-fame-form", element: <HallOfFameForm /> },
+      { path: "hall-of-fame-form/:id", element: <HallOfFameForm /> },
       { path: "profile", element: <AdminProfile /> },
       { path: "profileform", element: <AdminProfileForm /> },
     ],
