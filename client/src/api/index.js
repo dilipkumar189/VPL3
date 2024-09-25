@@ -2,7 +2,10 @@ import React from 'react'
 import axios from 'axios';
 
 const URL = 'https://vpl-api.vercel.app';
-// const URL = 'http://74.208.226.181:5000';
+// const URL = 'http://localhost:4000';
+
+
+// Food Sponsor -----------------
 
 export const addFoodSP = async(data) => {
   try {
@@ -11,7 +14,6 @@ export const addFoodSP = async(data) => {
     console.log("Error :- ", error);
   }
 }
-
 
 export const getFoodSP = async () => {
   try {
@@ -50,6 +52,9 @@ export const deleteFoodSpon = async (id)  => {
   }
 };
 
+
+// Other Sponsor --------------
+
 export const addOtherSP = async(data) => {
   try {
     return await axios.post(`${URL}/addOtherSpon`, data);
@@ -57,7 +62,6 @@ export const addOtherSP = async(data) => {
     console.log("Error :- ", error);
   }
 }
-
 
 export const getOtherSP = async () => {
   try {
@@ -95,6 +99,9 @@ export const deleteOtherSpon = async (id) => {
   }
 }
 
+
+// Advertiser ----------------
+
 export const addAdvertise = async(data) => {
   try {
     return await axios.post(`${URL}/addAdvertise`, data);
@@ -102,19 +109,6 @@ export const addAdvertise = async(data) => {
     console.log("Error :- ", error);
   }
 }
-
-export const editAdvertiser = async (id, data) => {
-  try {
-    console.log("Sending data to update:", data); // Add this line
-    const response = await axios.patch(`${URL}/advertiser/${id}`, data);
-    console.log("Update response:", response); // Add this line
-    return response;
-  } catch (error) {
-    console.error("Error in editAdvertiser:", error);
-    throw error;
-  }
-};
-
 
 export const getAdvertiser = async () => {
   try {
@@ -132,6 +126,18 @@ export const getAdvertiserById = async (id) => {
   }
 };
 
+export const editAdvertiser = async (id, data) => {
+  try {
+    console.log("Sending data to update:", data); // Add this line
+    const response = await axios.patch(`${URL}/advertiser/${id}`, data);
+    console.log("Update response:", response); // Add this line
+    return response;
+  } catch (error) {
+    console.error("Error in editAdvertiser:", error);
+    throw error;
+  }
+};
+
 export const deleteAdvertiser = async (id) => {
   try {
     return await axios.delete(`${URL}/advertiser/${id}`);
@@ -139,6 +145,56 @@ export const deleteAdvertiser = async (id) => {
     console.log("Error : ", error);
   }
 }
+
+
+// Hall Of Fame ----------------
+
+export const addHallOfFame = async(data) => {
+  try {
+    return await axios.post(`${URL}/hall-of-fame`, data);
+  } catch (error) {
+    console.log("Error :- ", error);
+  }
+}
+
+export const getHallOfFame = async () => {
+  try {
+    return await axios.get(`${URL}/hall-of-fame`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+};
+
+export const getHallOfFameById = async (id) => {
+  try {
+    return await axios.get(`${URL}/hall-of-fame/${id}`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+};
+
+export const editHallOfFame = async (id, data) => {
+  try {
+    console.log("Sending data to update:", data); // Add this line
+    const response = await axios.patch(`${URL}/hall-of-fame/${id}`, data);
+    console.log("Update response:", response); // Add this line
+    return response;
+  } catch (error) {
+    console.error("Error in editAdvertiser:", error);
+    throw error;
+  }
+};
+
+export const deleteHallOfFame = async (id) => {
+  try {
+    return await axios.delete(`${URL}/hall-of-fame/${id}`);
+  } catch (error){
+    console.log("Error : ", error);
+  }
+}
+
+
+// Sponsor Type--------------
 
 export const addSponsorType = async(data) => {
   try {
@@ -164,22 +220,6 @@ export const getSponsorById = async (id) => {
   }
 };
 
-export const deleteSponsorType = async (id) => {
-  try {
-    return await axios.delete(`${URL}/deletesponsortype/${id}`);
-  } catch (error) {
-    console.log("Error : ", error);
-  }
-}
-
-// export const editSponsorType = async (id) => {
-//   try{
-//     return await axios.patch(`${URL}/sponsor-type/${id}`);
-//   } catch (error){
-//     console.log("Error : ", error);
-//   }
-// }
-
 export const editSponsorType = async (id, data) => {
   try {
     console.log("Sending data to update:", data); // Add this line
@@ -191,6 +231,15 @@ export const editSponsorType = async (id, data) => {
     throw error;
   }
 };
+
+export const deleteSponsorType = async (id) => {
+  try {
+    return await axios.delete(`${URL}/deletesponsortype/${id}`);
+  } catch (error) {
+    console.log("Error : ", error);
+  }
+}
+
 
 export const userData = async () => {
   try {
