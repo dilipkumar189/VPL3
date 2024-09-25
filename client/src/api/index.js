@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios';
 
-const URL = 'https://vpl-api.vercel.app';
-// const URL = 'http://localhost:4000';
+// const URL = 'https://vpl-api.vercel.app';
+const URL = 'http://localhost:4000';
 
 
 // Food Sponsor -----------------
@@ -265,6 +265,22 @@ export const createTeam = async(data) => {
       return await axios.post(`${URL}/addteam`, data);
   } catch(error){
       console.log("Sorry bhai galti se bol diya, nhi ho rha", error);
+  }
+}
+
+export const getTeam = async() => {
+  try {
+    return await axios.get(`${URL}/teams`);   
+  } catch (error) {
+    console.log("Error :- " , error);
+  }
+}
+
+export const deleteTeam = async (id) => {
+  try {
+    return await axios.delete(`${URL}/teams/${id}`);
+  } catch (error){
+    console.log("Error : ", error);
   }
 }
 
