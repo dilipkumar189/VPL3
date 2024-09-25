@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const transporter = require("../utils/nodemailer");
 const Team = require("../models/addTeam");
-const { uploadFile } = require("../utils/cloudinary");
+const { uploadFile, deleteFile } = require("../utils/cloudinary");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const signUser = async (req, res) => {
@@ -161,10 +161,58 @@ const addTeam = async (req, res) => {
   }
 };
 
+const getTeam = async (req,res)=>{
+  try {
+      const teamData = await Team.find();
+      console.log(teamData)
+      res.status(202).json(teamData);
+  } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: error.message });
+  }
+}
+
+const deleteTeam = async (req, res) => {
+  try {
+    const teamId = req.params.id;
+
+    // Find the team
+    const team = await Team.findById(teamId);
+
+    if (!team) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    // Delete logo from Cloudinary if it exists
+    if (team.logo) {
+      const publicId = team.logo.split('/').pop().split('.')[0];
+      await deleteFile(publicId);
+    }
+
+    // Delete player images from Cloudinary
+    for (const player of team.players) {
+      if (player.image) {
+        const publicId = player.image.split('/').pop().split('.')[0];
+        await deleteFile(publicId);
+      }
+    }
+
+    // Delete team from MongoDB
+    await Team.findByIdAndDelete(teamId);
+
+    res.status(200).json({ message: "Team and associated images deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting team:", error);
+    res.status(500).json({ message: "Failed to delete team", error: error.message });
+  }
+};
+
 module.exports = {
   signUser,
   loginUser,
   getUser,
   editUserCaptain,
   addTeam,
+  getTeam,
+  deleteTeam
 };
