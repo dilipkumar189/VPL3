@@ -9,6 +9,8 @@ import FoodSponser from './food_sponser';
 import FoodSponserForm from './foodsponser_form';
 import OtherSponser from './other_sponser';
 import OtherSponserForm from './othersponser_form';
+import HallOfFame from './hall_of_fame';
+import HallOfFameForm from './hall_of_fame_form';
 import Profile from './profile';
 import ProfileForm from './profile_form';
   
@@ -24,6 +26,8 @@ import ProfileForm from './profile_form';
     FoodSponserForm,
     OtherSponser,
     OtherSponserForm,
+    HallOfFame,
+    HallOfFameForm,
     Profile,
     ProfileForm
   };
