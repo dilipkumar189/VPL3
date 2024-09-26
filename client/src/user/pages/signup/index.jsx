@@ -1,13 +1,56 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { signUser } from "../../../api"; // Ensure this path is correct
 
 export default function SignUp() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Check for empty fields
+    if (!formData.username || !formData.email || !formData.password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    setIsLoading(true);
+    const loadingToast = toast.loading("Signing up...");
+
+    try {
+      const response = await signUser(formData);
+      if (response && response.data) {
+        toast.success("Signup successful!");
+        navigate("/");
+      } else {
+        throw new Error("Signup failed");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      toast.error("this email already exist.");
+    } finally {
+      setIsLoading(false);
+      toast.dismiss(loadingToast);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen p-[100px] md:py-[50px] md:px-[200px]">
       {/* Right Side - Background Image */}
       <div className="hidden md:block relative border-2 rounded-[10px] overflow-hidden">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYd9_YKcG9vEGrWRfIKIK3xhZb5pYiw6nDw&s/800x600" // Replace with your desired image URL
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYd9_YKcG9vEGrWRfIKIK3xhZb5pYiw6nDw&s/800x600"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -29,6 +72,8 @@ export default function SignUp() {
                 type="text"
                 id="username"
                 name="username"
+                value={formData.username}
+                onChange={handleChange}
                 placeholder="Enter your username"
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
               />
@@ -44,6 +89,8 @@ export default function SignUp() {
                 type="email"
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Enter your email"
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
               />
@@ -59,17 +106,22 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Enter your password"
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200"
+              disabled={isLoading}
+              className={`w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Sign Up
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
-            <Link to={"/login"}>
+            <Link to="/login">
               <p className="text-sky-800 text-center my-2">
                 Already have an account? Login
               </p>
@@ -77,6 +129,7 @@ export default function SignUp() {
           </form>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }
