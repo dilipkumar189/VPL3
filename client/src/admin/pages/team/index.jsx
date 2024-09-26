@@ -77,7 +77,7 @@ export default function Team() {
                 <tr>
                   <th>S.No</th>
                   <th>Team Name</th>
-                  <th>Village</th>
+                  <th>Captain</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -97,10 +97,13 @@ export default function Team() {
                             <div className="font-bold">
                               {userInfo.team_name}
                             </div>
+                            <div className="text-sm opacity-50">
+                              {userInfo.village}
+                            </div>
                           </div>
                         </div>
                       </td>
-                      <td>{userInfo.village}</td>
+                      <td>{userInfo.captain}</td>
                       <td>
                         <tr>
                           <td>
