@@ -2,39 +2,70 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { getUser, updateCaptain } from "../../../api";
+import { toast } from "react-hot-toast";
 
 export default function Users() {
-  const [user, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [pendingUserId, setPendingUserId] = useState(null);
+  const [currentCaptainStatus, setCurrentCaptainStatus] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const getUser = async () => {
-    const response = await userData();
-    setUser(response.data);
-  };
-
-  const handleCaptainChange = async (userId, currentCaptain) => {
+  const fetchUsers = async () => {
     try {
-      const newCaptainStatus = !currentCaptain;
-      const response = await updateCaptain({
-        userId,
-        captainStatus: newCaptainStatus,
-      });
-
-      setUser((prevUsers) =>
-        prevUsers.map((u) =>
-          u._id === userId ? { ...u, captain: newCaptainStatus } : u
-        )
-      );
-
-      alert("Captain updated successfully!");
+      setLoading(true);
+      const response = await getUser();
+      if (response && response.data) {
+        setUsers(response.data);
+      } else {
+        throw new Error("No data received from the server");
+      }
     } catch (error) {
-      console.error("Error updating captain:", error);
-      alert("Failed to update captain. Please try again.");
+      console.error("Error fetching users:", error);
+      setError("Failed to load users. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getUser();
+    fetchUsers();
   }, []);
+
+  const handleCaptainChangeInitiate = (userId, currentCaptain) => {
+    setPendingUserId(userId);
+    setCurrentCaptainStatus(currentCaptain);
+    setShowConfirmation(true);
+  };
+
+  const handleCaptainChangeConfirm = async () => {
+    try {
+      const newCaptainStatus = !currentCaptainStatus;
+      await updateCaptain({
+        userId: pendingUserId,
+        captainStatus: newCaptainStatus,
+      });
+
+      setUsers((prevUsers) =>
+        prevUsers.map((u) =>
+          u._id === pendingUserId ? { ...u, captain: newCaptainStatus } : u
+        )
+      );
+      toast.success("Captain updated successfully!");
+      setShowConfirmation(false);
+    } catch (error) {
+      console.error("Error updating captain:", error);
+      toast.error("Failed to update captain. Please try again.");
+    }
+  };
+
+  const handleCaptainChangeCancel = () => {
+    setShowConfirmation(false);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="">
@@ -54,65 +85,37 @@ export default function Users() {
                 <tr>
                   <th>S.No</th>
                   <th>Name</th>
-                  <th></th>
                   <th>Email</th>
                   <th>Captain</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {user.map((userInfo, index) => (
+                {users.map((userInfo, index) => (
                   <tr className="hover px-0" key={userInfo._id}>
                     <td>{index + 1}</td>
-                    <td className="sm:px-4 px-0 w-[50px]">
-                      <div className="flex items-center">
-                        <div className="avatar px-0">
-                          <div className="mask mask-squircle h-12 w-12">
-                            <img src={userInfo.image} alt="No image" />
-                          </div>
-                        </div>
-                      </div>
-                    </td>
                     <td className="leading-4">
                       <h1 className="font-bold text-[11px] sm:text-[14px] ">
                         {userInfo.username}
                       </h1>
                       <p className="opacity-70 text-[11px] sm:text-sm ">
-                        {userInfo.village}
-                      </p>
-                    </td>
-                    <td>
-                      <p className=" text-[12px] sm:text-sm ">
                         {userInfo.email}
                       </p>
                     </td>
+                    <td>{userInfo.email}</td>
                     <td>
                       <input
                         type="checkbox"
                         className="toggle toggle-sm toggle-success"
-                        checked={userInfo.captain} // Reflects the current captain state
+                        checked={userInfo.captain}
                         onChange={() =>
-                          handleCaptainChange(userInfo._id, userInfo.captain)
-                        } // Updates captain state on change
+                          handleCaptainChangeInitiate(
+                            userInfo._id,
+                            userInfo.captain
+                          )
+                        }
                       />
                     </td>
-                    <td>
-                      <button>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          x="0px"
-                          y="0px"
-                          width="25"
-                          height="25"
-                          viewBox="0 0 30 30"
-                        >
-                          <path
-                            fill="#FF7474"
-                            d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"
-                          ></path>
-                        </svg>
-                      </button>
-                    </td>
+                    <td>{/* Additional action buttons can go here */}</td>
                   </tr>
                 ))}
               </tbody>
@@ -120,6 +123,37 @@ export default function Users() {
           </div>
         </div>
       </div>
+
+      {showConfirmation && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Update Confirmation
+              </h3>
+              <div className="mt-2 px-7 py-3">
+                <p className="text-sm text-gray-500">
+                  Are you sure you want to update the captain status?
+                </p>
+              </div>
+              <div className="items-center px-4 py-3">
+                <button
+                  onClick={handleCaptainChangeConfirm}
+                  className="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-24 mr-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={handleCaptainChangeCancel}
+                  className="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-24 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
