@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -15,12 +15,14 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   DollarSign,
+  Group,
   Users,
   ShoppingCart,
   Activity,
 } from "lucide-react";
 import Sidebar from "../../components/Header";
 import Header from "../../components/Sidebar";
+import { getAdvertiser, getFoodSP, getTeam, getUser } from "../../../api";
 
 const data = [
   { name: "Jan", sales: 4000, profit: 2400 },
@@ -59,6 +61,31 @@ const StatCard = ({ title, value, change, icon: Icon }) => (
 );
 
 export default function Dashboard() {
+  const [advertisers, setAdvertisers] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [sponsors, setSponsors] = useState([]);
+
+  const getFormData = async () => {
+    try {
+      const newAdvertiser = await getAdvertiser();
+      const newUser = await getUser();
+      const newTeam = await getTeam();
+      const newSponsor = await getFoodSP();
+
+      setAdvertisers(newAdvertiser.data);
+      setUsers(newUser.data);
+      setTeams(newTeam.data);
+      setSponsors(newSponsor.data);
+    } catch (error) {
+      console.log("Error :- ", error);
+    }
+  };
+
+  useEffect(() => {
+    getFormData();
+  }, []);
+
   return (
     <div className="bg-gray-100">
       {/* <div className="flex h-screen bg-gray-100"> */}
@@ -73,26 +100,26 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <StatCard
-                title="Revenue"
-                value="$54,321"
-                change={12.5}
-                icon={DollarSign}
-              />
-              <StatCard
                 title="Users"
-                value="12,345"
-                change={-2.3}
+                value={users.length}
+                change={12.5}
                 icon={Users}
               />
               <StatCard
-                title="Orders"
-                value="1,234"
+                title="Teams"
+                value={teams.length}
+                change={-2.3}
+                icon={Group}
+              />
+              <StatCard
+                title="Sponsors"
+                value={sponsors.length}
                 change={5.7}
                 icon={ShoppingCart}
               />
               <StatCard
-                title="Conversion Rate"
-                value="3.2%"
+                title="Advertisers"
+                value={advertisers.length}
                 change={0.8}
                 icon={Activity}
               />
@@ -211,3 +238,188 @@ export default function Dashboard() {
     </div>
   );
 }
+
+// import React, { useState, useEffect } from "react";
+// import {
+//   BarChart,
+//   Bar,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+//   ResponsiveContainer,
+//   LineChart,
+//   Line,
+//   PieChart,
+//   Pie,
+//   Cell,
+// } from "recharts";
+// import {
+//   ArrowUpRight,
+//   ArrowDownRight,
+//   Users,
+//   Group,
+//   ShoppingCart,
+//   Activity,
+// } from "lucide-react";
+// import Sidebar from "../../components/Header";
+// import Header from "../../components/Sidebar";
+// import { getFoodSP, getAdvertiser, getTeam, userData } from "./api"; // Import your API functions
+
+// const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+// const StatCard = ({ title, value, change, icon: Icon }) => (
+//   <div className="bg-white p-6 rounded-lg shadow-md">
+//     <div className="flex items-center justify-between mb-4">
+//       <h3 className="text-lg font-semibold text-gray-700">{title}</h3>
+//       <Icon className="text-blue-500" size={24} />
+//     </div>
+//     <p className="text-3xl font-bold text-gray-900">{value}</p>
+//     <p
+//       className={`flex items-center ${
+//         change >= 0 ? "text-green-500" : "text-red-500"
+//       }`}
+//     >
+//       {change >= 0 ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
+//       <span className="ml-1">{Math.abs(change)}%</span>
+//     </p>
+//   </div>
+// );
+
+// export default function Dashboard() {
+//   const [users, setUsers] = useState([]);
+//   const [teams, setTeams] = useState([]);
+//   const [sponsors, setSponsors] = useState([]);
+//   const [advertisers, setAdvertisers] = useState([]);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const usersData = await userData();
+//       const teamsData = await getTeam();
+//       const sponsorsData = await getFoodSP();
+//       const advertisersData = await getAdvertiser();
+
+//       setUsers(usersData.data);
+//       setTeams(teamsData.data);
+//       setSponsors(sponsorsData.data);
+//       setAdvertisers(advertisersData.data);
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const prepareChartData = (data) => {
+//     return data.map((item, index) => ({
+//       name: `Item ${index + 1}`,
+//       value: Math.random() * 1000, // Replace with actual data property
+//     }));
+//   };
+
+//   return (
+//     <div className="bg-gray-100">
+//       <Sidebar />
+//       <Header />
+//       <div className="flex-1 flex flex-col overflow-hidden sm:ml-64">
+//         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+//           <div className="container mx-auto px-6 py-8">
+//             <h1 className="text-3xl font-semibold text-gray-800 mb-6">
+//               Dashboard
+//             </h1>
+
+//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+//               <StatCard
+//                 title="Users"
+//                 value={users.length}
+//                 change={12.5}
+//                 icon={Users}
+//               />
+//               <StatCard
+//                 title="Teams"
+//                 value={teams.length}
+//                 change={-2.3}
+//                 icon={Group}
+//               />
+//               <StatCard
+//                 title="Sponsors"
+//                 value={sponsors.length}
+//                 change={5.7}
+//                 icon={ShoppingCart}
+//               />
+//               <StatCard
+//                 title="Advertisers"
+//                 value={advertisers.length}
+//                 change={0.8}
+//                 icon={Activity}
+//               />
+//             </div>
+
+//             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+//               <div className="bg-white p-6 rounded-lg shadow-md">
+//                 <h2 className="text-xl font-semibold mb-4">Users Overview</h2>
+//                 <ResponsiveContainer width="100%" height={300}>
+//                   <BarChart data={prepareChartData(users)}>
+//                     <CartesianGrid strokeDasharray="3 3" />
+//                     <XAxis dataKey="name" />
+//                     <YAxis />
+//                     <Tooltip />
+//                     <Legend />
+//                     <Bar dataKey="value" fill="#8884d8" />
+//                   </BarChart>
+//                 </ResponsiveContainer>
+//               </div>
+
+//               <div className="bg-white p-6 rounded-lg shadow-md">
+//                 <h2 className="text-xl font-semibold mb-4">Advertisers Trend</h2>
+//                 <ResponsiveContainer width="100%" height={300}>
+//                   <LineChart data={prepareChartData(advertisers)}>
+//                     <CartesianGrid strokeDasharray="3 3" />
+//                     <XAxis dataKey="name" />
+//                     <YAxis />
+//                     <Tooltip />
+//                     <Legend />
+//                     <Line type="monotone" dataKey="value" stroke="#82ca9d" />
+//                   </LineChart>
+//                 </ResponsiveContainer>
+//               </div>
+
+//               <div className="bg-white p-6 rounded-lg shadow-md">
+//                 <h2 className="text-xl font-semibold mb-4">Sponsors Distribution</h2>
+//                 <ResponsiveContainer width="100%" height={300}>
+//                   <PieChart>
+//                     <Pie
+//                       data={prepareChartData(sponsors)}
+//                       cx="50%"
+//                       cy="50%"
+//                       labelLine={false}
+//                       outerRadius={80}
+//                       fill="#8884d8"
+//                       dataKey="value"
+//                     >
+//                       {prepareChartData(sponsors).map((entry, index) => (
+//                         <Cell
+//                           key={`cell-${index}`}
+//                           fill={COLORS[index % COLORS.length]}
+//                         />
+//                       ))}
+//                     </Pie>
+//                     <Tooltip />
+//                     <Legend />
+//                   </PieChart>
+//                 </ResponsiveContainer>
+//               </div>
+//             </div>
+
+//             {/* Keep the Recent Orders table as is */}
+//             <div className="bg-white p-6 rounded-lg shadow-md">
+//               <h2 className="text-xl font-semibold mb-4">Recent Orders</h2>
+//               <table className="min-w-full divide-y divide-gray-200">
+//                 {/* ... (table content remains the same) ... */}
+//               </table>
+//             </div>
+//           </div>
+//         </main>
+//       </div>
+//     </div>
+//   );
+// }
