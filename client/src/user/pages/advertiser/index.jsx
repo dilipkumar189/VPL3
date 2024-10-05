@@ -1,35 +1,3 @@
-// import React from "react";
-// import Navbar from "../../components/Navbar";
-// import Footer from "../../components/Footer";
-
-// export default function Advertiser() {
-//   return (
-//     <>
-//       <Navbar />
-//       <section className="bg-base-500 py-16">
-//         <div className="mx-16">
-//           <div className="mx-auto pb-16 max-w-4xl">
-//             <h1 className="md:text-[40px] text-xl font-bold text-center">
-//               Advertisers
-//             </h1>
-//           </div>
-//           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
-//             <div className="advertisement">
-//               <img
-//                 src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-//                 alt="Ad 1"
-//                 className="w-full h-auto rounded-md shadow-lg"
-//               />
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       <Footer />
-//     </>
-//   );
-// }
-
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -74,7 +42,7 @@ export default function Advertiser() {
                     <img
                       src={advertiser.shopLogo}
                       alt={`Ad ${index + 1}`}
-                      className="w-full h-full rounded-md shadow-lg"
+                      className="w-full rounded-md shadow-lg h-[160px]"
                     />
                   ) : (
                     <div className="w-full h-48 bg-gray-200 rounded-md shadow-lg flex items-center justify-center">
