@@ -13,6 +13,7 @@ const {
   addTeam,
   getTeam,
   deleteTeam,
+  getTeamById,
 } = require("../controllers/userController");
 const {
   addSponsorType,
@@ -94,6 +95,7 @@ router.post(
 );
 
 router.get("/teams", getTeam);
+router.get("/teams/:id", getTeamById);
 router.delete("/teams/:id", deleteTeam);
 
 router.get("/", (req, res) => {
