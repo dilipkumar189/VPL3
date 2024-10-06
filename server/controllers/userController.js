@@ -172,6 +172,27 @@ const getTeam = async (req,res)=>{
   }
 }
 
+const getTeamById = async(req, res) =>{
+  try {
+    // extracting the ID from the request parameters
+    const { id } = req.params;
+
+    // finding the team by ID
+    const teamData = await Team.findById(id);
+
+    // check if team was found
+    if (!teamData) {
+        return res.status(404).json({ message: "Team not found" });
+    }
+
+    console.log(teamData);
+    res.status(200).json(teamData);
+} catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message });
+}
+}
+
 const deleteTeam = async (req, res) => {
   try {
     const teamId = req.params.id;
@@ -214,5 +235,6 @@ module.exports = {
   editUserCaptain,
   addTeam,
   getTeam,
+  getTeamById,
   deleteTeam
 };
