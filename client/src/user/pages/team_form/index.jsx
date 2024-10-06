@@ -123,7 +123,7 @@ export default function TeamForm() {
     });
 
     try {
-      const response = await fetch("https://vpl-api.vercel.app/addTeam", {
+      const response = await fetch("http://localhost:4000/addteam", {
         method: "POST",
         body: formData,
       });
