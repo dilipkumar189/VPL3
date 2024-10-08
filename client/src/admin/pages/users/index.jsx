@@ -64,7 +64,7 @@ export default function Users() {
     setShowConfirmation(false);
   };
 
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
