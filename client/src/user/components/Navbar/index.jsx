@@ -91,7 +91,7 @@ export default function Navbar() {
             <div className="w-10 rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://media-bom2-1.cdn.whatsapp.net/v/t61.24694-24/56533813_401728200660482_980503371108581376_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_Q5AaIO0Bil_Wpl3miEgigRBIsXvzo1AobX80PwwqJtFKUJVg&oe=66DF9B7C&_nc_sid=5e03e0&_nc_cat=110"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
             </div>
           </div>
