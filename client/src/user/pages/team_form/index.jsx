@@ -137,13 +137,13 @@ export default function TeamForm() {
       }
 
       toast.dismiss(loadingToastId);
-      navigate("/team");
+      toast.success("Team created successfully!", {
+        position: "top-center",
+        autoClose: 1000,
+      });
       setTimeout(() => {
-        toast.success("Team created successfully!", {
-          position: "top-center",
-          autoClose: 3000,
-        });
-      }, 100);
+        navigate("/team");
+      }, 1000);
     } catch (error) {
       console.error("Error creating team:", error);
       toast.dismiss(loadingToastId);
