@@ -3,6 +3,8 @@ import toast, { Toaster } from "react-hot-toast";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import InputField from "../../components/InputField";
+import { addTeam } from "../../../api";
+import { useNavigate } from "react-router-dom";
 
 const MAX_FILE_SIZE = 500 * 1024;
 
@@ -37,6 +39,7 @@ export default function TeamForm() {
   );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -123,20 +126,24 @@ export default function TeamForm() {
     });
 
     try {
-      const response = await fetch("http://localhost:4000/addteam", {
-        method: "POST",
-        body: formData,
-      });
+      // const response = await fetch("http://localhost:4000/addteam", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      const response = await addTeam(formData);
 
-      if (!response.ok) {
-        throw new Error("Failed to create team");
-      }
+      // if (!response.ok) {
+      //   throw new Error("Failed to create team");
+      // }
 
       toast.dismiss(loadingToastId);
-      toast.success("Team created successfully!", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      navigate("/team");
+      setTimeout(() => {
+        toast.success("Team created successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      }, 100);
     } catch (error) {
       console.error("Error creating team:", error);
       toast.dismiss(loadingToastId);
