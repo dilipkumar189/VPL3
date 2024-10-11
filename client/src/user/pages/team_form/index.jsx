@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import InputField from "../../components/InputField";
-import { addTeam } from "../../../api";
+// import { addTeam } from "../../../api";
 import { useNavigate } from "react-router-dom";
 
 const MAX_FILE_SIZE = 500 * 1024;
@@ -126,15 +126,15 @@ export default function TeamForm() {
     });
 
     try {
-      // const response = await fetch("http://localhost:4000/addteam", {
-      //   method: "POST",
-      //   body: formData,
-      // });
-      const response = await addTeam(formData);
+      const response = await fetch("https://vpl-api.vercel.app/addteam", {
+        method: "POST",
+        body: formData,
+      });
+      // const response = await addTeam(formData);
 
-      // if (!response.ok) {
-      //   throw new Error("Failed to create team");
-      // }
+      if (!response.ok) {
+        throw new Error("Failed to create team");
+      }
 
       toast.dismiss(loadingToastId);
       navigate("/team");
