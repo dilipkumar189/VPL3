@@ -23,27 +23,27 @@ export default function Team() {
           breakpoints={{
             240: {
               slidesPerView: 1.25,
-              slidesPerGroup: 3,
+              slidesPerGroup: 1,
               spaceBetween: 20,
             },
             640: {
               slidesPerView: 1.25,
-              slidesPerGroup: 3,
+              slidesPerGroup: 1,
               spaceBetween: 20,
             },
             768: {
               slidesPerView: 2.25,
-              slidesPerGroup: 3,
+              slidesPerGroup: 1,
               spaceBetween: 20,
             },
             1024: {
               slidesPerView: 3,
-              slidesPerGroup: 3, // Show 3 slides per group
+              slidesPerGroup: 1, // Show 3 slides per group
               spaceBetween: 20, // Add space between slides
             },
             1200: {
               slidesPerView: 3.25, // Show 3 full slides and 4th slide at 25%
-              slidesPerGroup: 3,
+              slidesPerGroup: 1,
               spaceBetween: 20,
             },
           }}
