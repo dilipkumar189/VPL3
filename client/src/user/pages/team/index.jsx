@@ -135,7 +135,7 @@ export default function Team() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {teams.map((team) => (
                 <Link to={`/teamview/${team._id}`} key={team._id}>
-                  <div className="card card-compact bg-base-100 w-full sm:w-full lg:w-94 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                  <div className="card card-compact bg-base-100 md:w-80 md:h-80 shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <figure>
                       <img
                         src={
