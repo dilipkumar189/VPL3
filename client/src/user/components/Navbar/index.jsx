@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-slate-700 text-white sticky top-0 mx-auto w-[95%] rounded-b-lg z-10">
+    <div className="navbar bg-slate-700 text-white sticky top-0 mx-auto w-[100%] z-10">
       <div className="flex-1">
         <div className="w-12 ms-5">
           <img
