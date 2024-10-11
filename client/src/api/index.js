@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from 'axios';
 
 const URL = 'https://vpl-api.vercel.app';
@@ -277,12 +276,20 @@ export const updateCaptain = async (data) => {
 
 // dilip api ----------
 
-export const createTeam = async(data) => {
-  try {
-      console.log("dekh lo");
-      return await axios.post(`${URL}/addteam`, data);
-  } catch(error){
-      console.log("Sorry bhai galti se bol diya, nhi ho rha", error);
+// export const createTeam = async(data) => {
+//   try {
+//       console.log("dekh lo");
+//       return await axios.post(`${URL}/addteam`, data);
+//   } catch(error){
+//       console.log("Sorry bhai galti se bol diya, nhi ho rha", error);
+//   }
+// }
+
+export const addTeam = async(data) => {
+  try{
+    return await axios.post(`${URL}/addteam`, data);
+  } catch (error){
+    console.log("Error :- ", error);
   }
 }
 
