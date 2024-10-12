@@ -192,7 +192,7 @@ export default function TeamView() {
   return (
     <>
       <Navbar className="w-full" />
-      <div className="flex relative bg-white">
+      <div className="flex relative bg-gray-100">
         {/* Sidebar for Mobile */}
         {isVisible && (
           <aside className="w-2/3 bg-white border-[1px] border-slate-300 text-black p-4 absolute top-0 left-0 z-10 m-2 rounded-md ">
@@ -228,10 +228,10 @@ export default function TeamView() {
 
         {/* Sidebar for Desktop */}
         <aside
-          className="w-1/4 bg-slate-100 p-4 hidden md:block border-[1px] border-slate-400 m-4 rounded-md text-base-200 sticky h-full"
+          className="w-1/4 bg-white p-4 hidden md:block shadow-md m-4 rounded-md text-gray-800 sticky h-full"
           style={{
-            background:
-              "radial-gradient(circle, #4d79d1 0%, rgb(47 56 71) 64%)",
+            // background:
+            // "radial-gradient(circle, #4d79d1 0%, rgb(47 56 71) 64%)",
             top: "82px", // Adjust the top value as needed
           }}
         >
@@ -239,7 +239,7 @@ export default function TeamView() {
           <ul>
             {teams.map((team) => (
               <Link to={`/teamview/${team._id}`} key={team._id}>
-                <li className="mb-2 border-[1px] rounded-2xl px-[2px] align-middle text-[15px] font-semibold flex py-[2px] hover:bg-slate-800">
+                <li className="mb-2 border-[1px] rounded-2xl px-[2px] align-middle text-[15px] font-semibold flex py-[2px] hover:bg-gray-100">
                   <img
                     src={
                       team.logo ||
@@ -266,12 +266,14 @@ export default function TeamView() {
           {/* Main content bg-blue-950*/}
           <main className="w-full p-4 ">
             <section
-              className="bg-slate-100 border-[1px] border-slate-400
-             text-gray-100 h-auto py-8 md:py-16 rounded-md"
-              style={{
-                background:
-                  "radial-gradient(circle, #4d79d1 0%, rgb(47 56 71) 64%)",
-              }}
+              className="bg-white shadow-md
+             text-gray-800 h-auto py-8 md:py-16 rounded-md"
+              style={
+                {
+                  // background:
+                  //   "radial-gradient(circle, #4d79d1 0%, rgb(47 56 71) 64%)",
+                }
+              }
             >
               <div className="mx-8">
                 <div className="mx-auto pb-12 max-w-4xl">
@@ -300,7 +302,7 @@ export default function TeamView() {
                           <p className="font-bold md:text-[14px] text-[9px] leading-3">
                             {player.name}
                           </p>
-                          <p className="text-gray-300 md:text-[14px] text-[9px] mt-[-5px] md:mt-0 leading-3">
+                          <p className="text-gray-400 md:text-[14px] text-[9px] mt-[-5px] md:mt-0 leading-3">
                             {player.role}
                           </p>
                         </div>
