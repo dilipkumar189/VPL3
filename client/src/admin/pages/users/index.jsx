@@ -98,7 +98,7 @@ export default function Users() {
                         {userInfo.username}
                       </h1>
                       <p className="opacity-70 text-[11px] sm:text-sm ">
-                        {userInfo.email}
+                        {/* {userInfo.email} */}
                       </p>
                     </td>
                     <td>{userInfo.email}</td>
