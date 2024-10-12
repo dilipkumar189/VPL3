@@ -127,7 +127,7 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Sales Overview</h2>
+                <h2 className="text-xl font-semibold mb-4">Sponsor Overview</h2>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -160,7 +160,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4">
-                  Product Distribution
+                  Team Entry
                 </h2>
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
@@ -187,7 +187,7 @@ export default function Dashboard() {
               </div>
 
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Recent Orders</h2>
+                <h2 className="text-xl font-semibold mb-4"></h2>
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
