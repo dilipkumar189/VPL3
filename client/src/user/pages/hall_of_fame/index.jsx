@@ -12,9 +12,9 @@ export default function HallOfFame() {
       try {
         const response = await getHallOfFame();
         setHeroes(response.data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching Hall of Fame data:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -32,13 +32,15 @@ export default function HallOfFame() {
               Hall of Fame
             </h1>
           </div>
-          <div>
-            <h1 className="md:text-[36px] text-xl font-bold py-8">
-              Heroes of 2023
-            </h1>
-            {loading ? (
-              <p>Loading Hall of Fame data...</p>
-            ) : (
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <span className="loading loading-spinner loading-lg"></span>
+            </div>
+          ) : (
+            <div>
+              <h1 className="md:text-[36px] text-xl font-bold py-8">
+                Heroes of 2023
+              </h1>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
                 {heroes.map((hero, index) => (
                   <div
@@ -62,8 +64,8 @@ export default function HallOfFame() {
                   </div>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
       <Footer />
