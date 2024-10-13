@@ -149,6 +149,8 @@ export default function TeamView() {
   const [team, setTeam] = useState(null);
   const [teams, setTeams] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [loadingTeams, setLoadingTeams] = useState(true);
+  const [loadingTeam, setLoadingTeam] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
@@ -158,6 +160,8 @@ export default function TeamView() {
         setTeams(response.data);
       } catch (err) {
         console.error("Error fetching teams:", err);
+      } finally {
+        setLoadingTeams(false);
       }
     };
 
@@ -171,23 +175,41 @@ export default function TeamView() {
         setTeam(response.data);
       } catch (err) {
         console.error("Error fetching team:", err);
+      } finally {
+        setLoadingTeam(false);
       }
     };
 
     fetchTeam();
   }, [id]);
 
-  if (!team) return <div></div>; // loading
-
-  // Function to toggle visibility
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
 
-  // Function to hide the sidebar
   const hideSidebar = () => {
     setIsVisible(false);
   };
+
+  const renderTeamList = () => (
+    <ul>
+      {teams.map((team) => (
+        <Link to={`/teamview/${team._id}`} key={team._id}>
+          <li className="mb-2 border-[1px] rounded-2xl px-[2px] align-middle text-[15px] font-semibold flex py-[2px] hover:bg-sky-400">
+            <img
+              src={
+                team.logo ||
+                "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              }
+              alt="team"
+              className="w-[28px] mr-[10px] rounded-full h-[28px] object-cover"
+            />
+            {team.team_name}
+          </li>
+        </Link>
+      ))}
+    </ul>
+  );
 
   return (
     <>
@@ -205,54 +227,29 @@ export default function TeamView() {
                 X
               </button>
             </p>
-
-            <ul>
-              {teams.map((team) => (
-                <Link to={`/teamview/${team._id}`} key={team._id}>
-                  <li className="mb-2 border-[1px] rounded-2xl px-[2px] align-middle text-[15px] font-semibold flex py-[2px] hover:bg-sky-400">
-                    <img
-                      src={
-                        team.logo ||
-                        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      }
-                      alt="team"
-                      className="w-[28px] mr-[10px] rounded-full h-[28px] object-cover"
-                    />
-                    {team.team_name}
-                  </li>
-                </Link>
-              ))}
-            </ul>
+            {loadingTeams ? (
+              <div className="flex justify-center items-center h-64">
+                <span className="loading loading-spinner loading-md"></span>
+              </div>
+            ) : (
+              renderTeamList()
+            )}
           </aside>
         )}
 
         {/* Sidebar for Desktop */}
         <aside
           className="w-1/4 bg-white p-4 hidden md:block shadow-md m-4 rounded-md text-gray-800 sticky h-full"
-          style={{
-            // background:
-            // "radial-gradient(circle, #4d79d1 0%, rgb(47 56 71) 64%)",
-            top: "82px", // Adjust the top value as needed
-          }}
+          style={{ top: "82px" }}
         >
           <h2 className="text-4xl font-bold mb-4">VPL-3 Teams</h2>
-          <ul>
-            {teams.map((team) => (
-              <Link to={`/teamview/${team._id}`} key={team._id}>
-                <li className="mb-2 border-[1px] rounded-2xl px-[2px] align-middle text-[15px] font-semibold flex py-[2px] hover:bg-gray-100">
-                  <img
-                    src={
-                      team.logo ||
-                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    }
-                    alt="team"
-                    className="w-[28px] mr-[10px] rounded-full h-[28px] object-cover"
-                  />
-                  <span className="mt-[2px]"> {team.team_name}</span>
-                </li>
-              </Link>
-            ))}
-          </ul>
+          {loadingTeams ? (
+            <div className="flex justify-center items-center h-64">
+              <span className="loading loading-spinner loading-lg"></span>
+            </div>
+          ) : (
+            renderTeamList()
+          )}
         </aside>
 
         <div className="flex-grow">
@@ -263,54 +260,53 @@ export default function TeamView() {
             {isVisible ? "" : "Teams"}
           </button>
 
-          {/* Main content bg-blue-950*/}
-          <main className="w-full p-4 ">
-            <section
-              className="bg-white shadow-md
-             text-gray-800 h-auto py-8 md:py-16 rounded-md"
-              style={
-                {
-                  // background:
-                  //   "radial-gradient(circle, #4d79d1 0%, rgb(47 56 71) 64%)",
-                }
-              }
-            >
-              <div className="mx-8">
-                <div className="mx-auto pb-12 max-w-4xl">
-                  <h1 className="md:text-[40px] text-xl font-bold text-center">
-                    {team.team_name} - {team.village}
-                  </h1>
+          {/* Main content */}
+          <main className="w-full p-4">
+            <section className="bg-white shadow-md text-gray-800 h-auto py-8 md:py-16 rounded-md">
+              {loadingTeam ? (
+                <div className="flex justify-center items-center h-64">
+                  <span className="loading loading-spinner loading-lg"></span>
                 </div>
-                <div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
-                    {team.players.map((player) => (
-                      <div
-                        key={player._id}
-                        className="card card-compact bg-transparent w-full"
-                      >
-                        <div className="md:w-40 md:h-40 w-28 h-28 mx-auto overflow-hidden rounded-full border-4 border-gray-200">
-                          <img
-                            src={
-                              player.image ||
-                              "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                            }
-                            alt={player.name}
-                            className="w-full h-full object-cover"
-                          />
+              ) : team ? (
+                <div className="mx-8">
+                  <div className="mx-auto pb-12 max-w-4xl">
+                    <h1 className="md:text-[40px] text-xl font-bold text-center">
+                      {team.team_name} - {team.village}
+                    </h1>
+                  </div>
+                  <div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
+                      {team.players.map((player) => (
+                        <div
+                          key={player._id}
+                          className="card card-compact bg-transparent w-full"
+                        >
+                          <div className="md:w-40 md:h-40 w-28 h-28 mx-auto overflow-hidden rounded-full border-4 border-gray-200">
+                            <img
+                              src={
+                                player.image ||
+                                "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                              }
+                              alt={player.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="card-body text-center">
+                            <p className="font-bold md:text-[14px] text-[9px] leading-3">
+                              {player.name}
+                            </p>
+                            <p className="text-gray-400 md:text-[14px] text-[9px] mt-[-5px] md:mt-0 leading-3">
+                              {player.role}
+                            </p>
+                          </div>
                         </div>
-                        <div className="card-body text-center">
-                          <p className="font-bold md:text-[14px] text-[9px] leading-3">
-                            {player.name}
-                          </p>
-                          <p className="text-gray-400 md:text-[14px] text-[9px] mt-[-5px] md:mt-0 leading-3">
-                            {player.role}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="text-center">Team not found</div>
+              )}
             </section>
           </main>
         </div>
