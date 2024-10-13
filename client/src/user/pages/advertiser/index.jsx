@@ -3,6 +3,12 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { getAdvertiser } from "../../../api"; // Adjust the import path as needed
 
+const Loader = () => (
+  <div className="flex justify-center items-center h-64">
+    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+  </div>
+);
+
 export default function Advertiser() {
   const [advertisers, setAdvertisers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +39,7 @@ export default function Advertiser() {
             </h1>
           </div>
           {loading ? (
-            <p>Loading advertisers...</p>
+            <Loader />
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
               {advertisers.map((advertiser, index) => (
