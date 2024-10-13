@@ -75,8 +75,7 @@ export default function AboutUs() {
                   <p>Lorem ipsum dolor sit amet.</p>
                 </div>
               </div>
-              
-              
+                            
             </div>
         </div>
         </div>
