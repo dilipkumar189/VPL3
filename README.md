@@ -392,3 +392,347 @@ Recommended Next Steps:
 4. Create comprehensive error logging
 
 Would you like me to elaborate on any specific aspect of the implementation?
+
+
+
+
+
+
+📁 src/
+│
+├── 📁 components/
+│   ├── ui/
+│   │   ├── table.jsx
+│   │   ├── button.jsx
+│   │   ├── input.jsx
+│   │   └── select.jsx
+│   │
+│   └── DataTable.jsx
+│
+├── 📁 hooks/
+│   └── useDataTable.js
+│
+├── 📁 services/
+│   └── dataService.js
+│
+└── 📁 pages/
+    └── DataTablePage.jsx
+
+📄 src/services/dataService.js
+```javascript
+import axios from 'axios';
+
+const API_URL = '/api/data';
+
+export const DataService = {
+  async fetchData(params) {
+    try {
+      const response = await axios.get(API_URL, { 
+        params: {
+          page: params.page || 1,
+          pageSize: params.pageSize || 10,
+          search: params.search || '',
+          sortBy: params.sortBy || 'id',
+          sortOrder: params.sortOrder || 'ASC'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  },
+
+  async exportData(params) {
+    try {
+      const response = await axios.get(`${API_URL}/export`, {
+        params: {
+          search: params.search || '',
+          sortBy: params.sortBy || 'id',
+          sortOrder: params.sortOrder || 'ASC'
+        },
+        responseType: 'blob'
+      });
+
+      // Create download link
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'data_export.csv');
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error('Error exporting data:', error);
+      throw error;
+    }
+  }
+};
+```
+
+📄 src/hooks/useDataTable.js
+```javascript
+import { useState, useEffect } from 'react';
+import { DataService } from '../services/dataService';
+
+export const useDataTable = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    pageSize: 10,
+    totalRows: 0,
+    totalPages: 0
+  });
+  const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState('id');
+  const [sortOrder, setSortOrder] = useState('ASC');
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const result = await DataService.fetchData({
+        page: pagination.page,
+        pageSize: pagination.pageSize,
+        search,
+        sortBy,
+        sortOrder
+      });
+
+      setData(result.data);
+      setPagination({
+        page: result.currentPage,
+        pageSize: result.pageSize,
+        totalRows: result.totalRows,
+        totalPages: result.totalPages
+      });
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [pagination.page, search, sortBy, sortOrder]);
+
+  const handlePageChange = (page) => {
+    setPagination(prev => ({ ...prev, page }));
+  };
+
+  const handleSearch = (searchTerm) => {
+    setSearch(searchTerm);
+    setPagination(prev => ({ ...prev, page: 1 }));
+  };
+
+  const handleSort = (column) => {
+    const isAsc = sortBy === column && sortOrder === 'ASC';
+    setSortBy(column);
+    setSortOrder(isAsc ? 'DESC' : 'ASC');
+  };
+
+  const handleExport = async () => {
+    try {
+      await DataService.exportData({ search, sortBy, sortOrder });
+    } catch (err) {
+      console.error('Export failed', err);
+    }
+  };
+
+  return {
+    data,
+    loading,
+    error,
+    pagination,
+    search,
+    sortBy,
+    sortOrder,
+    handlePageChange,
+    handleSearch,
+    handleSort,
+    handleExport,
+    fetchData
+  };
+};
+```
+
+📄 src/components/DataTable.jsx
+```jsx
+import React from 'react';
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { 
+  ArrowUpIcon, 
+  ArrowDownIcon, 
+  DownloadIcon 
+} from "lucide-react";
+import { useDataTable } from '../hooks/useDataTable';
+
+export function DataTable() {
+  const {
+    data,
+    loading,
+    pagination,
+    search,
+    sortBy,
+    sortOrder,
+    handlePageChange,
+    handleSearch,
+    handleSort,
+    handleExport
+  } = useDataTable();
+
+  const columns = [
+    { key: 'id', label: 'ID' },
+    { key: 'name', label: 'Name' },
+    { key: 'email', label: 'Email' },
+    { key: 'created_at', label: 'Created At' }
+  ];
+
+  return (
+    <div className="w-full p-4">
+      <div className="flex justify-between mb-4">
+        <Input 
+          placeholder="Search..." 
+          value={search}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="max-w-sm"
+        />
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={handleExport}
+        >
+          <DownloadIcon className="mr-2 h-4 w-4" /> 
+          Export CSV
+        </Button>
+      </div>
+
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {columns.map((column) => (
+              <TableHead 
+                key={column.key}
+                onClick={() => handleSort(column.key)}
+                className="cursor-pointer hover:bg-gray-100"
+              >
+                {column.label}
+                {sortBy === column.key && (
+                  sortOrder === 'ASC' 
+                    ? <ArrowUpIcon className="inline h-4 w-4 ml-2" /> 
+                    : <ArrowDownIcon className="inline h-4 w-4 ml-2" />
+                )}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {loading ? (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center">
+                Loading...
+              </TableCell>
+            </TableRow>
+          ) : (
+            data.map((row) => (
+              <TableRow key={row.id}>
+                {columns.map((column) => (
+                  <TableCell key={column.key}>
+                    {row[column.key]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+
+      <div className="flex items-center justify-between mt-4">
+        <div className="text-sm text-gray-500">
+          Page {pagination.page} of {pagination.totalPages}
+        </div>
+        <div className="space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(pagination.page - 1)}
+            disabled={pagination.page === 1}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(pagination.page + 1)}
+            disabled={pagination.page === pagination.totalPages}
+          >
+            Next
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+📄 src/pages/DataTablePage.jsx
+```jsx
+import React from 'react';
+import { DataTable } from '../components/DataTable';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export function DataTablePage() {
+  return (
+    <div className="container mx-auto py-10">
+      <Card>
+        <CardHeader>
+          <CardTitle>User Data Table</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+```
+
+Installation Steps:
+```bash
+# Install shadcn/ui components
+npx shadcn-ui@latest init
+npx shadcn-ui@latest add table button input card
+npm install axios lucide-react
+```
+
+Key Features:
+1. Pagination
+2. Searching
+3. Sorting
+4. CSV Export
+5. Responsive Design
+6. Loading States
+7. Error Handling
+
+Recommended Shadcn Setup:
+- Use `@/components/ui` for UI components
+- Install Tailwind CSS
+- Configure `tailwind.config.js`
+
+Additional Recommendations:
+1. Add error toast notifications
+2. Implement more advanced filtering
+3. Add loading skeletons
+4. Create unit tests
+
+Would you like me to elaborate on any specific aspect of the implementation?</antArtifact>
