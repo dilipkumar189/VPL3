@@ -161,37 +161,67 @@ const addTeam = async (req, res) => {
   }
 };
 
-const getTeam = async (req,res)=>{
+// const getTeam = async (req,res)=>{
+//   try {
+//       const teamData = await Team.find();
+//       console.log(teamData)
+//       res.status(202).json(teamData);
+//   } catch (error) {
+//       console.error("Error:", error);
+//       res.status(500).json({ error: error.message });
+//   }
+// }
+
+const getTeam = async (req, res) => {
   try {
-      const teamData = await Team.find();
-      console.log(teamData)
-      res.status(202).json(teamData);
-  } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({ error: error.message });
-  }
-}
+    const teamData = await Team.find({}, { players: 0 }).lean();
 
-const getTeamById = async(req, res) =>{
-  try {
-    // extracting the ID from the request parameters
-    const { id } = req.params;
-
-    // finding the team by ID
-    const teamData = await Team.findById(id);
-
-    // check if team was found
-    if (!teamData) {
-        return res.status(404).json({ message: "Team not found" });
-    }
-
-    console.log(teamData);
+    // console.log(teamData);
     res.status(200).json(teamData);
-} catch (error) {
+  } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: error.message });
-}
-}
+  }
+};
+
+// const getTeamById = async (req, res) => {
+//   try {
+//     // extracting the ID from the request parameters
+//     const { id } = req.params;
+
+//     // finding the team by ID
+//     const teamData = await Team.findById(id);
+
+//     // check if team was found
+//     if (!teamData) {
+//       return res.status(404).json({ message: "Team not found" });
+//     }
+
+//     console.log(teamData);
+//     res.status(200).json(teamData);
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).json({ error: error.message });
+//   }
+// }
+
+const getTeamById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // fetch team without logo
+    const teamData = await Team.findById(id, { logo: 0, updatedAt: 0, createdAt: 0 }).lean();
+
+    if (!teamData) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    res.status(200).json(teamData);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
 
 const deleteTeam = async (req, res) => {
   try {

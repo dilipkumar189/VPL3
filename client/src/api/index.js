@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const URL = 'https://vpl-api.vercel.app';
-// const URL = 'http://localhost:4000';
+// const URL = 'https://vpl-api.vercel.app';
+const URL = 'http://localhost:4000';
 
 
 // Food Sponsor -----------------
@@ -284,6 +284,15 @@ export const updateCaptain = async (data) => {
 //       console.log("Sorry bhai galti se bol diya, nhi ho rha", error);
 //   }
 // }
+
+export const validateCode = async (data) => {
+  // data = { code: "JOD-RAJ-01" }
+  try {
+    return await axios.post(`http://localhost:4000/validate-code`, data);
+  } catch (error) {
+    console.log("Error :- ", error);
+  }
+};
 
 export const addTeam = async(data) => {
   try{

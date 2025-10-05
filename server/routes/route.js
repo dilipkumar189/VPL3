@@ -41,6 +41,7 @@ const {
 } = require("../controllers/advertiserCont");
 
 const { addHallOfFame, getHallOfFame, getHallOfFameById, deleteHallOfFame, editHallOfFame } = require("../controllers/hallOfFame");
+const { insertCodes, getCodes, validateCode } = require("../controllers/entryCode");
 
 router.post("/sign", signUser);
 router.post("/login", loginUser);
@@ -82,6 +83,15 @@ router.get("/hall-of-fame/:id", getHallOfFameById);
 router.delete("/hall-of-fame/:id", deleteHallOfFame);
 router.patch("/hall-of-fame/:id", upload.single("hofImage"), editHallOfFame);
 
+// ------other team code ---
+router.post("/insert-codes", insertCodes);
+router.get("/codes", getCodes);
+router.post("/validate-code", validateCode);
+// router.post("/validate-code", (req, res) => {
+//   console.log("Hit validate-code route!");
+//   res.json({ message: "Route works" });
+// });
+
 
 router.post(
   "/addteam",
@@ -97,6 +107,8 @@ router.post(
 router.get("/teams", getTeam);
 router.get("/teams/:id", getTeamById);
 router.delete("/teams/:id", deleteTeam);
+
+router
 
 router.get("/", (req, res) => {
   res.send("hello");
