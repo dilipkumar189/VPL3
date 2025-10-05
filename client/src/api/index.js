@@ -310,6 +310,14 @@ export const getTeam = async() => {
   }
 }
 
+export const getTeamByCode = async (code) => {
+  try {
+    return await axios.get(`${URL}/teams/code/${code}`);
+  } catch (error) {
+    console.log("Error :- ", error);
+  }
+};
+
 export const getTeamById = async(id) => {
   try {
     return await axios.get(`${URL}/teams/${id}`);

@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const transporter = require("../utils/nodemailer");
 const Team = require("../models/addTeam");
 const { uploadFile, deleteFile } = require("../utils/cloudinary");
+const EntryCode = require("../models/entryCode");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const signUser = async (req, res) => {
@@ -115,51 +116,210 @@ const getUser = async (req, res) => {
   }
 };
 
-const addTeam = async (req, res) => {
+// const addTeam = async (req, res) => {
+//   try {
+//     const teamData = req.body;
+//     const players = [];
+
+//     // upload logo to Cloudinary
+//     let logoUrl = null;
+//     if (req.files.logo) {
+//       logoUrl = await uploadFile(req.files.logo[0]);
+//     }
+
+//     // process player data
+//     for (let i = 1; i <= 14; i++) {
+//       const playerData = JSON.parse(teamData[`player${i}`]);
+//       let playerImageUrl = null;
+
+//       if (req.files[`player${i}Image`]) {
+//         playerImageUrl = await uploadFile(req.files[`player${i}Image`][0]);
+//       }
+
+//       players.push({
+//         ...playerData,
+//         image: playerImageUrl,
+//       });
+//     }
+
+//     // create new team
+//     const newTeam = new Team({
+//       ...teamData,
+//       logo: logoUrl,
+//       players: players,
+//     });
+
+//     await newTeam.save();
+
+//     res
+//       .status(201)
+//       .json({ message: "Team created successfully", team: newTeam });
+//   } catch (error) {
+//     console.error("Error creating team:", error);
+//     res
+//       .status(500)
+//       .json({ message: "Failed to create team", error: error.message });
+//   }
+// };
+
+// const addTeam = async (req, res) => {
+//   try {
+//     const teamData = req.body;
+//     const players = [];
+
+//     // upload logo to Cloudinary
+//     let logoUrl = null;
+//     if (req.files.logo) {
+//       logoUrl = await uploadFile(req.files.logo[0]);
+//     }
+
+//     // process player data
+//     for (let i = 1; i <= 14; i++) {
+//       const playerData = {
+//         name: teamData[`player${i}_name`] || "",
+//         adhar: teamData[`player${i}_aadhar`] || "",
+//         village: teamData[`player${i}_village`] || "",
+//         role: teamData[`player${i}_role`] || "",
+//       };
+
+//       let playerImageUrl = null;
+//       if (req.files[`player${i}Image`]) {
+//         playerImageUrl = await uploadFile(req.files[`player${i}Image`][0]);
+//       }
+
+//       players.push({
+//         ...playerData,
+//         image: playerImageUrl,
+//       });
+//     }
+
+//     // create new team
+//     const newTeam = new Team({
+//       team_name: teamData.team_name,
+//       village: teamData.village,
+//       sponser_1: teamData.sponsor_1,
+//       sponser_2: teamData.sponsor_2,
+//       captain: teamData.captain,
+//       mobile: teamData.mobile,
+//       logo: logoUrl,
+//       players: players,
+//     });
+
+//     await newTeam.save();
+
+//     res
+//       .status(201)
+//       .json({ message: "Team created successfully", team: newTeam });
+//   } catch (error) {
+//     console.error("Error creating team:", error);
+//     res
+//       .status(500)
+//       .json({ message: "Failed to create team", error: error.message });
+//   }
+// };
+
+// const EntryCode = require("../models/entryCode");
+// const Team = require("../models/Team");
+// const { uploadFile } = require("../utils/cloudinary"); // your cloudinary helper
+
+// Create or Update Team based on entryCode
+const addOrUpdateTeam = async (req, res) => {
   try {
     const teamData = req.body;
-    const players = [];
+    const { entryCode } = teamData;
 
-    // upload logo to Cloudinary
+    if (!entryCode) {
+      return res.status(400).json({ message: "❌ Entry code is required" });
+    }
+
+    // check entryCode validity
+    const codeDoc = await EntryCode.findOne({ code: entryCode });
+    if (!codeDoc) {
+      return res.status(404).json({ message: "❌ Invalid entry code" });
+    }
+
+    // upload logo if present
     let logoUrl = null;
-    if (req.files.logo) {
+    if (req.files?.logo) {
       logoUrl = await uploadFile(req.files.logo[0]);
     }
 
-    // process player data
+    // prepare players data
+    const players = [];
     for (let i = 1; i <= 14; i++) {
-      const playerData = JSON.parse(teamData[`player${i}`]);
-      let playerImageUrl = null;
+      const playerData = {
+        name: teamData[`player${i}_name`] || "",
+        adhar: teamData[`player${i}_aadhar`] || "",
+        village: teamData[`player${i}_village`] || "",
+        role: teamData[`player${i}_role`] || "",
+      };
 
-      if (req.files[`player${i}Image`]) {
+      let playerImageUrl = null;
+      if (req.files?.[`player${i}Image`]) {
         playerImageUrl = await uploadFile(req.files[`player${i}Image`][0]);
       }
 
-      players.push({
-        ...playerData,
-        image: playerImageUrl,
-      });
+      players.push({ ...playerData, image: playerImageUrl });
     }
 
-    // create new team
-    const newTeam = new Team({
-      ...teamData,
-      logo: logoUrl,
-      players: players,
-    });
+    // if team already exists for this code → update
+    let team;
+    if (codeDoc.used && codeDoc.team) {
+      team = await Team.findByIdAndUpdate(
+        codeDoc.team,
+        {
+          team_name: teamData.team_name,
+          village: teamData.village,
+          sponser_1: teamData.sponser_1,
+          sponser_2: teamData.sponser_2,
+          captain: teamData.captain,
+          mobile: teamData.mobile,
+          logo: logoUrl || undefined,
+          players: players,
+        },
+        { new: true }
+      );
 
-    await newTeam.save();
+      return res.status(200).json({
+        message: "✅ Team updated successfully",
+        team,
+      });
+    } else {
+      // else → create new team
+      const newTeam = new Team({
+        team_name: teamData.team_name,
+        village: teamData.village,
+        sponser_1: teamData.sponser_1,
+        sponser_2: teamData.sponser_2,
+        captain: teamData.captain,
+        mobile: teamData.mobile,
+        logo: logoUrl,
+        players: players,
+      });
 
-    res
-      .status(201)
-      .json({ message: "Team created successfully", team: newTeam });
+      await newTeam.save();
+
+      // mark entryCode as used
+      codeDoc.used = true;
+      codeDoc.team = newTeam._id;
+      await codeDoc.save();
+
+      return res.status(201).json({
+        message: "✅ Team created successfully",
+        team: newTeam,
+      });
+    }
   } catch (error) {
-    console.error("Error creating team:", error);
-    res
-      .status(500)
-      .json({ message: "Failed to create team", error: error.message });
+    console.error("Error creating/updating team:", error);
+    res.status(500).json({
+      message: "❌ Failed to create/update team",
+      error: error.message,
+    });
   }
 };
+
+module.exports = { addOrUpdateTeam };
+
 
 // const getTeam = async (req,res)=>{
 //   try {
@@ -258,12 +418,30 @@ const deleteTeam = async (req, res) => {
   }
 };
 
+const getTeamByCode = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const team = await Team.findOne({ entryCode: code }); // assuming you store "entryCode"
+
+    if (!team) {
+      return res.status(404).json({ message: "Team not found for this code" });
+    }
+
+    res.json(team);
+  } catch (err) {
+    console.error("Error fetching team by code:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 module.exports = {
   signUser,
   loginUser,
   getUser,
   editUserCaptain,
-  addTeam,
+  getTeamByCode,
+  // addTeam,
+  addOrUpdateTeam,
   getTeam,
   getTeamById,
   deleteTeam

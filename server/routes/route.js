@@ -14,6 +14,8 @@ const {
   getTeam,
   deleteTeam,
   getTeamById,
+  addOrUpdateTeam,
+  getTeamByCode,
 } = require("../controllers/userController");
 const {
   addSponsorType,
@@ -101,14 +103,15 @@ router.post(
       .fill()
       .map((_, i) => ({ name: `player${i + 1}Image`, maxCount: 1 })),
   ]),
-  addTeam
+  // addTeam
+  addOrUpdateTeam
 );
 
 router.get("/teams", getTeam);
 router.get("/teams/:id", getTeamById);
+router.get("/teams/code/:code", getTeamByCode);
 router.delete("/teams/:id", deleteTeam);
 
-router
 
 router.get("/", (req, res) => {
   res.send("hello");
