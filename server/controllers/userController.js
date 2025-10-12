@@ -223,6 +223,103 @@ const getUser = async (req, res) => {
 // const { uploadFile } = require("../utils/cloudinary"); // your cloudinary helper
 
 // Create or Update Team based on entryCode
+
+
+// const addOrUpdateTeam = async (req, res) => {
+//   try {
+//     const teamData = req.body;
+//     const { entryCode } = teamData;
+
+//     if (!entryCode) {
+//       return res.status(400).json({ message: "❌ Entry code is required" });
+//     }
+
+//     // check entryCode validity
+//     const codeDoc = await EntryCode.findOne({ code: entryCode });
+//     if (!codeDoc) {
+//       return res.status(404).json({ message: "❌ Invalid entry code" });
+//     }
+
+//     // upload logo if present
+//     let logoUrl = null;
+//     if (req.files?.logo) {
+//       logoUrl = await uploadFile(req.files.logo[0]);
+//     }
+
+//     // prepare players data
+//     const players = [];
+//     for (let i = 1; i <= 14; i++) {
+//       const playerData = {
+//         name: teamData[`player${i}_name`] || "",
+//         adhar: teamData[`player${i}_adhar`] || "",
+//         village: teamData[`player${i}_village`] || "",
+//         role: teamData[`player${i}_role`] || "",
+//       };
+
+//       let playerImageUrl = null;
+//       if (req.files?.[`player${i}Image`]) {
+//         playerImageUrl = await uploadFile(req.files[`player${i}Image`][0]);
+//       }
+
+//       players.push({ ...playerData, image: playerImageUrl });
+//     }
+
+//     // if team already exists for this code → update
+//     let team;
+//     if (codeDoc.used && codeDoc.team) {
+//       team = await Team.findByIdAndUpdate(
+//         codeDoc.team,
+//         {
+//           team_name: teamData.team_name,
+//           village: teamData.village,
+//           sponser_1: teamData.sponser_1,
+//           sponser_2: teamData.sponser_2,
+//           captain: teamData.captain,
+//           mobile: teamData.mobile,
+//           logo: logoUrl || undefined,
+//           players: players,
+//         },
+//         { new: true }
+//       );
+
+//       return res.status(200).json({
+//         message: "✅ Team updated successfully",
+//         team,
+//       });
+//     } else {
+//       // else → create new team
+//       const newTeam = new Team({
+//         team_name: teamData.team_name,
+//         village: teamData.village,
+//         sponser_1: teamData.sponser_1,
+//         sponser_2: teamData.sponser_2,
+//         captain: teamData.captain,
+//         mobile: teamData.mobile,
+//         logo: logoUrl,
+//         players: players,
+//       });
+
+//       await newTeam.save();
+
+//       // mark entryCode as used
+//       codeDoc.used = true;
+//       codeDoc.team = newTeam._id;
+//       await codeDoc.save();
+
+//       return res.status(201).json({
+//         message: "✅ Team created successfully",
+//         team: newTeam,
+//       });
+//     }
+//   } catch (error) {
+//     console.error("Error creating/updating team:", error);
+//     res.status(500).json({
+//       message: "❌ Failed to create/update team",
+//       error: error.message,
+//     });
+//   }
+// };
+
 const addOrUpdateTeam = async (req, res) => {
   try {
     const teamData = req.body;
@@ -238,8 +335,14 @@ const addOrUpdateTeam = async (req, res) => {
       return res.status(404).json({ message: "❌ Invalid entry code" });
     }
 
-    // upload logo if present
-    let logoUrl = null;
+    // Get existing team data for updates
+    let existingTeam = null;
+    if (codeDoc.used && codeDoc.team) {
+      existingTeam = await Team.findById(codeDoc.team);
+    }
+
+    // upload logo if present, otherwise keep existing
+    let logoUrl = existingTeam?.logo; // Keep existing logo
     if (req.files?.logo) {
       logoUrl = await uploadFile(req.files.logo[0]);
     }
@@ -249,12 +352,13 @@ const addOrUpdateTeam = async (req, res) => {
     for (let i = 1; i <= 14; i++) {
       const playerData = {
         name: teamData[`player${i}_name`] || "",
-        adhar: teamData[`player${i}_aadhar`] || "",
+        adhar: teamData[`player${i}_adhar`] || "",
         village: teamData[`player${i}_village`] || "",
         role: teamData[`player${i}_role`] || "",
       };
 
-      let playerImageUrl = null;
+      // Keep existing image if no new image uploaded
+      let playerImageUrl = existingTeam?.players?.[i-1]?.image || null;
       if (req.files?.[`player${i}Image`]) {
         playerImageUrl = await uploadFile(req.files[`player${i}Image`][0]);
       }
@@ -274,7 +378,7 @@ const addOrUpdateTeam = async (req, res) => {
           sponser_2: teamData.sponser_2,
           captain: teamData.captain,
           mobile: teamData.mobile,
-          logo: logoUrl || undefined,
+          logo: logoUrl,
           players: players,
         },
         { new: true }

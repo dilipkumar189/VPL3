@@ -6,10 +6,7 @@ const EntryCode = require("../models/entryCode");
 const insertCodes = async (req, res) => {
   try {
     const codes = [
-      { code: "bagra1", village: "bagra" },
-      { code: "siyana2", village: "siyana" },
-      { code: "akoli3", village: "akoli" },
-      { code: "dudsi4", village: "dudsi" }
+      { code: "bhavesh", village: "Bagra" }
     ];
 
     const inserted = await EntryCode.insertMany(codes, { ordered: false });
