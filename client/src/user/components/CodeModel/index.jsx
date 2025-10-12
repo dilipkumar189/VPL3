@@ -81,17 +81,18 @@ export default function CodeModal({ onClose }) {
 
     setLoading(true);
     try {
-        console.log("code :", code);
+      console.log("code :", code);
       const res = await validateCode({ code }); // API call
 
-      console.log("res :", res);
-      if (res.data.message.includes("valid")) {
-        toast.success("✅ Code verified!");
+      console.log("ressss :", res);
+      // console.log("res.data :", res.data.team.length);
+      if (res.status === 200 ) {
+        toast.success("Code verified!");
         onClose(); // close modal
-        navigate("/addteam", { state: { code } }); // pass code to form
+        navigate("/addteam", { state: { code , team: res.data.team} }); // pass code to form
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "❌ Invalid code");
+      toast.error(err.response?.data?.message || "Invalid code");
     } finally {
       setLoading(false);
     }

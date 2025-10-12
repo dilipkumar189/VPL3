@@ -370,7 +370,7 @@ const getTeamById = async (req, res) => {
     const { id } = req.params;
 
     // fetch team without logo
-    const teamData = await Team.findById(id, { logo: 0, updatedAt: 0, createdAt: 0 }).lean();
+    const teamData = await Team.findById(id, { updatedAt: 0, createdAt: 0 }).lean();
 
     if (!teamData) {
       return res.status(404).json({ message: "Team not found" });

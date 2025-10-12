@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const URL = 'https://vpl-api.vercel.app';
-const URL = 'https://vpl-api.vercel.app' // http://localhost:4000';
+const URL = 'http://localhost:4000';
 
 
 // Food Sponsor -----------------

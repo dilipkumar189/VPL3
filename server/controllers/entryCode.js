@@ -6,18 +6,10 @@ const EntryCode = require("../models/entryCode");
 const insertCodes = async (req, res) => {
   try {
     const codes = [
-      { code: "JOD-RAJ-01", village: "Rajeshpur" },
-      { code: "PALI-ASH-02", village: "Ashapura" },
-      { code: "BALI-MAN-03", village: "Mandli" },
-      { code: "UDA-SUR-04", village: "Surajgarh" },
-      { code: "JAI-DEV-05", village: "Devpura" },
-      { code: "NAG-OM-06", village: "Ompura" },
-      { code: "BEE-RAK-07", village: "Rakeshpur" },
-      { code: "KOT-ANU-08", village: "Anupgarh" },
-      { code: "TON-MOH-09", village: "Mohangarh" },
-      { code: "BAR-VIN-10", village: "Vinpura" },
-      { code: "AJM-HAR-11", village: "Haripura" },
-      { code: "SIK-SAT-12", village: "Satpura" },
+      { code: "bagra1", village: "bagra" },
+      { code: "siyana2", village: "siyana" },
+      { code: "akoli3", village: "akoli" },
+      { code: "dudsi4", village: "dudsi" }
     ];
 
     const inserted = await EntryCode.insertMany(codes, { ordered: false });
@@ -69,23 +61,38 @@ const getCodes = async (req, res) => {
 const validateCode = async (req, res) => {
   try {
     let { code } = req.body;
-    if (!code) return res.status(400).json({ message: "Code is required" });
+    console.log("Received code:", `"${code}"`);
 
-    code = code.trim(); // remove spaces
+    if (!code || !code.trim()) {
+      return res.status(400).json({ message: "Code is required" });
+    }
 
-    // case-insensitive search
-    const entryCode = await EntryCode.findOne({ code: new RegExp(`^${code}$`, "i") });
+    code = code.trim();
 
-    if (!entryCode) return res.status(404).json({ message: "❌ Invalid code" });
-    if (entryCode.used) return res.status(400).json({ message: "⚠️ Code already used" });
+    // Find entry and populate only if team is valid
+    const entryCode = await EntryCode.findOne({ code: code })
+
+    if (!entryCode) {
+      return res.status(404).json({ message: "Invalid code" });
+    }
+
+    // Ensure team is either a valid ObjectId or null
+    if (!entryCode.team || entryCode.team === "null") {
+      entryCode.team = null;
+    }
 
     res.status(200).json({
-      message: "✅ Code is valid, you can create a team",
+      message: "Code is valid, you can create a team",
       village: entryCode.village,
+      isUsed: !!entryCode.team,
+      team: entryCode.team || null,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Validation error:", error);
+    return res.status(500).json({ error: "Server error", details: error.message });
   }
 };
+
+
 
 module.exports = { insertCodes, getCodes, validateCode };
