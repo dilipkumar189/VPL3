@@ -11,7 +11,7 @@ const addAdvertise = async (req, res) => {
         }
         // Upload image to Cloudinary
         const result = await uploadFile(req.file);
-        console.log("Cloudinary Upload Result:", result); // This log is important
+        // console.log("Cloudinary Upload Result:", result); // This log is important
 
         const shopLogo = result;
 
@@ -25,7 +25,7 @@ const addAdvertise = async (req, res) => {
         });
 
         const saveAd = await newAdvertise.save();
-        console.log("New Advertiser added", saveAd);
+        // console.log("New Advertiser added", saveAd);
         res.status(201).json(saveAd); 
     } catch (error) {
         console.error("Error adding Advertiser:", error);
@@ -37,7 +37,7 @@ const addAdvertise = async (req, res) => {
 const getAdvertiser = async (req,res)=>{
     try {
         const adverData = await advertiser.find();
-        console.log(adverData)
+        // console.log(adverData)
         res.status(202).json(adverData);
     } catch (error) {
         console.error("Error:", error);
@@ -58,7 +58,7 @@ const getAdvertiserById = async (req, res) => {
             return res.status(404).json({ message: "Advertiser not found" });
         }
 
-        console.log(adverData);
+        // console.log(adverData);
         res.status(200).json(adverData);
     } catch (error) {
         console.error("Error:", error);

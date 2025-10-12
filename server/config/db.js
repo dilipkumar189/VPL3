@@ -6,7 +6,7 @@ const connectDB = async () => {
     //   ? process.env.MONGODB_URI
     //   : "mongodb://localhost:27017/vpl3";
 
-  console.log("MongoDB URI:", mongoURI);
+  // console.log("MongoDB URI:", mongoURI);
 
   try {
     await mongoose.connect(mongoURI, {

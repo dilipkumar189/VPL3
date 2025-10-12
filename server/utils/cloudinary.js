@@ -29,7 +29,7 @@ const uploadFile = async (file) => {
 const deleteFile = async (publicId) => {
   try {
     const result = await cloudinary.uploader.destroy(publicId);
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (error) {
     console.log(error.message);

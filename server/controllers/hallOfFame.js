@@ -11,7 +11,7 @@ const addHallOfFame = async (req, res) => {
         }
         // Upload image to Cloudinary
         const result = await uploadFile(req.file);
-        console.log("Cloudinary Upload Result:", result); // This log is important
+        // console.log("Cloudinary Upload Result:", result); // This log is important
 
         const hofImage = result;
 
@@ -26,7 +26,7 @@ const addHallOfFame = async (req, res) => {
         });
 
         const saveAd = await newHallOfFame.save();
-        console.log("New Hall Of Fame added", saveAd);
+        // console.log("New Hall Of Fame added", saveAd);
         res.status(201).json(saveAd); 
     } catch (error) {
         console.error("Error adding Hall Of Fame:", error);
@@ -38,7 +38,7 @@ const addHallOfFame = async (req, res) => {
 const getHallOfFame = async (req,res)=>{
     try {
         const hofData = await hallOfFame.find();
-        console.log(hofData)
+        // console.log(hofData)
         res.status(202).json(hofData);
     } catch (error) {
         console.error("Error:", error);
@@ -59,7 +59,7 @@ const getHallOfFameById = async (req, res) => {
             return res.status(404).json({ message: "Hall Of Fame not found" });
         }
 
-        console.log(hofData);
+        // console.log(hofData);
         res.status(200).json(hofData);
     } catch (error) {
         console.error("Error:", error);

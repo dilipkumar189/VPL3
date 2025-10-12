@@ -58,7 +58,7 @@ const getCodes = async (req, res) => {
 const validateCode = async (req, res) => {
   try {
     let { code } = req.body;
-    console.log("Received code:", `"${code}"`);
+    // console.log("Received code:", `"${code}"`);
 
     if (!code || !code.trim()) {
       return res.status(400).json({ message: "Code is required" });

@@ -72,7 +72,7 @@ const editSponsorType = async (req, res) => {
     const { id } = req.params;
     const update = req.body; // Directly use the request body
     
-    console.log('Request body:', req.body);
+    // console.log('Request body:', req.body);
 
     if (Object.keys(update).length === 0) {
         return res.status(400).json({ message: "No update data provided" });
@@ -120,11 +120,11 @@ const addFoodSpon = async (req, res) => {
             return res.status(400).json({ error: 'No image file uploaded.' });
         }
 
-        console.log("File received:", req.file);
+        // console.log("File received:", req.file);
 
         // Upload image to Cloudinary
         const result = await uploadFile(req.file);
-        console.log("Cloudinary Upload Result:", result);
+        // console.log("Cloudinary Upload Result:", result);
 
         const spImage = result;
 
@@ -139,7 +139,7 @@ const addFoodSpon = async (req, res) => {
 
         // Save the food sponsor information to the database
         const savedFoodSpon = await newFoodSpon.save();
-        console.log('New Food Sponsor Added:', savedFoodSpon);
+        // console.log('New Food Sponsor Added:', savedFoodSpon);
 
         res.status(201).json(savedFoodSpon);
     } catch (error) {
@@ -152,7 +152,7 @@ const addFoodSpon = async (req, res) => {
 const getFoodSpon = async (req,res)=>{
     try {
         const foodData = await foodSpon.find();
-        console.log(foodData)
+        // console.log(foodData)
         res.status(202).json(foodData);
     } catch (error) {
         console.error("Error:", error);
@@ -173,7 +173,7 @@ const getFoodSponsorById = async (req, res) => {
             return res.status(404).json({ message: "Food Sponsor not found" });
         }
 
-        console.log(foodSponsorData);
+        // console.log(foodSponsorData);
         res.status(200).json(foodSponsorData);
     } catch (error) {
         console.error("Error:", error);
@@ -256,7 +256,7 @@ const addOtherSpon = async (req, res) => {
 
         // Upload image to Cloudinary
         const result = await uploadFile(req.file);
-        console.log("Cloudinary Upload Result:", result); // This log is important
+        // console.log("Cloudinary Upload Result:", result); // This log is important
 
         const spOtherImage = result; // Change this line
 
@@ -270,7 +270,7 @@ const addOtherSpon = async (req, res) => {
         });
 
         const savedSpon = await newOtherSpon.save();
-        console.log('New Sponsor Added:', savedSpon);
+        // console.log('New Sponsor Added:', savedSpon);
 
         res.status(201).json(savedSpon);
     } catch (error) {
@@ -284,7 +284,7 @@ const addOtherSpon = async (req, res) => {
 const getOtherSpon = async (req,res)=>{
     try {
         const otherData = await otherSpon.find();
-        console.log(otherData)
+        // console.log(otherData)
         res.status(202).json(otherData);
     } catch (error) {
         console.error("Error:", error);
@@ -305,7 +305,7 @@ const getOtherSponsorById = async (req, res) => {
             return res.status(404).json({ message: "Other Sponsor not found" });
         }
 
-        console.log(otherSponsorData);
+        // console.log(otherSponsorData);
         res.status(200).json(otherSponsorData);
     } catch (error) {
         console.error("Error:", error);
