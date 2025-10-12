@@ -9,16 +9,16 @@ export default function Footer() {
     };
     return (
         <div>
-            <footer className="footer bg-base-200 text-base-content sm:px-10 px-6 py-8">
+            <footer className="footer dark:bg-gray-300 bg-base-200 text-base-content sm:px-10 px-6 py-8">
                 <aside className='flex sm:block'>
                 <div className="w-14 rounded-full mt-[-12px]">
                             <img
                                 alt="Tailwind CSS Navbar component"
-                                src="https://i.pinimg.com/736x/9d/e3/f9/9de3f928d76f012aebbc4faa0b19f92d.jpg" />
+                                src="/logo2.png" />
                         </div>
                         <div>
                         <h6 className=" font-bold text-slate-600">Vishwakarma Premier Lague</h6>
-                        <h6 className=" font-semibold text-slate-600  sm:mt-0">Season - 3</h6>
+                        <h6 className=" font-semibold text-slate-600  sm:mt-0">Season - 4</h6>
 
                         </div>
 
@@ -26,7 +26,7 @@ export default function Footer() {
                 <aside className='grid grid-cols-4  gap-10 sm:gap-4 px-2 lg:px-24 '>
 
                     <div className='sm:leading-6 leading-5 mt-[-12px] sm:mt-0 col-span-2 sm:col-span-1'>
-                        <h6 className="footer-title">Features</h6>
+                        <h6 className="footer-title text-gray-800">Features</h6>
                         <ul className='text-slate-600'>
                             <li><a className="link link-hover">Sponsers</a></li>
                             <li><a className="link link-hover">Advertisers</a></li>
@@ -35,7 +35,7 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div className='leading-5 mt-[-12px] sm:mt-0  col-span-2 sm:col-span-1'>
-                        <h6 className="footer-title">Teams</h6>
+                        <h6 className="footer-title text-gray-800">Teams</h6>
                         <ul className='text-slate-600'>
                             <li><a className="link link-hover">Add Team</a></li>
                             <li><a className="link link-hover">Team Profile</a></li>
@@ -44,7 +44,7 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div className='sm:leading-5 leading-5 mt-[-12px] sm:mt-0 col-span-2 sm:col-span-1 '>
-                        <h6 className="footer-title">Legal</h6>
+                        <h6 className="footer-title text-gray-800">Legal</h6>
                         <ul className='text-slate-600'>
                             <li><a className="link link-hover">Rules & Regulation</a></li>
                             <li><a className="link link-hover">About Us</a></li>
@@ -57,7 +57,7 @@ export default function Footer() {
                         <ul className='text-slate-600'>
 
                         <li className='lg:leading-4  leading-3'><a className="link link-hover text-[11px] sm:text-[13px]">Address : Vishwakarma Colony, Railway Station Road, Bagra(Jalore)</a></li>
-                        <li><a className="link link-hover text-[11px] sm:text-[13px]">Email : vpl2024@gmail.com</a></li>
+                        <li><a className="link link-hover text-[11px] sm:text-[13px]">Email : vpl2025@gmail.com</a></li>
                      
                             <li className='flex '>
 
@@ -88,8 +88,8 @@ export default function Footer() {
            
             <div className='h-8 place-content-center text-center bg-slate-600 border-t-[1px]  border-slate-300'>
       <h1 className='text-white text-[9px] sm:text-[12px]'>
-        Copyright <span onClick={toggleHelloWorld} className='cursor-pointer'>©</span> 2024, VPL Cricket Tournament
-        {showHelloWorld && <span className='text-white mx-[12px]'>[ Developed by :- Bhavesh & Dilip ]</span>}
+        Copyright <span onClick={toggleHelloWorld} className='cursor-pointer'>©</span> 2025, VPL Cricket Tournament
+        {showHelloWorld && <span className='text-white mx-[12px]'>[ Developed by :- DILIP & BHAVESH ]</span>}
       </h1>
      
     </div>

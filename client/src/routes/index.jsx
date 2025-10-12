@@ -17,6 +17,8 @@ import {
   SignUp,
 } from "../user/pages";
 
+import ProtectedAddTeamRoute from "../user/components/ProtectedAddTeamRoute";
+
 import {
   Dashboard,
   Users,
@@ -40,57 +42,57 @@ const userRoutes = [
     path: "/",
     element: <Home />,
   },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/halloffame",
-    element: <HallOfFame />,
-  },
+  // {
+  //   path: "/signup",
+  //   element: <SignUp />,
+  // },
+  // {
+  //   path: "/login",
+  //   element: <Login />,
+  // },
+  // {
+  //   path: "/halloffame",
+  //   element: <HallOfFame />,
+  // },
   {
     path: "/teamview/:id",
     element: <TeamView />,
   },
-  {
-    path: "/sponser",
-    element: <Sponser />,
-  },
+  // {
+  //   path: "/sponser",
+  //   element: <Sponser />,
+  // },
   {
     path: "/team",
     element: <Team />,
   },
-  {
-    path: "/advertiser",
-    element: <Advertiser />,
-  },
-  {
-    path: "/rules",
-    element: <Rules />,
-  },
-  {
-    path: "/aboutus",
-    element: <AboutUs />,
-  },
-  {
-    path: "/contactus",
-    element: <ContactUs />,
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/editprofile",
-    element: <ProfileForm />,
-  },
+  // {
+  //   path: "/advertiser",
+  //   element: <Advertiser />,
+  // },
+  // {
+  //   path: "/rules",
+  //   element: <Rules />,
+  // },
+  // {
+  //   path: "/aboutus",
+  //   element: <AboutUs />,
+  // },
+  // {
+  //   path: "/contactus",
+  //   element: <ContactUs />,
+  // },
+  // {
+  //   path: "/profile",
+  //   element: <Profile />,
+  // },
+  // {
+  //   path: "/editprofile",
+  //   element: <ProfileForm />,
+  // },
   {
     path: "/addteam",
-    element: <TeamForm />,
+    element: <ProtectedAddTeamRoute />,
   },
   // {
   //   path: "/addteam2",
@@ -113,7 +115,7 @@ function AdminLayout() {
 
 const adminRoutes = [
   {
-    path: "/admin/",
+    path: "/admin555525/",
     element: <AdminLayout />,
     children: [
       { index: true, element: <Dashboard /> },

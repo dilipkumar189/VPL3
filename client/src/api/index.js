@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const URL = 'https://vpl-api.vercel.app';
-// const URL = 'http://localhost:4000';
+const URL = import.meta.env.VITE_API_URL ;
 
 
 // Food Sponsor -----------------
@@ -32,9 +31,9 @@ export const getFoodSponsorById = async (id) => {
 
 export const editFoodSponsor = async (id, data) => {
   try {
-    console.log("Sending data to update:", data); // Add this line
+    // console.log("Sending data to update:", data); // Add this line
     const response = await axios.patch(`${URL}/food-sponser/${id}`, data);
-    console.log("Update response:", response); // Add this line
+    // console.log("Update response:", response); // Add this line
     return response;
   } catch (error) {
     console.error("Error in editFoodSponsor:", error);
@@ -80,9 +79,9 @@ export const getOtherSponsorById = async (id) => {
 
 export const editOtherSponsor = async (id, data) => {
   try {
-    console.log("Sending data to update:", data); // Add this line
+    // console.log("Sending data to update:", data); // Add this line
     const response = await axios.patch(`${URL}/other-sponser/${id}`, data);
-    console.log("Update response:", response); // Add this line
+    // console.log("Update response:", response); // Add this line
     return response;
   } catch (error) {
     console.error("Error in editOtherSponsor:", error);
@@ -127,9 +126,9 @@ export const getAdvertiserById = async (id) => {
 
 export const editAdvertiser = async (id, data) => {
   try {
-    console.log("Sending data to update:", data); // Add this line
+    // console.log("Sending data to update:", data); // Add this line
     const response = await axios.patch(`${URL}/advertiser/${id}`, data);
-    console.log("Update response:", response); // Add this line
+    // console.log("Update response:", response); // Add this line
     return response;
   } catch (error) {
     console.error("Error in editAdvertiser:", error);
@@ -174,9 +173,9 @@ export const getHallOfFameById = async (id) => {
 
 export const editHallOfFame = async (id, data) => {
   try {
-    console.log("Sending data to update:", data); // Add this line
+    // console.log("Sending data to update:", data); // Add this line
     const response = await axios.patch(`${URL}/hall-of-fame/${id}`, data);
-    console.log("Update response:", response); // Add this line
+    // console.log("Update response:", response); // Add this line
     return response;
   } catch (error) {
     console.error("Error in editAdvertiser:", error);
@@ -221,9 +220,9 @@ export const getSponsorById = async (id) => {
 
 export const editSponsorType = async (id, data) => {
   try {
-    console.log("Sending data to update:", data); // Add this line
+    // console.log("Sending data to update:", data); // Add this line
     const response = await axios.patch(`${URL}/sponsor-type/${id}`, data);
-    console.log("Update response:", response); // Add this line
+    // console.log("Update response:", response); // Add this line
     return response;
   } catch (error) {
     console.error("Error in editSponsorType:", error);
@@ -288,7 +287,7 @@ export const updateCaptain = async (data) => {
 export const validateCode = async (data) => {
   // data = { code: "JOD-RAJ-01" }
   try {
-    return await axios.post(`http://localhost:4000/validate-code`, data);
+    return await axios.post(`${URL}/validate-code`, data);
   } catch (error) {
     console.log("Error :- ", error);
   }

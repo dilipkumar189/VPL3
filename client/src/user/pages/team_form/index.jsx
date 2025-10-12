@@ -322,17 +322,20 @@ export default function TeamForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [teamData, setTeamData] = useState(null);
+  // const [teamData, setTeamData] = useState(null);
+  const [teamData, setTeamData] = useState({
+  players: Array(14).fill().map(() => ({ role: "Batsman" }))
+});
   const [teamFetched, setTeamFetched] = useState(false); //  to check DB fetch
 
-  console.log({ code, teamid });
+  // console.log({ code, teamid });
 
   const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
 
   // ✅ Reusable file size validation
   const validateFileSize = (file) => {
     if (file && file.size > MAX_FILE_SIZE) {
-      toast.error("❌ File size must be less than 1 MB");
+      toast.error("File size must be less than 1 MB");
       return false;
     }
     return true;
@@ -394,7 +397,7 @@ export default function TeamForm() {
           setTeamFetched(false);
         }
       } catch (err) {
-        console.log("No existing team for this code:", err);
+        // console.log("No existing team for this code:", err);
         setTeamFetched(false);
       }
     };
@@ -402,7 +405,7 @@ export default function TeamForm() {
     fetchTeam();
   }, [teamid]);
 
-  console.log("team data:", teamData)
+  // console.log("team data:", teamData)
 
   // ✅ Handle form changes
   const handleChange = (e) => {
@@ -422,6 +425,8 @@ export default function TeamForm() {
     });
   };
 
+  // console.log("team data:", teamData);
+
   // ✅ Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -431,8 +436,30 @@ export default function TeamForm() {
     });
 
     try {
-      const formData = new FormData(e.target);
+      const formData = new FormData();
+      
+      // Add team data
+      formData.append("team_name", teamData?.team_name || "");
+      formData.append("village", teamData?.village || "");
+      formData.append("sponser_1", teamData?.sponser_1 || "");
+      formData.append("sponser_2", teamData?.sponser_2 || "");
+      formData.append("captain", teamData?.captain || "");
+      formData.append("mobile", teamData?.mobile || "");
       formData.append("entryCode", code);
+      
+      // Add logo if exists
+      if (teamData?.logo) {
+        formData.append("logo", teamData.logo);
+      }
+      
+      // Add player data
+      teamData?.players?.forEach((player, index) => {
+        if (player.name) formData.append(`player${index + 1}_name`, player.name);
+        if (player.adhar) formData.append(`player${index + 1}_adhar`, player.adhar);
+        if (player.village) formData.append(`player${index + 1}_village`, player.village);
+        if (player.role) formData.append(`player${index + 1}_role`, player.role);
+        if (player.image) formData.append(`player${index + 1}Image`, player.image);
+      });
 
       const res = await addTeam(formData);
       toast.dismiss();
@@ -440,13 +467,13 @@ export default function TeamForm() {
       navigate("/team");
     } catch (err) {
       toast.dismiss();
-      toast.error(err.response?.data?.message || "❌ Error submitting team");
+      toast.error(err.response?.data?.message || "Error submitting team");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  console.log({ "teamFetchd": teamFetched, "teamdata": teamData, "edti": editMode })
+  // console.log({ "teamFetchd": teamFetched, "teamdata": teamData, "edti": editMode })
 
   // ✅ If data fetched & not editing — show view card
   if (teamFetched && teamData && !editMode) {
@@ -490,35 +517,35 @@ export default function TeamForm() {
               </button>
             </div> */}
             <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl shadow-inner py-6 px-4 flex flex-col md:flex-row justify-center items-center gap-6 text-lg font-medium text-gray-700">
-      <div className="flex items-center gap-2">
-        <span className="text-orange-600 font-semibold">Captain:</span>
-        <span>{teamData.captain}</span>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="text-orange-600 font-semibold">Mobile:</span>
-        <span>{teamData.mobile}</span>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="text-orange-600 font-semibold">Village:</span>
-        <span>{teamData.village}</span>
-      </div>
-    </div>
+              <div className="flex items-center gap-2">
+                <span className="text-orange-600 font-semibold">Captain:</span>
+                <span>{teamData.captain}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-orange-600 font-semibold">Mobile:</span>
+                <span>{teamData.mobile}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-orange-600 font-semibold">Village:</span>
+                <span>{teamData.village}</span>
+              </div>
+            </div>
 
-    {/* Buttons */}
-    <div className="flex justify-center gap-6 mt-8">
-      <button
-        onClick={() => setEditMode(true)}
-        className="px-4 md:px-8 py-2 md:py-2 bg-[#334155] text-sm md:text-base text-white font-semibold rounded-lg shadow hover:bg-[#4c5e77] transition-transform transform"
-      >
-        Edit Team
-      </button>
-      <button
-        onClick={() => navigate('/team')}
-        className="px-4 md:px-8 py-2 md:py-2 bg-gray-100 text-sm md:text-base text-gray-800 font-semibold rounded-lg shadow hover:bg-gray-200 transition-transform transform hover:scale-105"
-      >
-        Go to Team Page
-      </button>
-    </div>
+            {/* Buttons */}
+            <div className="flex justify-center gap-6 mt-8">
+              <button
+                onClick={() => setEditMode(true)}
+                className="px-4 md:px-8 py-2 md:py-2 bg-[#334155] text-sm md:text-base text-white font-semibold rounded-lg shadow hover:bg-[#4c5e77] transition-transform transform"
+              >
+                Edit Team
+              </button>
+              <button
+                onClick={() => navigate('/team')}
+                className="px-4 md:px-8 py-2 md:py-2 bg-gray-100 text-sm md:text-base text-gray-800 font-semibold rounded-lg shadow hover:bg-gray-200 transition-transform transform hover:scale-105"
+              >
+                Go to Team Page
+              </button>
+            </div>
           </div>
         </div>
         <Toaster />
@@ -532,7 +559,7 @@ export default function TeamForm() {
     <>
       <Navbar />
 
-      <div className="relative w-full h-64 md:h-80 lg:h-96">
+      {/* <div className="relative w-full h-64 md:h-80 lg:h-96">
         <img
           src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1920&auto=format&fit=crop"
           alt="Cricket Stadium"
@@ -543,17 +570,22 @@ export default function TeamForm() {
             {editMode ? "UPDATE TEAM" : "TEAM REGISTRATION"}
           </h1>
         </div>
-      </div>
+      </div> */}
 
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-          <form onSubmit={handleSubmit} className="p-8 space-y-12">
+      <h1 className="text-3xl md:text-4xl font-bold text-sky-900 dark:text-sky-700 mt-3 text-center tracking-wider border-b p-2 mx-5">
+        {editMode ? "UPDATE TEAM" : "TEAM REGISTRATION"}
+      </h1>
+
+      <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="bg-gray-50 rounded-2xl shadow-lg border  border-gray-200 overflow-hidden">
+          <form onSubmit={handleSubmit} className="p-4 md:o-6 lg:p-8 space-y-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 border-b pb-4 mb-6">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 border-b pb-2 md:pb-4 mb-4 md:mb-6">
                 Team Information
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-4">
                 <InputField
+                  className="text-xl bg-white"
                   label="Team Name"
                   name="team_name"
                   value={teamData?.team_name || ""}
@@ -561,24 +593,27 @@ export default function TeamForm() {
                   required
                 />
                 <InputField
+                  className="text-xl bg-white"
                   label="Village"
                   name="village"
                   value={teamData?.village || ""}
                   onChange={handleChange}
                   required
                 />
-                <InputField
+                {/* <InputField
                   label="Sponsor 1"
                   name="sponser_1"
                   value={teamData?.sponser_1 || ""}
                   onChange={handleChange}
+                  disabled
                 />
                 <InputField
                   label="Sponsor 2"
                   name="sponser_2"
                   value={teamData?.sponser_2 || ""}
                   onChange={handleChange}
-                />
+                  disabled
+                /> */}
                 <InputField
                   label="Captain"
                   name="captain"
@@ -593,101 +628,160 @@ export default function TeamForm() {
                   onChange={handleChange}
                   required
                 />
-                <InputField
+                {/* <InputField
                   type="file"
                   label="Team Logo"
                   name="logo"
-                  onChange={handleLogoChange} />
+                  onChange={handleLogoChange}
+                  required
+                /> */}
+
+<div className="flex flex-col">
+  <label className="text-sm font-medium text-gray-700 mb-1">
+    Team Logo <span className="text-red-500">*</span>
+  </label>
+  {/* {teamData?.logo && (
+    <img src={teamData.logo} alt="Current Logo" className="w-16 h-16 rounded mb-2 object-cover" />
+  )} */}
+  <input
+    type="file"
+    name="logo"
+    onChange={handleLogoChange}
+    required
+    accept="image/*"
+    className="block w-full text-sm text-gray-600
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-lg file:border-0
+      file:text-sm file:font-semibold
+      file:bg-blue-100 file:text-gray-700
+      hover:file:bg-blue-200
+      cursor-pointer border border-gray-300 rounded-lg p-2"
+  />
+</div>
+
+
+
+
+                {/* <div className="flex flex-col">
+  <label className="text-sm font-medium text-gray-700 mb-1">
+    Team Logo <span className="text-red-500">*</span>
+  </label>
+  <input
+    type="file"
+    name="logo"
+    onChange={handleLogoChange}
+    required
+    accept="image/*"
+    className="block w-full text-sm text-gray-600
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-lg file:border-0
+      file:text-sm file:font-semibold
+      file:bg-blue-100 file:text-gray-700
+      hover:file:bg-blue-200
+      cursor-pointer border border-gray-300 rounded-lg p-2"
+  />
+</div> */}
               </div>
             </div>
 
             <div>
-  <h2 className="text-2xl font-bold text-gray-800 border-b-2 border-green-500 pb-3 mb-6 text-center">
-    Squad Details
-  </h2>
+              <h2 className="text-2xl font-bold text-gray-800 border-b-2 border-blue-500 pb-3 mb-6 text-left">
+                Squad Details
+              </h2>
 
-  <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
-    <table className="w-full text-sm">
-      <thead className="bg-gray-100 text-gray-700 text-xs sm:text-sm">
-        <tr>
-          <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">#</th>
-          <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Name</th>
-          <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Aadhar</th>
-          <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Village</th>
-          <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Role</th>
-          <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Photo</th>
-        </tr>
-      </thead>
+              <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+                <table className="w-full text-sm">
+                  <thead className="bg-gray-100 text-gray-700 text-xs sm:text-sm">
+                    <tr>
+                      <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">#</th>
+                      <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Name</th>
+                      <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Aadhar</th>
+                      <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Village</th>
+                      <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Role</th>
+                      <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Photo</th>
+                    </tr>
+                  </thead>
 
-      <tbody>
-        {Array(14)
-          .fill()
-          .map((_, i) => (
-            <tr
-              key={i}
-              className="even:bg-gray-50 hover:bg-green-50 transition-colors duration-200"
-            >
-              <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-700 text-center">
-                {i + 1}
-              </td>
+                  <tbody>
+                    {Array(14)
+                      .fill()
+                      .map((_, i) => (
+                        <tr
+                          key={i}
+                          className="even:bg-gray-50 hover:bg-green-50 transition-colors duration-200"
+                        >
+                          <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-700 text-center">
+                            {i + 1}
+                          </td>
 
-              <td className="px-3 sm:px-4 py-1 sm:py-2">
-                <input
-                  type="text"
-                  placeholder="Player Name"
-                  value={teamData?.players?.[i]?.name || ""}
-                  onChange={(e) => handlePlayerChange(i, "name", e.target.value)}
-                  className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500"
-                />
-              </td>
+                          <td className="px-3 sm:px-4 py-1 sm:py-2">
+                            <input
+                              type="text"
+                              placeholder="Player Name"
+                              value={teamData?.players?.[i]?.name || ""}
+                              onChange={(e) => handlePlayerChange(i, "name", e.target.value)}
+                              className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 text-gray-700 bg-white rounded-sm md:rounded-md border border-gray-300 focus:ring-2"
+                            />
+                          </td>
 
-              <td className="px-3 sm:px-4 py-1 sm:py-2">
-                <input
-                  type="text"
-                  placeholder="Aadhar ID"
-                  value={teamData?.players?.[i]?.aadhar || ""}
-                  onChange={(e) => handlePlayerChange(i, "aadhar", e.target.value)}
-                  className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500"
-                />
-              </td>
+                          <td className="px-3 sm:px-4 py-1 sm:py-2">
+                            <input
+                              type="text"
+                              placeholder="Aadhar ID"
+                              value={teamData?.players?.[i]?.adhar || ""}
+                              onChange={(e) => handlePlayerChange(i, "adhar", e.target.value)}
+                              className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 text-gray-700 bg-white rounded-sm md:rounded-md border border-gray-300 focus:ring-2"
+                            />
+                          </td>
 
-              <td className="px-3 sm:px-4 py-1 sm:py-2">
-                <input
-                  type="text"
-                  placeholder="Village"
-                  value={teamData?.players?.[i]?.village || ""}
-                  onChange={(e) => handlePlayerChange(i, "village", e.target.value)}
-                  className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500"
-                />
-              </td>
+                          <td className="px-3 sm:px-4 py-1 sm:py-2">
+                            <input
+                              type="text"
+                              placeholder="Village"
+                              value={teamData?.players?.[i]?.village || ""}
+                              onChange={(e) => handlePlayerChange(i, "village", e.target.value)}
+                              className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 text-gray-700 bg-white rounded-sm md:rounded-md border border-gray-300 focus:ring-2"
+                            />
+                          </td>
 
-              <td className="px-3 sm:px-4 py-1 sm:py-2">
-                <select
-                  value={teamData?.players?.[i]?.role || "Batsman"}
-                  onChange={(e) => handlePlayerChange(i, "role", e.target.value)}
-                  className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 text-gray-700"
-                >
-                  <option>Batsman</option>
-                  <option>WK/Batsman</option>
-                  <option>Bowler</option>
-                  <option>All Rounder</option>
-                </select>
-              </td>
+                          <td className="px-3 sm:px-4 py-1 sm:py-2">
+                            <select
+                              value={teamData?.players?.[i]?.role || "Batsman"}
+                              onChange={(e) => handlePlayerChange(i, "role", e.target.value)}
+                              className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 text-gray-700 bg-white rounded-sm md:rounded-md border border-gray-300 focus:ring-2"
+                            >
+                              <option>Batsman</option>
+                              <option>WK/Batsman</option>
+                              <option>Bowler</option>
+                              <option>All Rounder</option>
+                            </select>
+                          </td>
 
-              <td className="px-3 sm:px-4 py-1 sm:py-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handlePlayerImageChange(i, e)}
-                  className="w-[100px] lg:w-full text-xs lg:text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs md:file:text-sm file:bg-green-100 file:text-green-700 hover:file:bg-green-200"
-                />
-              </td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
-  </div>
-</div>
+                          {/* <td className="px-3 sm:px-4 py-1 sm:py-2">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handlePlayerImageChange(i, e)}
+                              className="w-[100px] lg:w-full text-xs lg:text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs md:file:text-sm file:bg-blue-100 file:text-gray-700 hover:file:bg-blue-200"
+                            />
+                          </td> */}
+                          <td className="px-3 sm:px-4 py-1 sm:py-2 flex">
+  {teamData?.players?.[i]?.image && (
+    <img src={teamData.players[i].image} alt="Current" className="w-6 h-6 md:w-7 md:h-7 lg:w-8 me-2 rounded mb-1" />
+  )}
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => handlePlayerImageChange(i, e)}
+    className="w-[100px] lg:w-full text-xs lg:text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs md:file:text-sm file:bg-blue-100 file:text-gray-700 hover:file:bg-blue-200"
+  />
+</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
 
             {/* <div>
@@ -778,15 +872,15 @@ export default function TeamForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-12 py-4 bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:scale-105 disabled:opacity-50 transition"
+                className="px-8 py-2 bg-gradient-to-r from-[#334155] to-[#5e728f] text-white font-bold text-base rounded-md md:rounded-lg shadow-2xl hover:scale-105 disabled:opacity-50 transition"
               >
                 {isSubmitting
                   ? editMode
-                    ? "🔄 UPDATING..."
-                    : "🔄 REGISTERING..."
+                    ? "UPDATING..."
+                    : "REGISTERING..."
                   : editMode
-                    ? "✏️ UPDATE TEAM"
-                    : "🚀 REGISTER TEAM"}
+                    ? "UPDATE TEAM"
+                    : "REGISTER TEAM"}
               </button>
             </div>
           </form>
