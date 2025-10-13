@@ -284,78 +284,165 @@ import Sponser from "../../components/Sponser";
 import Advertiser from "../../components/Advertiser";
 import HallOfFame from "../../components/HallOfFame";
 
+// function Home() {
+//   return (
+//     <>
+//       <BackgroundSlider />
+//       <Navbar />
+//       <section className="main page h-[550px] dark:bg-white bg-white">
+//         {/* <div
+//           className="hero min-h-screen relative"
+//           style={{
+//             zIndex: 1,
+//             position: "relative",
+//             width: "100%",
+//             height: "100%",
+//           }}
+//         >
+//           <div className="hero-overlay mt-[-15px] bg-opacity-50"></div>
+//           <div className="hero-content text-neutral-content text-center">
+//             <div className="max-w-xl">
+//               <h1 className="mb-5 sm:text-5xl text-3xl font-bold">Vishwakarma Premier League</h1>
+//               <h1 className="mb-5 sm:text-xl text-lg font-bold">Start from 02-11-24 to 06-11-24</h1>
+//             </div>
+//           </div>
+//           <div className="absolute bottom-8 left-8 text-white">
+//             <h2 className="text-4xl font-bold">VPL</h2>
+//           </div>
+//         </div> */}
+//         <div className="absolute bottom-8 left-8 text-white">
+//           <p className="md:text-[80px] text-[40px] font-bold p-0">
+//             VPL SEASON-4
+//           </p>
+//           <div className="ms-[20px] mx`t-[-20px]">
+//             <h3 className="text-[20px] lg:text-[24px] xl:text-[28px] font-bold">VENUE - BAGRA</h3>
+//             <h3 className="text-[18px] lg:text-[24px] xl:text-[28px] font-bold">
+//               FROM 23-10-2025 TO 26-10-2025 
+//             </h3>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Register section  */}
+//       <section className="lg:h-[40px] sm:h-[220px] h-[120px] mt-[0px] md:mt-[0px] mb-4 lg:mt-[120px] xl:mt-[490px] lg:mb-[320px] md:my-[30px] dark:bg-white bg-white">
+//         <div className="py-2 dark:bg-white">
+//           <div className="mx-auto max-w-6xl px-6 md:leading-5 leading-4 md:text-[16px] text-[11px] text-pretty">
+//             {/* <h1 className="md:text-[40px] text-xl font-bold sm:leading-9">Welcome to Vishwakarma Premier League</h1> */}
+//             <div className="grid grid-cols-5 md:mt-10 mt-6">
+//               <div className="sm:col-span-3 col-span-2">
+//                 <div className="lg:w-[600px] sm:w-[350px] w-[180px] mx-auto">
+//                   <img src="https://t4.ftcdn.net/jpg/03/06/06/19/360_F_306061948_ElzsTveCRN2BKyVloZw17ue0L7WRhPfl.jpg" />
+//                 </div>
+//               </div>
+//               <div className="sm:col-span-2 col-span-3 text-center lg:pl-0 lg:mt-8 text-gray-600 text-[16px] sm:text-[33px] leading-[25px] sm:leading-[40px] lg:leading-[70px] ml-6 sm:ml-0">
+//                 <h1 className="lg:text-[60px] font-bold ">PARTICIPATE</h1>
+//                 <h1 className="lg:text-[60px] font-bold ">YOUR TEAM</h1>
+//                 <h1 className="lg:text-[60px] font-bold mb-2  lg:mb-6 ">
+//                   NOW
+//                 </h1>
+//                 <Link
+//                   to={"/addteam"}
+//                   className="rounded-md bg-slate-800 mt-6 sm:px-6 px-3 sm:py-3 py-[5px] lg:text-lg text-[12px] font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+//                 >
+//                   Register Now
+//                 </Link>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Team section  */}
+//       <Team />
+//       <Footer />
+//     </>
+//   );
+// }
+
 function Home() {
   return (
-    <>
-      <BackgroundSlider />
-      <Navbar />
-      <section className="main page h-[550px] dark:bg-white bg-white">
-        {/* <div
-          className="hero min-h-screen relative"
-          style={{
-            zIndex: 1,
-            position: "relative",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <div className="hero-overlay mt-[-15px] bg-opacity-50"></div>
-          <div className="hero-content text-neutral-content text-center">
-            <div className="max-w-xl">
-              <h1 className="mb-5 sm:text-5xl text-3xl font-bold">Vishwakarma Premier League</h1>
-              <h1 className="mb-5 sm:text-xl text-lg font-bold">Start from 02-11-24 to 06-11-24</h1>
+    <div className="min-h-screen">
+      {/* Fixed Background */}
+      <div className="fixed inset-0 z-0">
+        <BackgroundSlider />
+      </div>
+ 
+      {/* Sticky Navbar */}
+      <div className="sticky top-0 z-20">
+        <Navbar />
+      </div>
+ 
+      {/* Main Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="h-screen flex items-end pb-8 sm:pb-12 lg:pb-16">
+          <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white mb-2 sm:mb-4 drop-shadow-lg">
+                VPL SEASON-4
+              </h1>
+              <div className="ml-2 sm:ml-4 lg:ml-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-white drop-shadow-lg">
+                  VENUE - BAGRA
+                </h2>
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold text-white drop-shadow-lg">
+                  FROM 23-10-2025 TO 26-10-2025
+                </h3>
+              </div>
             </div>
           </div>
-          <div className="absolute bottom-8 left-8 text-white">
-            <h2 className="text-4xl font-bold">VPL</h2>
-          </div>
-        </div> */}
-        <div className="absolute bottom-8 left-8 text-white">
-          <p className="md:text-[80px] text-[40px] font-bold p-0">
-            VPL SEASON-4
-          </p>
-          <div className="ms-[20px] mx`t-[-20px]">
-            <h3 className="text-[20px] lg:text-[24px] xl:text-[28px] font-bold">VENUE - BAGRA</h3>
-            <h3 className="text-[18px] lg:text-[24px] xl:text-[28px] font-bold">
-              FROM 23-10-2025 TO 26-10-2025 
-            </h3>
-          </div>
-        </div>
-      </section>
-
-      {/* Register section  */}
-      <section className="lg:h-[40px] sm:h-[220px] h-[120px] mt-[0px] md:mt-[0px] mb-4 lg:mt-[120px] xl:mt-[490px] lg:mb-[320px] md:my-[30px] dark:bg-white bg-white">
-        <div className="py-2 dark:bg-white">
-          <div className="mx-auto max-w-6xl px-6 md:leading-5 leading-4 md:text-[16px] text-[11px] text-pretty">
-            {/* <h1 className="md:text-[40px] text-xl font-bold sm:leading-9">Welcome to Vishwakarma Premier League</h1> */}
-            <div className="grid grid-cols-5 md:mt-10 mt-6">
-              <div className="sm:col-span-3 col-span-2">
-                <div className="lg:w-[600px] sm:w-[350px] w-[180px] mx-auto">
-                  <img src="https://t4.ftcdn.net/jpg/03/06/06/19/360_F_306061948_ElzsTveCRN2BKyVloZw17ue0L7WRhPfl.jpg" />
+        </section>
+ 
+        {/* Register Section */}
+        <section className="bg-white">
+          <div className="w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-20">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 xl:gap-16 items-center">
+                {/* Content */}
+                <div className="text-center order-2 md:order-2">
+                  <div className="space-y-2 sm:space-y-3 lg:space-y-4 mb-6 sm:mb-8 text-center">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-800 leading-tight">
+                      PARTICIPATE
+                    </h1>
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-800 leading-tight">
+                      YOUR TEAM
+                    </h1>
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-800 leading-tight">
+                      NOW
+                    </h1>
+                  </div>
+                  <div className="text-center">
+                    <Link
+                      to="/addteam"
+                      className="inline-block bg-slate-800 hover:bg-slate-700 text-white font-semibold px-6 sm:px-6 lg:px-8 py-3 sm:py-2 lg:py-3 xl:py-4 rounded-lg text-sm sm:text-base lg:text-lg xl:text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    >
+                      Register Now
+                    </Link>
+                  </div>
+                </div>
+ 
+                {/* Image */}
+                <div className="order-1 md:order-1">
+                  <div className="w-full max-w-md sm:max-w-lg md:max-w-full mx-auto">
+                    <img 
+                      src="https://t4.ftcdn.net/jpg/03/06/06/19/360_F_306061948_ElzsTveCRN2BKyVloZw17ue0L7WRhPfl.jpg" 
+                      alt="Cricket players"
+                      className="w-full h-auto rounded-xl"
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="sm:col-span-2 col-span-3 text-center lg:pl-0 lg:mt-8 text-gray-600 text-[16px] sm:text-[33px] leading-[25px] sm:leading-[40px] lg:leading-[70px] ml-6 sm:ml-0">
-                <h1 className="lg:text-[60px] font-bold ">PARTICIPATE</h1>
-                <h1 className="lg:text-[60px] font-bold ">YOUR TEAM</h1>
-                <h1 className="lg:text-[60px] font-bold mb-2  lg:mb-6 ">
-                  NOW
-                </h1>
-                <Link
-                  to={"/addteam"}
-                  className="rounded-md bg-slate-800 mt-6 sm:px-6 px-3 sm:py-3 py-[5px] lg:text-lg text-[12px] font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
-                >
-                  Register Now
-                </Link>
-              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Team section  */}
-      <Team />
-      <Footer />
-    </>
+        </section>
+ 
+        {/* Team Section */}
+        <Team />
+ 
+        {/* Footer */}
+        <Footer />
+      </div>
+    </div>
   );
 }
 
