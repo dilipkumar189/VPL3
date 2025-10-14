@@ -9,17 +9,13 @@ const PORT = process.env.PORT
 
 connectDB();
 
-// const corsData = {
-//     origin: 'https://vpl-tournament.vercel.app', // Allow only your frontend URL 
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true 
-// };
+const corsData = {
+    origin: ['https://vpl-tournament.vercel.app', 'http://localhost:3000'], 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true 
+};
 
-// app.use(cors(corsData));
-
-app.use(cors());
-
-app.use(cors());
+app.use(cors(corsData));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use("/", Router);
