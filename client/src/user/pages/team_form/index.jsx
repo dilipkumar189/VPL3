@@ -324,8 +324,8 @@ export default function TeamForm() {
   const [editMode, setEditMode] = useState(false);
   // const [teamData, setTeamData] = useState(null);
   const [teamData, setTeamData] = useState({
-  players: Array(14).fill().map(() => ({ role: "Batsman" }))
-});
+    players: Array(14).fill().map(() => ({ role: "Batsman" }))
+  });
   const [teamFetched, setTeamFetched] = useState(false); //  to check DB fetch
 
   // console.log({ code, teamid });
@@ -437,7 +437,7 @@ export default function TeamForm() {
 
     try {
       const formData = new FormData();
-      
+
       // Add team data
       formData.append("team_name", teamData?.team_name || "");
       formData.append("village", teamData?.village || "");
@@ -446,12 +446,12 @@ export default function TeamForm() {
       formData.append("captain", teamData?.captain || "");
       formData.append("mobile", teamData?.mobile || "");
       formData.append("entryCode", code);
-      
+
       // Add logo if exists
       if (teamData?.logo) {
         formData.append("logo", teamData.logo);
       }
-      
+
       // Add player data
       teamData?.players?.forEach((player, index) => {
         if (player.name) formData.append(`player${index + 1}_name`, player.name);
@@ -467,7 +467,25 @@ export default function TeamForm() {
       navigate("/team");
     } catch (err) {
       toast.dismiss();
-      toast.error(err.response?.data?.message || "Error submitting team");
+      console.error("Team submission error:", err);
+      
+      let errorMessage = "Error submitting team";
+      
+      if (err.response) {
+        // Server responded with error status
+        errorMessage = err.response?.data?.message || `Server Error: ${err.response.status}`;
+      } else if (err.request) {
+        // Request was made but no response received
+        errorMessage = "Network Error: No response from server";
+      } else {
+        // Something else happened
+        errorMessage = err.message || "Unknown error occurred";
+      }
+      
+      toast.error(errorMessage, {
+        duration: 6000,
+        position: "top-center"
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -636,28 +654,28 @@ export default function TeamForm() {
                   required
                 /> */}
 
-<div className="flex flex-col">
-  <label className="text-sm font-medium text-gray-700 mb-1">
-    Team Logo <span className="text-red-500">*</span>
-  </label>
-  {/* {teamData?.logo && (
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700 mb-1">
+                    Team Logo <span className="text-red-500">*</span>
+                  </label>
+                  {/* {teamData?.logo && (
     <img src={teamData.logo} alt="Current Logo" className="w-16 h-16 rounded mb-2 object-cover" />
   )} */}
-  <input
-    type="file"
-    name="logo"
-    onChange={handleLogoChange}
-    required
-    accept="image/*"
-    className="block w-full text-sm text-gray-600
+                  <input
+                    type="file"
+                    name="logo"
+                    onChange={handleLogoChange}
+                    required
+                    accept="image/*"
+                    className="block w-full text-sm text-gray-600
       file:mr-4 file:py-2 file:px-4
       file:rounded-lg file:border-0
       file:text-sm file:font-semibold
       file:bg-blue-100 file:text-gray-700
       hover:file:bg-blue-200
       cursor-pointer border border-gray-300 rounded-lg p-2"
-  />
-</div>
+                  />
+                </div>
 
 
 
@@ -721,10 +739,11 @@ export default function TeamForm() {
                               value={teamData?.players?.[i]?.name || ""}
                               onChange={(e) => handlePlayerChange(i, "name", e.target.value)}
                               className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 text-gray-700 bg-white rounded-sm md:rounded-md border border-gray-300 focus:ring-2"
+                              required
                             />
                           </td>
 
-                          <td className="px-3 sm:px-4 py-1 sm:py-2">
+                          {/* <td className="px-3 sm:px-4 py-1 sm:py-2">
                             <input
                               type="text"
                               placeholder="Aadhar ID"
@@ -732,7 +751,7 @@ export default function TeamForm() {
                               onChange={(e) => handlePlayerChange(i, "adhar", e.target.value)}
                               className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 text-gray-700 bg-white rounded-sm md:rounded-md border border-gray-300 focus:ring-2"
                             />
-                          </td>
+                          </td> */}
 
                           <td className="px-3 sm:px-4 py-1 sm:py-2">
                             <input
@@ -741,6 +760,7 @@ export default function TeamForm() {
                               value={teamData?.players?.[i]?.village || ""}
                               onChange={(e) => handlePlayerChange(i, "village", e.target.value)}
                               className="w-[100px] lg:w-full text-xs lg:text-sm px-2 sm:px-3 py-1 md:py-2 text-gray-700 bg-white rounded-sm md:rounded-md border border-gray-300 focus:ring-2"
+                              required
                             />
                           </td>
 
@@ -766,16 +786,16 @@ export default function TeamForm() {
                             />
                           </td> */}
                           <td className="px-3 sm:px-4 py-1 sm:py-2 flex">
-  {teamData?.players?.[i]?.image && (
-    <img src={teamData.players[i].image} alt="Current" className="w-6 h-6 md:w-7 md:h-7 lg:w-8 me-2 rounded mb-1" />
-  )}
-  <input
-    type="file"
-    accept="image/*"
-    onChange={(e) => handlePlayerImageChange(i, e)}
-    className="w-[100px] lg:w-full text-xs lg:text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs md:file:text-sm file:bg-blue-100 file:text-gray-700 hover:file:bg-blue-200"
-  />
-</td>
+                            {teamData?.players?.[i]?.image && (
+                              <img src={teamData.players[i].image} alt="Current" className="w-6 h-6 md:w-7 md:h-7 lg:w-8 me-2 rounded mb-1" />
+                            )}
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handlePlayerImageChange(i, e)}
+                              className="w-[100px] lg:w-full text-xs lg:text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs md:file:text-sm file:bg-blue-100 file:text-gray-700 hover:file:bg-blue-200"
+                            />
+                          </td>
                         </tr>
                       ))}
                   </tbody>
