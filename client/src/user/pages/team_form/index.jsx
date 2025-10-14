@@ -719,7 +719,7 @@ export default function TeamForm() {
                     <tr>
                       <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">#</th>
                       <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Name</th>
-                      <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Aadhar</th>
+                      {/* <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Aadhar</th> */}
                       <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Village</th>
                       <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Role</th>
                       <th className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold">Photo</th>
