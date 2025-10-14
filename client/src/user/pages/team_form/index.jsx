@@ -462,9 +462,15 @@ export default function TeamForm() {
       });
 
       const res = await addTeam(formData);
-      toast.dismiss();
-      toast.success(editMode ? "✅ Team updated!" : "✅ Team registered!");
-      navigate("/team");
+      
+      // Only navigate if API call was successful
+      if (res && (res.status === 200 || res.status === 201)) {
+        toast.dismiss();
+        toast.success(editMode ? "✅ Team updated!" : "✅ Team registered!");
+        navigate("/team");
+      } else {
+        throw new Error("API response indicates failure");
+      }
     } catch (err) {
       toast.dismiss();
       console.error("Team submission error:", err);
